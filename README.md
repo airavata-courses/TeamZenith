@@ -7,10 +7,10 @@ Anuj Bhandar
 Master's in Computer Science  
 Indiana University, Bloomington  
 
-Arpit Agarwal
-Master's in Computer Science
+Arpit Agarwal</br>
+Master's in Computer Science</br>
 Indiana University, Bloomington
 
-Atul Mohan
-Master's in Computer Science
+Atul Mohan</br>
+Master's in Computer Science</br>
 Indiana University, Bloomington
