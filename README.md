@@ -12,5 +12,5 @@ Master's in Computer Science
 Indiana University, Bloomington 
 
 Arpit Agarwal 
-Master's in Computer Science  
+Master's in Computer Science
 Indiana University, Bloomington 
