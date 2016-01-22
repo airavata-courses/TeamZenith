@@ -11,7 +11,7 @@ Atul Mohan
 Master's in Computer Science  
 Indiana University, Bloomington 
 
-Atul Mohan  
+Arpit Agarwal  
 Master's in Computer Science  
 Indiana University, Bloomington 
 
