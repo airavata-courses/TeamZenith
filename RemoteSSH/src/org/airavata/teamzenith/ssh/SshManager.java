@@ -41,36 +41,37 @@ public class SshManager {
 		SSHPropertyHandler sph;
 		Properties pr;
 		sph = new SSHPropertyHandler();
-		SSHUtil ssh1 = new SSHUtil();
-		Session session1 = ssh1.createSession();
-		ssh1.sessionStart(session1);
+		SSHUtil ssh = new SSHUtil();
+		Session session = ssh.createSession();
+		ssh.sessionStart(session);
 		pr = sph.getPropertyMap();
 		String destSource = pr.getProperty("destination") + artifact;
-		String compileCommand = PbsConstants.compileCmd + " " + destSource + " -o " + artifact + ".out";
+		String compileCommand = PbsConstants.compileCmd + " " + destSource + " -o Assignment1/" + artifact + ".out";
 		System.out.println("Compile command is " + compileCommand);
-		if (ssh1.executeCommand(session1, compileCommand) != true) {
+		if (ssh.executeCommand(session, compileCommand) != true) {
 			System.out.println("Input file compilation failed");
 			return false;
 		}
-		ssh1.sessionStop(session1);
+		ssh.sessionStop(session);
 		return true;
 
 	}
 
-	public boolean submitJob() throws IOException {
+	public boolean submitJob(String artifact) throws IOException {
 		SSHPropertyHandler sph;
-		sph = new SSHPropertyHandler();
 		Properties pr;
-		pr = sph.getPropertyMap();
 		sph = new SSHPropertyHandler();
-		SSHUtil ssh1 = new SSHUtil();
-		Session session1 = ssh1.createSession();
-		String qsubCommand = PbsConstants.torqueCmd + " " + pr.getProperty("destination");
-		if (ssh1.executeCommand(session1, qsubCommand) != true) {
+		SSHUtil ssh = new SSHUtil();
+		Session session = ssh.createSession();
+		ssh.sessionStart(session);
+		pr = sph.getPropertyMap();
+		String qsubCommand = PbsConstants.torqueCmd + " " + pr.getProperty("destination")+artifact;
+		System.out.println("Command iz"+qsubCommand);
+		if (ssh.executeCommand(session, qsubCommand) != true) {
 			System.out.println("Job Scheduling Failed");
 			return false;
 		}
-		ssh1.sessionStop(session1);
+		ssh.sessionStop(session);
 		return true;
 	}
 	// public void terminateSession(){

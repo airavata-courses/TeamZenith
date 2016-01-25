@@ -19,6 +19,9 @@ public class InputMain {
 		System.out.println("Enter the job name:");
 		pc.setJobName(inputScan.next());
 
+		System.out.println("Enter your email address:");
+		pc.setEmailAddress(inputScan.next());
+		
 		System.out.println("Enter the number of nodes required:");
 		pc.setNodes(inputScan.nextInt());
 

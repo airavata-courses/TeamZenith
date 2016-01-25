@@ -19,12 +19,18 @@ public class PbsGen {
 		String lFlag = PbsConstants.pbsPrefix + " -l " + " nodes=" + pconf.getNodes() + ":ppn=" + pconf.getPpn()
 				+ ",walltime=" + pconf.getWallTime();
 		String nFlag = PbsConstants.pbsPrefix + " -N "+ pconf.getJobName();
+		String mailFlag=PbsConstants.pbsPrefix+ " -m abe";
+		String recvFlag=PbsConstants.pbsPrefix+ " -M "+pconf.getEmailAddress();
 		String executeCmd="./"+pconf.getFilePath();
-		
+		String mailCmd="sh "+PbsConstants.mailScript;
 		pwr.write(PbsConstants.hashBang+"\n");
 		pwr.write(lFlag+"\n");
 		pwr.write(nFlag+"\n");
+		pwr.write(mailFlag+"\n");
+		pwr.write(recvFlag+"\n");
+		pwr.write("cd "+pr.getProperty("destination")+"\n");
 		pwr.write(executeCmd+"\n");
+		pwr.write(mailCmd+"\n");
 		System.out.println("File generation successful");
 		pwr.close();
 		return fileName;

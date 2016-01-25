@@ -8,6 +8,7 @@ private String jobName;
 private String userName;
 private String filePath;
 private String isCompile;
+private String emailAddress;
 
 public String isCompile() {
 	return isCompile;
@@ -56,6 +57,12 @@ public String getFilePath() {
 }
 public void setFilePath(String filePath) {
 	this.filePath = filePath;
+}
+public String getEmailAddress() {
+	return emailAddress;
+}
+public void setEmailAddress(String emailAddress) {
+	this.emailAddress = emailAddress;
 }
 
 }
