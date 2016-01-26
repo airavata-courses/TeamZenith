@@ -29,6 +29,7 @@ public class Core {
 		ExceptionHandler exObj;
 		SSHUtil ssh = new SSHUtil();
 		Session session = ssh.createSession();
+		ssh.sessionStart(session);
 		
 		try{
 
