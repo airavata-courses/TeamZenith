@@ -2,6 +2,7 @@ package org.airavata.teamzenith.main;
 
 import java.io.IOException;
 import org.airavata.teamzenith.config.PbsConfig;
+import org.airavata.teamzenith.exceptions.ExceptionHandler;
 import org.airavata.teamzenith.input.InputMain;
 import org.airavata.teamzenith.ssh.SshManager;
 import org.airavata.teamzenith.utils.PbsConstants;
@@ -17,7 +18,8 @@ public class Core {
 		PbsConfig pbsConf=new PbsConfig();
 		PbsGen pGen=new PbsGen();
 		SshManager ssm=new SshManager();
-		
+		ExceptionHandler exObj;
+		try{
 		while(moreInput){
 			moreInput=false;
 			pbsConf=im.fetchInput();
@@ -61,11 +63,10 @@ public class Core {
 			log.debug(pbsScript +" transferred to Karst");
 			
 			System.out.println("Job submitted successfully");
-			
-
+		}	
+		} catch (IOException e){
+			exObj = new ExceptionHandler(e);
 		}
-		
-		
-	}
 
+	}
 }

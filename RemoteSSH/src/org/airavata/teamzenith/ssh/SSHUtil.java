@@ -31,7 +31,7 @@ public class SSHUtil {
 	        String privateKeyPath = p.getProperty("privatekeypath");
 	        String privateKeyFile= privateKeyPath+p.getProperty("privatekeyfile");
 	       // jsch.addIdentity(f.getAbsolutePath());
-		    jsch.addIdentity("/home/atul/myGit/TeamZenith/RemoteSSH/key/puttyKey.ppk");
+		    jsch.addIdentity(privateKeyFile);
 
 	        
 	        //System.out.println("identity added ");
