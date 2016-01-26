@@ -1,10 +1,10 @@
 package org.airavata.teamzenith.ssh;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.Properties;
 
 import org.airavata.teamzenith.config.SSHPropertyHandler;
@@ -25,17 +25,25 @@ public class SSHUtil {
 			JSch jsch=new JSch();
 			SSHPropertyHandler sph=new SSHPropertyHandler();
 			Properties p=sph.getPropertyMap();
-			String user = p.getProperty("user");
+	        String user = p.getProperty("user");
 			String host = p.getProperty("host");
-	        int port =    Integer.parseInt(p.getProperty("port"));
-	        String privateKeyPath = p.getProperty("privatekeypath");
-	        String privateKeyFile= privateKeyPath+p.getProperty("privatekeyfile");
+			int port =    Integer.parseInt(p.getProperty("port"));
+//	        String privateKeyPath = p.getProperty("privatekeypath");
+//	        String privateKeyFile= privateKeyPath+p.getProperty("privatekeyfile");
 	       // jsch.addIdentity(f.getAbsolutePath());
-		    jsch.addIdentity(privateKeyFile);
-
 	        
+	        URL url = SSHPropertyHandler.class.getResource("puttyKey.ppk");
+            System.out.println(url);
+            String privateKeyPath = url.toString().substring(9);
+   //         System.out.println(privateKeyPath);
+            //String privateKeyFile= p.getProperty(privateKeyPath);
+           // jsch.addIdentity(f.getAbsolutePath());
+            jsch.addIdentity(privateKeyPath);
+	        
+//	        
+	        
+//		    jsch.addIdentity(this.getClass().getClassLoader().getResource("puttyKey.ppk").toString().substring(9));
 	        //System.out.println("identity added ");
-
 	        Session session = jsch.getSession(user, host, port);
 	        //System.out.println("session created.");
 	        session.setConfig("StrictHostKeyChecking", "no");
@@ -74,7 +82,7 @@ public class SSHUtil {
 		
 
 
-		FileInputStream fis=null;
+		InputStream fis=null;
 		boolean ptimestamp = true;
 		try{
 			// exec 'scp -t rfile' remotely
@@ -121,7 +129,7 @@ public class SSHUtil {
 			}
 
 			// send a content of lfile
-			fis=new FileInputStream(source);
+			fis=SSHUtil.class.getResourceAsStream("config.properties");
 			byte[] buf=new byte[1024];
 			while(true){
 				int len=fis.read(buf, 0, buf.length);
