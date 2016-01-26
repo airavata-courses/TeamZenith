@@ -12,6 +12,7 @@ import org.airavata.teamzenith.config.SSHPropertyHandler;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
 /**
@@ -70,7 +71,7 @@ public class SSHUtil {
 	}
 	
 	
-	public boolean ScpTo(Session session, String source, String dest){
+	public boolean ScpTo(Session session, String source, String dest) throws JSchException, IOException{
 		
 
 
@@ -142,11 +143,13 @@ public class SSHUtil {
 			System.out.println("Scp successful !!!");
 			return true;
 		}
-		catch(Exception e){
-
-			System.out.println(e);
-			try{if(fis!=null)fis.close();}catch(Exception ee){}
-            return false;
+		finally{
+			try{
+			if(fis!=null){
+				fis.close();
+			}
+			}catch(Exception ee){}
+            
 		}
 	}
 	static int checkAck(InputStream in) throws IOException{
@@ -175,7 +178,7 @@ public class SSHUtil {
 	    }
 	    return b;
 	  }
-	public boolean executeCommand(Session session, String command){
+	public boolean executeCommand(Session session, String command) throws JSchException, IOException{
 		
 		try{
 
@@ -216,9 +219,8 @@ public class SSHUtil {
 			System.out.println(command +": Executed successfully !!!");
 			return true;
 		}
-		catch(Exception e){
-			System.out.println(e);
-			return false;
+		finally{
+			
 		}
 	}
 

@@ -1,7 +1,8 @@
 package org.airavata.teamzenith.exceptions;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import org.airavata.teamzenith.ssh.SSHUtil;
+
+import com.jcraft.jsch.Session;
 
 public class ExceptionHandler extends Exception{
 	/**
@@ -10,12 +11,13 @@ public class ExceptionHandler extends Exception{
 	private static final long serialVersionUID = 1L;
 	
 
-	public ExceptionHandler(IOException e){
-		super(e);
-	}
 	
-	public ExceptionHandler(FileNotFoundException e){
-		super(e);
+    public ExceptionHandler(Exception e) {
+		// TODO Auto-generated constructor stub
+    	super(e);
 	}
-
+    
+	public static void cleanUp(SSHUtil ssh, Session session){
+    	ssh.sessionStop(session);
+    }
 }
