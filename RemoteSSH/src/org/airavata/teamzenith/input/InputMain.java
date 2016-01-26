@@ -12,7 +12,7 @@ public class InputMain {
 
 		System.out.println("Enter the file with location:");
 		pc.setFilePath(inputScan.next());
-		
+
 		System.out.println("Compilation required? (Y/N):");
 		pc.setCompile(inputScan.next());
 
@@ -21,7 +21,7 @@ public class InputMain {
 
 		System.out.println("Enter your email address:");
 		pc.setEmailAddress(inputScan.next());
-		
+
 		System.out.println("Enter the number of nodes required:");
 		pc.setNodes(inputScan.nextInt());
 
@@ -30,13 +30,17 @@ public class InputMain {
 
 		System.out.println("Enter the required walltime");
 		pc.setWallTime(inputScan.next());
+
+		System.out.println("Submit more jobs? (Y/N)");
+		if (inputScan.next().equals("Y"))
+			pc.setHasMoreInput(true);
+		else
+			pc.setHasMoreInput(false);
 		return pc;
 
 	}
-	public void cleanUp(){
+
+	public void cleanUp() {
 		inputScan.close();
-	}
-	public static void main(String args[]){
-		System.out.println("hell");
 	}
 }

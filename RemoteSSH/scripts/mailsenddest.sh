@@ -3,9 +3,9 @@
 # some variables
 # refactoring the script such that all these values are
 # passed from the outside as arguments should be easy
-pbsFileName=<pbs_file_name>
+pbsFileName=PBS_Script_1453772868528.pbs
 email=`cat $pbsFileName |grep "#PBS -M"|cut -d " " -f3`
-jobName=`cat PBS_Script_1453754199797.pbs |grep "#PBS -N"|cut -d " " -f3`
+jobName=`cat $pbsFileName |grep "#PBS -N"|cut -d " " -f3`
 cd ..
 outputFiles=`ls $jobName*`
 from="atumohan@h4.karst.uits.iu.edu"
