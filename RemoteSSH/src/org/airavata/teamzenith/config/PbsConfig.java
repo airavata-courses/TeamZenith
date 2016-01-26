@@ -9,7 +9,14 @@ private String userName;
 private String filePath;
 private String isCompile;
 private String emailAddress;
+private boolean hasMoreInput;
 
+public boolean isHasMoreInput() {
+	return hasMoreInput;
+}
+public void setHasMoreInput(boolean hasMoreInput) {
+	this.hasMoreInput = hasMoreInput;
+}
 public String isCompile() {
 	return isCompile;
 }

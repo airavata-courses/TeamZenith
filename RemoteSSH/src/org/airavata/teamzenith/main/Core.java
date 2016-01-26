@@ -1,19 +1,16 @@
 package org.airavata.teamzenith.main;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
 import org.airavata.teamzenith.config.PbsConfig;
 import org.airavata.teamzenith.input.InputMain;
 import org.airavata.teamzenith.ssh.SshManager;
 import org.airavata.teamzenith.utils.PbsConstants;
 import org.airavata.teamzenith.utils.PbsGen;
-
+import org.apache.log4j.Logger;
 public class Core {
 
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
+		Logger log = Logger.getLogger("org.airavata.teamzenith.log");
 		System.out.println("Welcome to Remote job submission on Karst");
 		boolean moreInput=true;
 		InputMain im=new InputMain();
@@ -24,22 +21,47 @@ public class Core {
 		while(moreInput){
 			moreInput=false;
 			pbsConf=im.fetchInput();
-			if(!ssm.transferFile(PbsConstants.mailScript,null))
+			
+			/* Transfer the executable or source file to Karst */
+			if(!ssm.transferFile(pbsConf.getFilePath(),null)){
+				log.error("Source file transfer failed");
 				return;
-			if(!ssm.transferFile(pbsConf.getFilePath(),null))
-				return;
+			}
+			log.debug(pbsConf.getFilePath() +" transferred to Karst");
+			
+			/* Check if compilation is required */
 			if(pbsConf.isCompile().equals("Y")){
+				log.info("Compilation required");
 				ssm.compileSource("C", pbsConf.getFilePath());
 				pbsConf.setFilePath(pbsConf.getFilePath()+".out");
 				}
 			
 			String pbsScript=pGen.generateScript(pbsConf);
-			if(!ssm.transferFile(pbsScript,null))
+			
+			/* Transfer the generated script to Karst */
+			if(!ssm.transferFile(pbsScript,null)){
+				log.error("PBS Script transfer failed");
 				return;
-			System.out.println("File transmission complete");
-			if(!ssm.submitJob(pbsScript))
+			}
+			log.debug(pbsScript +" transferred to Karst");
+			
+			/* Modify and transfer script for sendmail*/
+			
+			pGen.replaceProcessName(pbsScript);
+			if(!ssm.transferFile(PbsConstants.mailScriptDest,null)){
+				log.error("Sendmail file transfer failed");
 				return;
+			}
+			log.debug(PbsConstants.mailScriptDest +" transferred to Karst");
+			
+			if(!ssm.submitJob(pbsScript)){
+				log.error("Sendmail file transfer failed");
+				return;
+			}
+			log.debug(pbsScript +" transferred to Karst");
+			
 			System.out.println("Job submitted successfully");
+			
 
 		}
 		
