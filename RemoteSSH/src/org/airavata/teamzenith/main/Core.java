@@ -4,12 +4,20 @@ import java.io.IOException;
 import org.airavata.teamzenith.config.PbsConfig;
 import org.airavata.teamzenith.exceptions.ExceptionHandler;
 import org.airavata.teamzenith.input.InputMain;
+import org.airavata.teamzenith.ssh.SSHUtil;
 import org.airavata.teamzenith.ssh.SshManager;
 import org.airavata.teamzenith.utils.PbsConstants;
 import org.airavata.teamzenith.utils.PbsGen;
+
+
+import com.jcraft.jsch.Session;
+
+
 import org.apache.log4j.Logger;
+
 public class Core {
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException {
 		Logger log = Logger.getLogger("org.airavata.teamzenith.log");
 		System.out.println("Welcome to Remote job submission on Karst");
@@ -19,13 +27,18 @@ public class Core {
 		PbsGen pGen=new PbsGen();
 		SshManager ssm=new SshManager();
 		ExceptionHandler exObj;
+		SSHUtil ssh = new SSHUtil();
+		Session session = ssh.createSession();
+		ssh.sessionStart(session);
+		
 		try{
+
 		while(moreInput){
 			moreInput=false;
 			pbsConf=im.fetchInput();
 			
 			/* Transfer the executable or source file to Karst */
-			if(!ssm.transferFile(pbsConf.getFilePath(),null)){
+			if(!ssm.transferFile(session, pbsConf.getFilePath(),null)){
 				log.error("Source file transfer failed");
 				return;
 			}
@@ -34,14 +47,14 @@ public class Core {
 			/* Check if compilation is required */
 			if(pbsConf.isCompile().equals("Y")){
 				log.info("Compilation required");
-				ssm.compileSource("C", pbsConf.getFilePath());
+				ssm.compileSource(session, "C", pbsConf.getFilePath());
 				pbsConf.setFilePath(pbsConf.getFilePath()+".out");
 				}
 			
 			String pbsScript=pGen.generateScript(pbsConf);
 			
 			/* Transfer the generated script to Karst */
-			if(!ssm.transferFile(pbsScript,null)){
+			if(!ssm.transferFile(session, pbsScript,null)){
 				log.error("PBS Script transfer failed");
 				return;
 			}
@@ -50,13 +63,13 @@ public class Core {
 			/* Modify and transfer script for sendmail*/
 			
 			pGen.replaceProcessName(pbsScript);
-			if(!ssm.transferFile(PbsConstants.mailScriptDest,null)){
+			if(!ssm.transferFile(session, PbsConstants.mailScriptDest,null)){
 				log.error("Sendmail file transfer failed");
 				return;
 			}
 			log.debug(PbsConstants.mailScriptDest +" transferred to Karst");
 			
-			if(!ssm.submitJob(pbsScript)){
+			if(!ssm.submitJob(session, pbsScript)){
 				log.error("Sendmail file transfer failed");
 				return;
 			}
@@ -64,8 +77,12 @@ public class Core {
 			
 			System.out.println("Job submitted successfully");
 		}	
-		} catch (IOException e){
+		} catch (Exception e){
+
 			exObj = new ExceptionHandler(e);
+			System.err.println(e);
+		} finally{
+			ExceptionHandler.cleanUp(ssh, session);
 		}
 
 	}
