@@ -2,6 +2,7 @@ package org.airavata.teamzenith.ssh;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -16,6 +17,7 @@ import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
+import org.apache.commons.compress.utils.IOUtils;
 
 /**
  * @author Anuj
@@ -45,7 +47,10 @@ public class SSHUtil {
 	     
 		  // jsch.addIdentity(fpf.splitPath(f.getAbsolutePath()));
 	        //jsch.addIdentity("Remote", prBytes, pubBytes, passwd);
-		    jsch.addIdentity("/home/atul/workspace/BackupRemote/src/main/resources/puttyKey.ppk");
+	        byte[] privateKey =  IOUtils.toByteArray(getClass().getResourceAsStream("/puttyKey.ppk"));
+		    byte[] publicKey =  IOUtils.toByteArray(getClass().getResourceAsStream("/id_rsa.pub"));
+	   
+		    jsch.addIdentity("sshAuthAtul", privateKey, publicKey, (byte[])null);
        
 	        Session session = jsch.getSession(user, host, port);
 	        //System.out.println("session created.");
@@ -85,8 +90,8 @@ public class SSHUtil {
 		
 
 
-		FileInputStream fis=null;
-		boolean ptimestamp = true;
+		InputStream fis=null;
+		boolean ptimestamp = false;
 		try{
 			// exec 'scp -t rfile' remotely
 			String command="scp " + (ptimestamp ? "-p" :"") +" -t "+dest;
@@ -98,60 +103,93 @@ public class SSHUtil {
 			InputStream in=channel.getInputStream();
 
 			channel.connect();
-
+			
+			
 			if(checkAck(in)!=0){
+				System.out.println("first");
 				System.exit(0);
 			}
+            
+			//ClassLoader classLoader = getClass().getClassLoader();
+			//File _lfile = new File(classLoader.getResource("/"+source).getFile());
+			//File _lfile  =new File(getClass().getResource("/a.c").getFile());
+			//File _lfile = new File(source);
 
-			File _lfile = new File(source);
-
-			if(ptimestamp){
+			/*if(ptimestamp){
 				command="T"+(_lfile.lastModified()/1000)+" 0";
 				// The access time should be sent here,
 				// but it is not accessible with JavaAPI ;-<
 				command+=(" "+(_lfile.lastModified()/1000)+" 0\n"); 
+				System.out.println("Command is "+command);
 				out.write(command.getBytes()); out.flush();
 				if(checkAck(in)!=0){
 					System.exit(0);
 				}
-			}
-
+			}*/
+			byte[] buf =  IOUtils.toByteArray(getClass().getResourceAsStream("/"+source));
+			int size = buf.length;
 			// send "C0644 filesize filename", where filename should not include '/'
-			long filesize=_lfile.length();
-			command="C0644 "+filesize+" ";
-			if(source.lastIndexOf('/')>0){
+			int filesize = size;
+			command="C0644 "+filesize+" "+source;
+			/*if(source.lastIndexOf('/')>0){
 				command+=source.substring(source.lastIndexOf('/')+1);
 			}
 			else{
 				command+=source;
-			}
+			}*/
 			command+="\n";
 			out.write(command.getBytes()); out.flush();
 			if(checkAck(in)!=0){
+				System.out.println("second");
 				System.exit(0);
 			}
-
+            //System.out.println(command);
+           // fis=new FileInputStream(_lfile);
 			// send a content of lfile
-			fis=new FileInputStream(source);
-			byte[] buf=new byte[1024];
-			while(true){
-				int len=fis.read(buf, 0, buf.length);
-				if(len<=0) break;
-				out.write(buf, 0, len); //out.flush();
-			}
-			fis.close();
-			fis=null;
-			// send '\0'
-			buf[0]=0; out.write(buf, 0, 1); out.flush();
-			if(checkAck(in)!=0){
+			//fis= getClass().getResourceAsStream("/"+source);
+            
+//			byte[] buf=new byte[1024];
+//			/*while(true){
+//				int len=fis.read(buf, 0, buf.length);
+//				if(len<=0) break;
+//				out.write(buf, 0, len); out.flush();
+//			}
+//			*/
+//			int i;
+//			while((i=fis.read())!=-1){
+//				out.write(i);
+//			}
+//			fis.close();
+//			fis=null;
+//			// send '\0'
+//			buf[0]=0; out.write(buf, 0, 1); out.flush();
+//			buf[0] out= 0;
+//			int i;
+//			while((i=fis.read())!=-1){
+//				out.write(i);
+//			}
+			
+			
+//			for(int i=0; i<size; i++){
+//				out.write(buf, i, i+1); out.flush();
+//			}
+			out.write(buf); out.flush();
+			buf[0]=0; out.write(buf,0,1);out.flush();
+		
+			
+			/*if(checkAck(in)!=0){
+				System.out.println(buf);
+				System.out.println("third");
 				System.exit(0);
-			}
+			}*/
 			out.close();
 
 			channel.disconnect();
 			
 			System.out.println("Scp successful !!!");
-			return true;
+		}
+		catch(Exception e){
+			e.printStackTrace();
 		}
 		finally{
 			try{
@@ -161,6 +199,8 @@ public class SSHUtil {
 			}catch(Exception ee){}
             
 		}
+		return true;
+
 	}
 	static int checkAck(InputStream in) throws IOException{
 	    int b=in.read();

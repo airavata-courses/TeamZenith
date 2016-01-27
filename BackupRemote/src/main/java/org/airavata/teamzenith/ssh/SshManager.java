@@ -1,5 +1,6 @@
 package org.airavata.teamzenith.ssh;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -27,7 +28,9 @@ public class SshManager {
 			if (dest == null)
 				dest = pr.getProperty("destination");
 			String scriptDest = dest + fileName;
-			if (ssh.ScpTo(session, scriptSource, scriptDest) != true) {
+	        File f=new File(getClass().getResource("/a.c").getFile());
+	        System.out.println(f);
+			if (ssh.ScpTo(session, "a.c", scriptDest) != true) {
 				System.out.println("Script file copy failed");
 				return false;
 			}
