@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class SSHPropertyHandler {
 	public Properties getPropertyMap() throws IOException {
-		FileInputStream fis = new FileInputStream("src/org/airavata/teamzenith/config/config.properties");
+		FileInputStream fis = new FileInputStream("config.properties");
 		Properties prop = new Properties();
 		prop.load(fis);
 		return prop;
