@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: RemoteSSH
+Implementation-Version: 1.0
+Implementation-Vendor-Id: RemoteSSH
+Class-Path: lib/jsch-0.1.53.jar lib/log4j-1.2.14.jar
+Build-Jdk: 1.7.0_91
+Built-By: atul
+Created-By: Maven Integration for Eclipse
+Main-Class: org.airavata.teamzenith.main.Core
+
