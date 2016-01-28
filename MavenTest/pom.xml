@@ -3,7 +3,16 @@
   <groupId>MavenTest</groupId>
   <artifactId>MavenTest</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <build>
+ <properties>
+        <RESOURCE_PATH>${project.basedir}/src/main/resources</RESOURCE_PATH>
+    </properties>
+  <build>  
+  <resources>
+            <resource>
+                <directory>${RESOURCE_PATH}</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
    <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

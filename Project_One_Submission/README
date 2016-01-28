@@ -1,0 +1,36 @@
+Remote Runner
+
+Developed by: Team Zenith
+
+This utility will submit jobs to the Karst cluster remotely and notifies the user about the job status through email.
+
+Instructions:
+
+1. Copy the contents of the config folder to your workspace directory. 
+2. Execute the jar.
+
+The following details would be collected from the user upon execution:
+
+Welcome to Remote job submission on Karst
+
+Enter the workspace directory:
+<workspace directory path> - This directory contains the private key, source/executable C files and will be used as the project workspace.
+
+Enter the file with location:
+<source or executable C file> 
+
+Compilation required? (Y/N):
+
+Enter the job name:
+
+Enter your email address:
+
+Enter the number of nodes required:
+
+Enter the number of processors per node:
+
+Enter the required walltime
+
+Submit more jobs? (Y/N)
+
+Upon successful submission, the user would be notified of the job status. After the completion of the job, an email with the job related files would be sent to the user email.

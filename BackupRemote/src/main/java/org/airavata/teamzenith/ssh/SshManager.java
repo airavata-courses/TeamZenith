@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.airavata.teamzenith.config.SSHPropertyHandler;
+import org.airavata.teamzenith.exceptions.ExceptionHandler;
 import org.airavata.teamzenith.utils.PbsConstants;
 
 import com.jcraft.jsch.JSchException;
@@ -16,36 +17,42 @@ public class SshManager {
 
 	}
 
-	public boolean transferFile(Session session, String fileName, String dest) throws IOException, JSchException {
-		SSHUtil ssh = new SSHUtil();
-		try{
+	public boolean transferFile(Session session, String fileName, String dirPath,String dest)
+			throws IOException, JSchException, ExceptionHandler {
+		SshUtil ssh = new SshUtil();
+		try {
 
 			SSHPropertyHandler sph;
 			sph = new SSHPropertyHandler();
 			/* Transfer related files to remote machine */
 			Properties pr = sph.getPropertyMap();
-			String scriptSource = pr.getProperty("scriptdirectory") + fileName;
+//			String scriptSource = pr.getProperty("scriptdirectory") + fileName;
+			String scriptSource = dirPath+fileName;
+
 			if (dest == null)
 				dest = pr.getProperty("destination");
 			String scriptDest = dest + fileName;
-	        File f=new File(getClass().getResource("/a.c").getFile());
-	        System.out.println(f);
-			if (ssh.ScpTo(session, "a.c", scriptDest) != true) {
+			// File f=new File(getClass().getResource("/a.c").getFile());
+			// System.out.println(f);
+			if (ssh.ScpTo(session, scriptSource, scriptDest) != true) {
 				System.out.println("Script file copy failed");
 				return false;
 			}
 
-
 			return true;
+		} 
+		catch(ExceptionHandler e){
+			throw new ExceptionHandler(e);
+		}finally {
 		}
-		finally{}
 
 	}
 
-	public boolean compileSource(Session session, String language, String artifact) throws IOException, JSchException {
+	public boolean compileSource(Session session, String language, String artifact)
+			throws IOException, JSchException, ExceptionHandler {
 
-		SSHUtil ssh = new SSHUtil();
-		try{
+		SshUtil ssh = new SshUtil();
+		try {
 			SSHPropertyHandler sph;
 			Properties pr;
 			sph = new SSHPropertyHandler();
@@ -59,30 +66,32 @@ public class SshManager {
 			}
 
 			return true;
-		}finally{}
+		} finally {
+		}
 
 	}
 
-	public boolean submitJob(Session session, String artifact) throws IOException, JSchException {
-		SSHUtil ssh = new SSHUtil();
-		try{
+	public boolean submitJob(Session session, String artifact) throws IOException, JSchException, ExceptionHandler {
+		SshUtil ssh = new SshUtil();
+		try {
 			SSHPropertyHandler sph;
 			Properties pr;
 			sph = new SSHPropertyHandler();
-
-
-
 			pr = sph.getPropertyMap();
-			String qsubCommand = PbsConstants.torqueCmd + " " + pr.getProperty("destination")+artifact;
-			System.out.println("Command iz"+qsubCommand);
+			String qsubCommand = PbsConstants.torqueCmd + " " + pr.getProperty("destination") + artifact;
+			System.out.println("Command is " + qsubCommand);
 			if (ssh.executeCommand(session, qsubCommand) != true) {
 				System.out.println("Job Scheduling Failed");
 				return false;
 			}
 
 			return true;
+		} 
+		catch(ExceptionHandler e){
+			throw new ExceptionHandler(e);
 		}
-		finally{}
+		finally {
+		}
 	}
-
 }
+

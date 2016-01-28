@@ -10,6 +10,7 @@ private String filePath;
 private String isCompile;
 private String emailAddress;
 private boolean hasMoreInput;
+private String workSpace;
 
 public boolean isHasMoreInput() {
 	return hasMoreInput;
@@ -70,6 +71,12 @@ public String getEmailAddress() {
 }
 public void setEmailAddress(String emailAddress) {
 	this.emailAddress = emailAddress;
+}
+public String getWorkSpace() {
+	return workSpace;
+}
+public void setWorkSpace(String workSpace) {
+	this.workSpace = workSpace;
 }
 
 }
