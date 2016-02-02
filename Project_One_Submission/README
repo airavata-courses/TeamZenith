@@ -14,10 +14,16 @@ The following details would be collected from the user upon execution:
 Welcome to Remote job submission on Karst
 
 Enter the workspace directory:
-<workspace directory path> - This directory contains the private key, source/executable C files and will be used as the project workspace.
+<workspace directory path> - This directory contains the user's private key, source/executable C files  and contents of the config folder and this  will be used as the project workspace.
 
-Enter the file with location:
+Enter the username:
+
+Enter the private key filename:
+
+Enter the source code file name:
 <source or executable C file> 
+
+Enter the remote workspace directory:
 
 Compilation required? (Y/N):
 
