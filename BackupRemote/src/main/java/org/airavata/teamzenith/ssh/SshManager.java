@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.airavata.teamzenith.config.ConfigurationProperties;
 import org.airavata.teamzenith.config.SSHPropertyHandler;
 import org.airavata.teamzenith.exceptions.ExceptionHandler;
 import org.airavata.teamzenith.utils.PbsConstants;
@@ -17,7 +18,7 @@ public class SshManager {
 
 	}
 
-	public boolean transferFile(Session session, String fileName, String dirPath,String dest)
+	public boolean transferFile(Session session, String fileName, String dirPath, String dest)
 			throws IOException, JSchException, ExceptionHandler {
 		SshUtil ssh = new SshUtil();
 		try {
@@ -48,7 +49,7 @@ public class SshManager {
 
 	}
 
-	public boolean compileSource(Session session, String language, String artifact)
+	public boolean compileSource(Session session, String language, ConfigurationProperties artifact)
 			throws IOException, JSchException, ExceptionHandler {
 
 		SshUtil ssh = new SshUtil();
@@ -57,8 +58,10 @@ public class SshManager {
 			Properties pr;
 			sph = new SSHPropertyHandler();
 			pr = sph.getPropertyMap();
-			String destSource = pr.getProperty("destination") + artifact;
-			String compileCommand = PbsConstants.compileCmd + " " + destSource + " -o Assignment1/" + artifact + ".out";
+			String SourceCodeFile = artifact.getFilePath();
+			String destSource = artifact.getDestinationDirectory()+SourceCodeFile;
+			
+			String compileCommand = PbsConstants.compileCmd + " " + destSource + " -o " + SourceCodeFile + ".out";
 			System.out.println("Compile command is " + compileCommand);
 			if (ssh.executeCommand(session, compileCommand) != true) {
 				System.out.println("Input file compilation failed");
@@ -71,14 +74,14 @@ public class SshManager {
 
 	}
 
-	public boolean submitJob(Session session, String artifact) throws IOException, JSchException, ExceptionHandler {
+	public boolean submitJob(Session session, ConfigurationProperties artifact) throws IOException, JSchException, ExceptionHandler {
 		SshUtil ssh = new SshUtil();
 		try {
 			SSHPropertyHandler sph;
 			Properties pr;
 			sph = new SSHPropertyHandler();
 			pr = sph.getPropertyMap();
-			String qsubCommand = PbsConstants.torqueCmd + " " + pr.getProperty("destination") + artifact;
+			String qsubCommand = PbsConstants.torqueCmd + " " + artifact.getDestinationDirectory() + artifact.getFilePath();
 			System.out.println("Command is " + qsubCommand);
 			if (ssh.executeCommand(session, qsubCommand) != true) {
 				System.out.println("Job Scheduling Failed");

@@ -6,7 +6,7 @@
 pbsFileName=<pbs_file_name>
 email=`cat $pbsFileName |grep "#PBS -M"|cut -d " " -f3`
 jobName=`cat $pbsFileName |grep "#PBS -N"|cut -d " " -f3`
-cd ..
+#cd ..
 outputFiles=`ls $jobName*`
 from="atumohan@h4.karst.uits.iu.edu"
 to=$email

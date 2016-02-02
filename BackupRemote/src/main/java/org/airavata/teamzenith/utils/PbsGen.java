@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
-import org.airavata.teamzenith.config.PbsConfig;
+import org.airavata.teamzenith.config.ConfigurationProperties;
 import org.airavata.teamzenith.config.SSHPropertyHandler;
 import org.airavata.teamzenith.exceptions.ExceptionHandler;
 import org.apache.log4j.Logger;
@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
 public class PbsGen {
 	Logger log = Logger.getLogger("org.airavata.teamzenith.log");
 
-	public String generateScript(PbsConfig pconf) throws IOException, ExceptionHandler {
+	public String generateScript(ConfigurationProperties pconf) throws IOException, ExceptionHandler {
 		System.out.println("Start");
 		SSHPropertyHandler sph = new SSHPropertyHandler();
 		Properties pr = sph.getPropertyMap();
@@ -50,7 +50,7 @@ public class PbsGen {
 			pwr.write(nFlag + "\n");
 			pwr.write(mailFlag + "\n");
 			pwr.write(recvFlag + "\n");
-			pwr.write("cd " + pr.getProperty("destination") + "\n");
+			pwr.write("cd " + pconf.getDestinationDirectory() + "\n");
 			pwr.write(accessCmd+"\n");
 			pwr.write(executeCmd + "\n");
 			pwr.write(mailCmd + "\n");
@@ -70,7 +70,7 @@ public class PbsGen {
 		
 		SSHPropertyHandler sph = new SSHPropertyHandler();
 		Properties pr = sph.getPropertyMap();
-		String filePath = pr.getProperty("scriptdirectory");
+		String filePath = dirPath;
 		try {
 			File f = new File(dirPath + PbsConstants.mailScript);
 			BufferedReader br = new BufferedReader(new FileReader(f));

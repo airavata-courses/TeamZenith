@@ -1,6 +1,6 @@
 package org.airavata.teamzenith.config;
 
-public class PbsConfig {
+public class ConfigurationProperties {
 private int nodes=1;
 private int ppn=2;
 private String wallTime;
@@ -11,6 +11,8 @@ private String isCompile;
 private String emailAddress;
 private boolean hasMoreInput;
 private String workSpace;
+private String privateKeyFileName;
+private String destinationDirectory;
 
 public boolean isHasMoreInput() {
 	return hasMoreInput;
@@ -77,6 +79,18 @@ public String getWorkSpace() {
 }
 public void setWorkSpace(String workSpace) {
 	this.workSpace = workSpace;
+}
+public String getPrivateKeyFileName() {
+	return privateKeyFileName;
+}
+public void setPrivateKeyFileName(String privateKeyFileName) {
+	this.privateKeyFileName = privateKeyFileName;
+}
+public String getDestinationDirectory() {
+	return destinationDirectory;
+}
+public void setDestinationDirectory(String destinationDirectory) {
+	this.destinationDirectory = destinationDirectory;
 }
 
 }
