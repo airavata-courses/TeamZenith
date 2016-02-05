@@ -15,9 +15,9 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
 
-public class SSHConnect {
+public class SSHConnectionHandler {
 	
-	private static final Logger LOGGER = LogManager.getLogger(SSHConnect.class);
+	private static final Logger LOGGER = LogManager.getLogger(SSHConnectionHandler.class);
 	
 	public Session createSession(UserDetails ud) throws IOException, JSchException {
 		try{
@@ -32,7 +32,9 @@ public class SSHConnect {
 			return session;
 		}
 		catch(JSchException e){
+			LOGGER.error("SSH ERROR: Unable to create session");
 			throw new JSchException("SSH ERROR: Unable to create session", e);
+			
 		}
 	}
 
@@ -53,5 +55,6 @@ public class SSHConnect {
 			LOGGER.info("Session disconnected !!!");
 		
 	}
+	
 
 }
