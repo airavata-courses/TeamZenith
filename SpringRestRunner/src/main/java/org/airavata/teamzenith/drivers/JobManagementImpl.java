@@ -15,7 +15,7 @@ import com.jcraft.jsch.Session;
 
 public class JobManagementImpl implements JobManagement {
 	
-	private static final Logger LOGGER = LogManager.getLogger(FIleManagementImpl.class);
+	private static final Logger LOGGER = LogManager.getLogger(JobManagement.class);
 
 	@Override
 	public boolean submitJob(Session session, String artifact) throws IOException, JSchException {

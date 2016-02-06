@@ -6,6 +6,7 @@ public class UserDetails {
 	private String passphrase;
 	private String keyPath;
 	private String hostName;
+	private String targetPath;
 	public String getUserName() {
 		return userName;
 	}
@@ -29,6 +30,18 @@ public class UserDetails {
 	}
 	public void setKeyPath(String keyPath) {
 		this.keyPath = keyPath;
+	}
+	public String getTargetPath() {
+		return targetPath;
+	}
+	public void setTargetPath(String targetPath) {
+		this.targetPath = targetPath;
+	}
+	public String getHostName() {
+		return hostName;
+	}
+	public void setHostName(String hostName) {
+		this.hostName = hostName;
 	}
 
 }

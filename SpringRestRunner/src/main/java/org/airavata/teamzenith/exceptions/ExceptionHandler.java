@@ -20,7 +20,7 @@ public class ExceptionHandler extends Exception{
 
 	public static void cleanUp(SshUtil ssh, Session session) throws ExceptionHandler{
 		try{
-			ssh.sessionStop(session);
+			//ssh.sessionStop(session);
 		}
 		finally{
 		}

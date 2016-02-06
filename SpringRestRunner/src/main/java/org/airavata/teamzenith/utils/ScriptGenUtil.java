@@ -12,7 +12,7 @@ import org.airavata.teamzenith.config.PbsConfig;
 import org.airavata.teamzenith.config.SSHPropertyHandler;
 import org.airavata.teamzenith.dao.JobDetails;
 import org.airavata.teamzenith.dao.UserDetails;
-import org.airavata.teamzenith.drivers.FIleManagementImpl;
+import org.airavata.teamzenith.drivers.FileManagementImpl;
 import org.airavata.teamzenith.exceptions.ExceptionHandler;
 import org.airavata.teamzenith.webmethods.UserSession;
 import org.apache.log4j.LogManager;
@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
 
 public class ScriptGenUtil {
 
-	private static final Logger LOGGER = LogManager.getLogger(FIleManagementImpl.class);
+	private static final Logger LOGGER = LogManager.getLogger(ScriptGenUtil.class);
 
 	public String generateScript(JobDetails job, UserDetails user) throws IOException, ExceptionHandler {
 		System.out.println("Start");
@@ -67,11 +67,12 @@ public class ScriptGenUtil {
 		} 
 	}
    
-       public void modifyMailArgs(String pbsFile, String dirPath) throws IOException {
+       public String modifyMailArgs(String pbsFile, String dirPath) throws IOException {
 		
 		//SSHPropertyHandler sph = new SSHPropertyHandler();
 		//Properties pr = sph.getPropertyMap();
 		String filePath = "Yet to decide";
+		FileWriter writer = null;
 		try {
 			File f = new File(dirPath + PbsConstants.mailScript);
 			BufferedReader br = new BufferedReader(new FileReader(f));
@@ -84,13 +85,19 @@ public class ScriptGenUtil {
 			// replace a word in a file
 			String modifiedContent = text.replaceAll(PbsConstants.pbsFormat, pbsFile);
 
-			FileWriter writer = new FileWriter(filePath + PbsConstants.mailScriptDest);
+			writer = new FileWriter(filePath + PbsConstants.mailScriptDest);
 			writer.write(modifiedContent);
-			writer.close();
+			return pbsFile;
 		} catch (IOException e) {
+			writer.close();
 			LOGGER.error("SCRIPT ERROR: Error while modifying pbs script");
 			throw new IOException("SCRIPT ERROR: Error while modifying pbs script",e);
 
 		}
+		finally{
+			writer.close();
+
+		}
+		
 	}
 }

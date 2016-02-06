@@ -14,9 +14,9 @@ import org.apache.log4j.Logger;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
-public class FIleManagementImpl implements FileManagement{
+public class FileManagementImpl implements FileManagement{
 	
-	private static final Logger LOGGER = LogManager.getLogger(FIleManagementImpl.class);
+	private static final Logger LOGGER = LogManager.getLogger(FileManagementImpl.class);
 
 	@Override
 	public boolean putFile(Session session, String localFile, String remotePath) throws IOException, JSchException {
@@ -78,5 +78,5 @@ public class FIleManagementImpl implements FileManagement{
 	        	LOGGER.error("SSH ERROR: problem with session object");
 	        	throw new IOException("SSH ERROR: problem with session object",e);
 	        }
-
+	}
 }

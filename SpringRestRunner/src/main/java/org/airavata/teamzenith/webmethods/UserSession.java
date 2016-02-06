@@ -3,7 +3,7 @@ package org.airavata.teamzenith.webmethods;
 import java.io.IOException;
 
 import org.airavata.teamzenith.dao.UserDetails;
-import org.airavata.teamzenith.drivers.FIleManagementImpl;
+import org.airavata.teamzenith.drivers.FileManagementImpl;
 import org.airavata.teamzenith.ssh.SSHConnectionHandler;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -13,7 +13,7 @@ import com.jcraft.jsch.Session;
 
 public class UserSession {
 	
-	private static final Logger LOGGER = LogManager.getLogger(FIleManagementImpl.class);
+	private static final Logger LOGGER = LogManager.getLogger(FileManagementImpl.class);
 	
 	private Session session;
 	private String userName;
