@@ -6,6 +6,8 @@ private int numNodes;
 private String wallTime;
 private int numCores;
 private boolean isCompileReqd;
+private int processorPerNode;
+private String jobName;
 public String getSource() {
 	return source;
 }
@@ -35,5 +37,17 @@ public boolean isCompileReqd() {
 }
 public void setCompileReqd(boolean isCompileReqd) {
 	this.isCompileReqd = isCompileReqd;
+}
+public int getProcessorPerNode() {
+	return processorPerNode;
+}
+public void setProcessorPerNode(int processorPerNode) {
+	this.processorPerNode = processorPerNode;
+}
+public String getJobName() {
+	return jobName;
+}
+public void setJobName(String jobName) {
+	this.jobName = jobName;
 }
 }

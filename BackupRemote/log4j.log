@@ -180,3 +180,7 @@
 [2016-02-01 22:24:40,808] INFO 87521[main] - org.airavata.teamzenith.config.SSHPropertyHandler.getPropertyMap(SSHPropertyHandler.java:18) - Properties file loaded
 [2016-02-01 22:24:41,847] INFO 88560[main] - org.airavata.teamzenith.ssh.SshUtil.executeCommand(SshUtil.java:217) - qsub /N/u/atumohan/Karst/PBS_Script_1454383479817.pbs: Executed successfully !!!
 [2016-02-01 22:24:41,871] INFO 88584[main] - org.airavata.teamzenith.ssh.SshUtil.sessionStop(SshUtil.java:67) - Session disconnected !!!
+[2016-02-01 22:47:40,439] INFO     0[main] - org.airavata.teamzenith.config.SSHPropertyHandler.getPropertyMap(SSHPropertyHandler.java:18) - Properties file loaded
+[2016-02-01 22:47:40,443]ERROR     4[main] - org.airavata.teamzenith.main.Core.main(Core.java:87) - java.io.FileNotFoundException: Directory not found
+[2016-02-01 22:47:59,983] INFO     0[main] - org.airavata.teamzenith.config.SSHPropertyHandler.getPropertyMap(SSHPropertyHandler.java:18) - Properties file loaded
+[2016-02-01 22:49:56,919]ERROR116936[main] - org.airavata.teamzenith.main.Core.main(Core.java:87) - java.util.InputMismatchException

@@ -63,7 +63,7 @@ public class Core {
 			
 			/* Modify and transfer script for sendmail*/
 			
-			pGen.replaceProcessName(pbsScript,pbsConf.getWorkSpace());
+			pGen.modifyMailArgs(pbsScript,pbsConf.getWorkSpace());
 			if(!ssm.transferFile(session, PbsConstants.mailScriptDest,pbsConf.getWorkSpace(),null)){
 				log.error("Sendmail file transfer failed");
 				return;

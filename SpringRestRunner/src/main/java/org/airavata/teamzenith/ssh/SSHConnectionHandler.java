@@ -19,7 +19,7 @@ public class SSHConnectionHandler {
 	
 	private static final Logger LOGGER = LogManager.getLogger(SSHConnectionHandler.class);
 	
-	public Session createSession(UserDetails ud) throws IOException, JSchException {
+	public static Session createSession(UserDetails ud) throws IOException, JSchException {
 		try{
 			JSch jsch=new JSch();
 			
@@ -38,7 +38,7 @@ public class SSHConnectionHandler {
 		}
 	}
 
-	public void sessionStart(Session session) throws JSchException{
+	public static void sessionStart(Session session) throws JSchException{
 		try {
 			session.connect();
 			LOGGER.info("Session connected successfully !!!");
@@ -49,7 +49,7 @@ public class SSHConnectionHandler {
 	}
 
 
-	public void sessionStop(Session session) {
+	public static void sessionStop(Session session) {
 		
 			session.disconnect();
 			LOGGER.info("Session disconnected !!!");
