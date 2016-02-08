@@ -1,0 +1,8 @@
+#!/bin/bash
+#PBS -l  nodes=1:ppn=1,walltime=1
+#PBS -N rock
+#PBS -m abe
+#PBS -M atumohan@iu.edu
+cd /N/u/atumohan/Karst/Assignment1/
+./a.c.out
+sh mailsenddest.sh 2> /dev/null
