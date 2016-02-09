@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Vendor: Pivotal Software, Inc.
+Implementation-Title: gs-uploading-files
+Implementation-Version: 0.1.0
+Implementation-Vendor-Id: org.springframework
+Build-Jdk: 1.7.0_91
+Built-By: atul
+Created-By: Maven Integration for Eclipse
+
