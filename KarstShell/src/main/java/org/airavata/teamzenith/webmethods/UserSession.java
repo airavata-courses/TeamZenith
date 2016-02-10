@@ -26,6 +26,11 @@ public class UserSession {
 	public String getUserName() {
 		return userName;
 	}
+	/*default constructor */
+	UserSession(){
+		
+	}
+	/*For internal Use only*/
 	
 	UserSession(Session session, String userName){
 		this.userName = userName;

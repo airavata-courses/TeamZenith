@@ -41,6 +41,14 @@ public class JobManagementImpl implements JobManagement {
 		}
 	}
 
+	@Override
+	public String getJobStatus(Session session, String jobNumber) throws IOException, JSchException {
+		SshUtil ssh = new SshUtil();
+		String Command = "qstat "+jobNumber;
+		ssh.executeCommand(session, Command);
+		return null;
+	}
+
 
 
 }
