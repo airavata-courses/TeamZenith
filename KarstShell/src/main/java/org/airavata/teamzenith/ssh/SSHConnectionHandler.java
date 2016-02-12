@@ -24,7 +24,10 @@ public class SSHConnectionHandler {
 			JSch jsch=new JSch();
 			
 			String privateKeyFile= ud.getKeyPath();
-			jsch.addIdentity(privateKeyFile);
+			if(ud.getPassphrase().isEmpty())
+				jsch.addIdentity(privateKeyFile);
+			else
+				jsch.addIdentity(privateKeyFile, ud.getPassphrase());
             
 			Session session = jsch.getSession(ud.getUserName(), SSHConstants.hostName, SSHConstants.port);
 			LOGGER.error("Username is"+ud.getUserName()+"and "+SSHConstants.hostName);

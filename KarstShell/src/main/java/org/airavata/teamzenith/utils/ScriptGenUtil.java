@@ -1,4 +1,4 @@
-package org.airavata.teamzenith.utils;
+		package org.airavata.teamzenith.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -34,7 +34,7 @@ public class ScriptGenUtil {
 
 			File f = new File(filePath + fileName);
 			PrintWriter pwr = new PrintWriter(f, "UTF-8");
-
+			String executeCmd;
 			String lFlag = PbsConstants.pbsPrefix + " -l " + " nodes=" + job.getNumNodes() + ":ppn=" + job.getProcessorPerNode()
 			+ ",walltime=" + job.getWallTime();
 
@@ -46,13 +46,15 @@ public class ScriptGenUtil {
 
 			String outFile=user.getTargetPath()+fileName+".log";
 			String outPath=PbsConstants.pbsPrefix + " -o " +outFile;
-			
-			String executeCmd = "./"+job.getJobFile()+".out";
+			if(job.isCompileReqd())
+				executeCmd = "./"+job.getJobFile()+".out";
+			else
+				executeCmd = "./"+job.getJobFile();
 			String accessCmd=PbsConstants.chmod+" "+ user.getTargetPath();
 			//String mailCmd = "sh " + PbsConstants.mailScriptDest + " 2> /dev/null";
 			String mailFiles="outputFiles=`ls "+job.getJobName()+"*`;";
-			String mailCmd = "echo \"The log files are attached\"|"+PbsConstants.mailCommand+" -s"
-					+ "\"Karst execution results\" -a "+errorFile+" -a "+outFile+ " \""+user.getEmail()+"\"";
+			String mailCmd = "echo \"The log files are attached\"|"+PbsConstants.mailCommand+" -r Zenith"
+			+" -s"+ "\"Karst execution results\" -a "+errorFile+" -a "+outFile+ " \""+user.getEmail()+"\"";
 
 			LOGGER.info("Mail cmd is " + mailCmd);
 			pwr.write(PbsConstants.hashBang + "\n");

@@ -10,6 +10,7 @@ import org.airavata.teamzenith.drivers.JobManagement;
 import org.airavata.teamzenith.drivers.JobManagementImpl;
 import org.airavata.teamzenith.exceptions.ExceptionHandler;
 import org.airavata.teamzenith.ssh.SSHConnectionHandler;
+import org.airavata.teamzenith.utils.PbsConstants;
 import org.airavata.teamzenith.utils.ScriptGenUtil;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -35,9 +36,12 @@ public class SubmitJob {
 		fm.putFile(session, scriptFile, uDetail.getTargetPath());
 		fm.putFile(session, jd.getJobFile(), uDetail.getTargetPath());
 		//fm.putFile(session, mailScript, uDetail.getTargetPath());
-
-		fm.compileFile(session, "C", jd.getJobFile(),uDetail.getTargetPath()); //TODO change scriptfile to file to be compiled
-		jm.submitJob(session, uDetail.getTargetPath()+scriptFile);
+		if(jd.isCompileReqd()){
+			fm.compileFile(session, "C", jd.getJobFile(),uDetail.getTargetPath()); 		
+		}
+		String commandRes=jm.submitJob(session, uDetail.getTargetPath()+scriptFile);
+		String opToken[]=commandRes.split("\\.");
+		jd.setJobId(opToken[0]);
 		return true;
 		}
 		

@@ -18,18 +18,19 @@ public class JobManagementImpl implements JobManagement {
 	private static final Logger LOGGER = LogManager.getLogger(JobManagement.class);
 
 	@Override
-	public boolean submitJob(Session session, String artifact) throws IOException, JSchException {
+	public String submitJob(Session session, String artifact) throws IOException, JSchException {
 		SshUtil ssh = new SshUtil();
 		try {
 
 			String qsubCommand = PbsConstants.torqueCmd + " "+ artifact;
 			System.out.println("Command is " + qsubCommand);
-			if (ssh.executeCommand(session, qsubCommand) != true) {
+			String cmdResult=ssh.executeCommand(session, qsubCommand);
+			if (cmdResult.equals("")) {
 				System.out.println("Job Scheduling Failed");
-				return false;
+				return cmdResult;
 			}
 
-			return true;
+			return cmdResult;
 		} 
 		catch(IOException e){
 			LOGGER.error("SCRIPT ERROR: PBS script not found in submit Job");
@@ -44,9 +45,11 @@ public class JobManagementImpl implements JobManagement {
 	@Override
 	public String getJobStatus(Session session, String jobNumber) throws IOException, JSchException {
 		SshUtil ssh = new SshUtil();
-		String Command = "qstat "+jobNumber;
-		ssh.executeCommand(session, Command);
-		return null;
+		String Command = "qstat -f "+jobNumber+" |grep job_state";
+		String op=ssh.executeCommand(session, Command);
+		String opTokens[]=op.split("= ");
+		String status=PbsConstants.statusMap.get(opTokens[1]);
+		return status;
 	}
 
 

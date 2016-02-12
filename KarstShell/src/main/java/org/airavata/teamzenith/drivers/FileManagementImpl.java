@@ -65,7 +65,8 @@ public class FileManagementImpl implements FileManagement{
 			String destSource = new StringBuffer(path).append(artifact).toString();
 			String compileCommand = PbsConstants.compileCmd + " " + destSource + " -o " + destSource + ".out";
 			System.out.println("Compile command is " + compileCommand);
-			if (ssh.executeCommand(session, compileCommand) != true) {
+			String cmdOut=ssh.executeCommand(session, compileCommand);
+			if (cmdOut.equals("")) {
 				System.out.println("Input file compilation failed");
 				return false;
 			}

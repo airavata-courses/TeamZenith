@@ -133,7 +133,7 @@ public class SshUtil {
 		}
 		return b;
 	}
-	public boolean executeCommand(Session session, String command) throws JSchException, IOException {
+	public String executeCommand(Session session, String command) throws JSchException, IOException {
 
 		try{
 
@@ -157,11 +157,14 @@ public class SshUtil {
 			channel.connect();
 
 			byte[] tmp=new byte[1024];
+			String cmdOutput="";
 			while(true){
 				while(in.available()>0){
 					int i=in.read(tmp, 0, 1024);
 					if(i<0)break;
-					System.out.print(new String(tmp, 0, i));
+					String temp=new String(tmp, 0, i);
+					cmdOutput=new StringBuffer().append(cmdOutput).append(temp).toString();
+					//System.out.print(new String(tmp, 0, i));
 				}
 				if(channel.isClosed()){
 					if(in.available()>0) continue;
@@ -172,7 +175,8 @@ public class SshUtil {
 			}
 			channel.disconnect();
 			LOGGER.info(command +": Executed successfully !!!");
-			return true;
+			return cmdOutput;
+			//return true;
 		}
 		catch(JSchException e){
 			throw new JSchException("SSH ERROR : problem with ssh connection found in Execute command", e);

@@ -9,6 +9,6 @@ import com.jcraft.jsch.Session;
 
 public interface JobManagement {
 	
-	public boolean submitJob(Session session, String artifact) throws IOException, JSchException;
+	public String submitJob(Session session, String artifact) throws IOException, JSchException;
     public String getJobStatus(Session session, String jobNumber) throws IOException, JSchException;
 }

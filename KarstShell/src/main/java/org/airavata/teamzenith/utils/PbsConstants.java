@@ -1,5 +1,8 @@
 package org.airavata.teamzenith.utils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class PbsConstants {
 	public final static String hashBang="#!/bin/bash";
 	public final static String pbsPrefix="#PBS";
@@ -11,5 +14,13 @@ public class PbsConstants {
 	public final static String pbsFormat="<pbs_file_name>";
 	public final static String chmod ="chmod 777";
 	public final static String mailCommand="mailx";
+	public final static Map<String, String> statusMap;
+    static
+    {
+    	statusMap = new HashMap<String, String>();
+    	statusMap.put("Q", "Queued");
+    	statusMap.put("C", "Complete");
+    	statusMap.put("R", "Running");
 
+    }
 }

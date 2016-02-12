@@ -32,7 +32,8 @@ public class RestApiController {
 			@RequestParam("file") MultipartFile file, @RequestParam("user") String userName,
 			@RequestParam("jobName") String jobName, @RequestParam("nodes") String nodes,
 			@RequestParam("ppn") String ppn, @RequestParam("walltime") String wallTime, 
-			@RequestParam("emailId") String emailId, @RequestParam("ppk") MultipartFile ppk){
+			@RequestParam("isCompile") String isComp, @RequestParam("emailId") String emailId, 
+			@RequestParam("ppk") MultipartFile ppk, @RequestParam(name = "pass", defaultValue = "null") String pass){
 		if (!file.isEmpty()) {
 			try {
 				UserDetails ud=new UserDetails();
@@ -42,6 +43,7 @@ public class RestApiController {
 				ud.setUserName(userName);
 				ud.setEmail(emailId);
 				ud.setTargetPath(tPath);
+				ud.setPassphrase(pass);
 				/*
 				 * Write job file
 				 */
@@ -65,9 +67,13 @@ public class RestApiController {
 				jd.setProcessorPerNode(Integer.parseInt(ppn));
 				jd.setWallTime(wallTime);
 				jd.setJobName(jobName);
+				if(isComp.equals("Yes"))
+					jd.setCompileReqd(true);
+				else
+					jd.setCompileReqd(false);
 				sub.submit(jd, ud);
 
-				return "Job submitted successfully";
+				return "Job submitted successfully with job Id "+jd.getJobId();
 				//return "You successfully uploaded " + file.getOriginalFilename() + "to "+ System.getProperty("user.dir");
 			} catch (Exception e) {
 				return "You failed to upload " + file.getOriginalFilename() + " => " + e.getMessage();
@@ -83,7 +89,9 @@ public class RestApiController {
     }
     
     @RequestMapping(value="/monitor", method=RequestMethod.POST)
-    public @ResponseBody String MonitorJobEndPoint(@RequestParam("username") String name,@RequestParam(name = "passPhrase", defaultValue = "null") String passPhrase, @RequestParam("jobNumber") String jobNumber, @RequestParam("ppkFile") MultipartFile file){
+    public @ResponseBody String MonitorJobEndPoint(@RequestParam("username") String name,
+    		@RequestParam(name = "passPhrase", defaultValue = "null") String passPhrase, 
+    		@RequestParam("jobNumber") String jobNumber, @RequestParam("ppkFile") MultipartFile file){
     	UserDetails userObject = new UserDetails();
         if (!file.isEmpty()) {
             try {
@@ -100,7 +108,7 @@ public class RestApiController {
                 userObject.setPassphrase(passPhrase);
                 
                 MonitorJob job = new MonitorJob();
-                return job.getJobStatus(userObject, jobNumber);
+                return new StringBuffer("the job status is").append(job.getJobStatus(userObject, jobNumber)).toString()	;
                 
                 //return "You successfully uploaded " + name + "!";
             } catch (IOException e) {

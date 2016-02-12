@@ -11,6 +11,7 @@ private boolean isCompileReqd;
 private int processorPerNode;
 private String jobName;
 private String jobFile;
+private String jobId;
 public String getSource() {
 	return source;
 }
@@ -58,5 +59,11 @@ public String getJobFile() {
 }
 public void setJobFile(String jobFile) {
 	this.jobFile = jobFile;
+}
+public String getJobId() {
+	return jobId;
+}
+public void setJobId(String jobId) {
+	this.jobId = jobId;
 }
 }
