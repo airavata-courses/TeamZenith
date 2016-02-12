@@ -7,9 +7,9 @@ import java.io.IOException;
 
 import org.airavata.teamzenith.dao.JobDetails;
 import org.airavata.teamzenith.dao.UserDetails;
+import org.airavata.teamzenith.webmethods.CancelJob;
 import org.airavata.teamzenith.webmethods.MonitorJob;
 import org.airavata.teamzenith.webmethods.SubmitJob;
-import org.airavata.teamzenith.webmethods.UserSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -120,5 +120,41 @@ public class RestApiController {
             return "Private Key file for user:  " + name + " is empty";
         }
     }
+	@RequestMapping(value="/cancel", method=RequestMethod.GET)
+    public @ResponseBody String CancelJobEndPointInfo() {
+        return "Use this link to cancel Job, params: @username, @passPhrase, @jobNumber, @ppkFile";
+    }
+    
+    @RequestMapping(value="/cancel", method=RequestMethod.POST)
+    public @ResponseBody String CancelJobEndPoint(@RequestParam("username") String name,@RequestParam(name = "passPhrase", defaultValue = "null") String passPhrase, @RequestParam("jobNumber") String jobNumber, @RequestParam("ppkFile") MultipartFile file){
+    	UserDetails userObject = new UserDetails();
+        if (!file.isEmpty()) {
+            try {
+            	/*
+				 * Write private key
+				 */
+				byte[] ppkBytes = file.getBytes();
+				BufferedOutputStream ppkStream = 
+						new BufferedOutputStream(new FileOutputStream(new File(file.getOriginalFilename())));
+				ppkStream.write(ppkBytes);
+				ppkStream.close();
+                userObject.setKeyPath(file.getOriginalFilename());
+                userObject.setUserName(name);
+                userObject.setPassphrase(passPhrase);
+                
+                CancelJob job = new CancelJob();
+                job.getCancelJob(userObject, jobNumber);
+                return "job:" + jobNumber + " Cancelled successfully";
+                //return "You successfully uploaded " + name + "!";
+            } catch (IOException e) {
+                return "Could not cancel the job:" + jobNumber + " ERROR => " + e.getMessage();
+            } catch (JSchException e){
+            	return "Could not cancel the job:" + jobNumber + " ERROR => " + e.getMessage();
+            }
+        } else {
+            return "Private Key file for user:  " + name + " is empty";
+        }
+    }
+
 
 }

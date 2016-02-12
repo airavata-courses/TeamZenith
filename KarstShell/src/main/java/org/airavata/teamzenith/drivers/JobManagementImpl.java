@@ -51,7 +51,12 @@ public class JobManagementImpl implements JobManagement {
 		String status=PbsConstants.statusMap.get(opTokens[1]);
 		return status;
 	}
+	@Override
+	public String getCancelJob(Session session, String jobNumber) throws IOException, JSchException {
+		SshUtil ssh = new SshUtil();
+		String Command = "qdel "+jobNumber;
+		ssh.executeCommand(session, Command);
+		return null;
 
-
-
+	}
 }
