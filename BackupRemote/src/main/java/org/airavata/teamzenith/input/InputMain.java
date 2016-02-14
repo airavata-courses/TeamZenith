@@ -4,15 +4,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-import org.airavata.teamzenith.config.ConfigurationProperties;
+import org.airavata.teamzenith.config.PbsConfig;
 import org.airavata.teamzenith.exceptions.ExceptionHandler;
 import org.airavata.teamzenith.utils.FileUtils;
 
 public class InputMain {
 	private Scanner inputScan = new Scanner(System.in);
 
-	public ConfigurationProperties fetchInput() throws IOException, ExceptionHandler {
-		ConfigurationProperties pc = new ConfigurationProperties();
+	public PbsConfig fetchInput() throws IOException, ExceptionHandler {
+		PbsConfig pc = new PbsConfig();
 		FileUtils fu=new FileUtils();
 		
 		System.out.println("Enter the workspace directory:");
@@ -22,6 +22,7 @@ public class InputMain {
 		else
 			throw new FileNotFoundException("Directory not found");
 		
+
 		System.out.println("Enter the username:");
 		String username=inputScan.next();
 		pc.setUserName(username);
@@ -37,13 +38,10 @@ public class InputMain {
 		
 		System.out.println("Enter the source code filename:");
 		String sourceFile=inputScan.next();
-		pc.setFilePath(sourceFile);
-		
-		
-		System.out.println("Enter the remote workspace Directory:");
-		String DestFolder=inputScan.next();
-		pc.setDestinationDirectory(DestFolder);
-		
+		if(fu.checkFile(sourceFile))
+			pc.setFilePath(sourceFile);
+		else
+			throw new FileNotFoundException("File not found");
 
 		System.out.println("Compilation required? (Y/N):");
 		pc.setCompile(inputScan.next());
@@ -51,7 +49,7 @@ public class InputMain {
 		System.out.println("Enter the job name:");
 		pc.setJobName(inputScan.next());
 
-		System.out.println("Enter your email address to be notified:");
+		System.out.println("Enter your email address:");
 		pc.setEmailAddress(inputScan.next());
 
 		System.out.println("Enter the number of nodes required:");
@@ -60,7 +58,7 @@ public class InputMain {
 		System.out.println("Enter the number of processors per node:");
 		pc.setPpn(inputScan.nextInt());
 
-		System.out.println("Enter the required walltime(MM:SS):");
+		System.out.println("Enter the required walltime");
 		pc.setWallTime(inputScan.next());
 
 		System.out.println("Submit more jobs? (Y/N)");

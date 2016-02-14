@@ -6,13 +6,13 @@
 pbsFileName=<pbs_file_name>
 email=`cat $pbsFileName |grep "#PBS -M"|cut -d " " -f3`
 jobName=`cat $pbsFileName |grep "#PBS -N"|cut -d " " -f3`
-#cd ..
+cd ..
 outputFiles=`ls $jobName*`
 from="atumohan@h4.karst.uits.iu.edu"
 to=$email
-subject="Karst execution result for job :"$jobName
+subject="Karst execution result for job"$jobName
 boundary="ZZ_/afg6432dfgkl.94531q"
-body="Attached are the output files for :"$jobName
+body="This is the body of our email"
 declare -a attachments
 attachments=( $outputFiles )
 

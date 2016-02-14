@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
-import org.airavata.teamzenith.config.ConfigurationProperties;
+import org.airavata.teamzenith.config.PbsConfig;
 import org.airavata.teamzenith.config.SSHPropertyHandler;
 import org.airavata.teamzenith.exceptions.ExceptionHandler;
 import org.apache.log4j.Logger;
@@ -25,19 +25,21 @@ import com.jcraft.jsch.Session;
 public class SshUtil {
 	Logger log = Logger.getLogger("org.airavata.teamzenith.log");
 
-	public Session createSession(ConfigurationProperties pc) throws IOException, JSchException, ExceptionHandler{
+	public Session createSession(PbsConfig pc) throws IOException, JSchException, ExceptionHandler{
 		try{
 			JSch jsch=new JSch();
 			SSHPropertyHandler sph=new SSHPropertyHandler();
 			Properties p=sph.getPropertyMap();
-			String user = pc.getUserName();
+			String user = p.getProperty("user");
 			String host = p.getProperty("host");
 			int port =    Integer.parseInt(p.getProperty("port"));
 			String privateKeyPath = pc.getWorkSpace();
+
 			System.out.println(privateKeyPath);
 			String privateKeyFile= privateKeyPath+pc.getPrivateKeyFileName();
 			jsch.addIdentity(privateKeyFile, pc.getPassPhrase());
 			
+
 
 
 			//System.out.println("identity added ");
