@@ -234,3 +234,23 @@
 [2016-02-13 20:41:58,265] INFO 56748[main] - org.airavata.teamzenith.config.SSHPropertyHandler.getPropertyMap(SSHPropertyHandler.java:18) - Properties file loaded
 [2016-02-13 20:41:59,300] INFO 57783[main] - org.airavata.teamzenith.ssh.SshUtil.executeCommand(SshUtil.java:219) - qsub /N/u/anujbhan/Karst/PBS_Script_1455414117539.pbs: Executed successfully !!!
 [2016-02-13 20:41:59,310] INFO 57793[main] - org.airavata.teamzenith.ssh.SshUtil.sessionStop(SshUtil.java:69) - Session disconnected !!!
+[2016-02-13 20:51:23,346] INFO     0[main] - org.airavata.teamzenith.config.SSHPropertyHandler.getPropertyMap(SSHPropertyHandler.java:18) - Properties file loaded
+[2016-02-13 20:52:08,821] INFO 45475[main] - org.airavata.teamzenith.config.SSHPropertyHandler.getPropertyMap(SSHPropertyHandler.java:18) - Properties file loaded
+[2016-02-13 20:52:12,234] INFO 48888[main] - org.airavata.teamzenith.ssh.SshUtil.sessionStart(SshUtil.java:58) - Session connected successfully !!!
+[2016-02-13 20:52:12,235] INFO 48889[main] - org.airavata.teamzenith.config.SSHPropertyHandler.getPropertyMap(SSHPropertyHandler.java:18) - Properties file loaded
+[2016-02-13 20:52:12,650] INFO 49304[main] - org.airavata.teamzenith.ssh.SshUtil.ScpTo(SshUtil.java:147) - Scp of file C:\Users\Anuj\Desktop\secret\a.csuccessful !
+[2016-02-13 20:52:12,651] INFO 49305[main] - org.airavata.teamzenith.main.Core.main(Core.java:50) - Compilation required
+[2016-02-13 20:52:12,652] INFO 49306[main] - org.airavata.teamzenith.config.SSHPropertyHandler.getPropertyMap(SSHPropertyHandler.java:18) - Properties file loaded
+[2016-02-13 20:52:13,692] INFO 50346[main] - org.airavata.teamzenith.ssh.SshUtil.executeCommand(SshUtil.java:219) - mpicc /N/u/anujbhan/Karst/a.c -o a.c.out: Executed successfully !!!
+[2016-02-13 20:52:13,695] INFO 50349[main] - org.airavata.teamzenith.config.SSHPropertyHandler.getPropertyMap(SSHPropertyHandler.java:18) - Properties file loaded
+[2016-02-13 20:52:13,695] INFO 50349[main] - org.airavata.teamzenith.utils.PbsGen.generateScript(PbsGen.java:31) - PBS Script Name isPBS_Script_1455414733695.pbs
+[2016-02-13 20:52:13,698] INFO 50352[main] - org.airavata.teamzenith.utils.PbsGen.generateScript(PbsGen.java:47) - Mail cmd is sh mailsenddest.sh 2> /dev/null
+[2016-02-13 20:52:13,698] INFO 50352[main] - org.airavata.teamzenith.utils.PbsGen.generateScript(PbsGen.java:57) - PBS Script File generation successful
+[2016-02-13 20:52:13,703] INFO 50357[main] - org.airavata.teamzenith.config.SSHPropertyHandler.getPropertyMap(SSHPropertyHandler.java:18) - Properties file loaded
+[2016-02-13 20:52:14,045] INFO 50699[main] - org.airavata.teamzenith.ssh.SshUtil.ScpTo(SshUtil.java:147) - Scp of file C:\Users\Anuj\Desktop\secret\PBS_Script_1455414733695.pbssuccessful !
+[2016-02-13 20:52:14,047] INFO 50701[main] - org.airavata.teamzenith.config.SSHPropertyHandler.getPropertyMap(SSHPropertyHandler.java:18) - Properties file loaded
+[2016-02-13 20:52:14,052] INFO 50706[main] - org.airavata.teamzenith.config.SSHPropertyHandler.getPropertyMap(SSHPropertyHandler.java:18) - Properties file loaded
+[2016-02-13 20:52:14,866] INFO 51520[main] - org.airavata.teamzenith.ssh.SshUtil.ScpTo(SshUtil.java:147) - Scp of file C:\Users\Anuj\Desktop\secret\mailsenddest.shsuccessful !
+[2016-02-13 20:52:14,868] INFO 51522[main] - org.airavata.teamzenith.config.SSHPropertyHandler.getPropertyMap(SSHPropertyHandler.java:18) - Properties file loaded
+[2016-02-13 20:52:15,912] INFO 52566[main] - org.airavata.teamzenith.ssh.SshUtil.executeCommand(SshUtil.java:219) - qsub /N/u/anujbhan/Karst/PBS_Script_1455414733695.pbs: Executed successfully !!!
+[2016-02-13 20:52:15,923] INFO 52577[main] - org.airavata.teamzenith.ssh.SshUtil.sessionStop(SshUtil.java:69) - Session disconnected !!!
