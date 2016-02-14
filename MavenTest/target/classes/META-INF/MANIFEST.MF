@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Implementation-Title: MavenTest
-Implementation-Version: 0.0.1-SNAPSHOT
-Implementation-Vendor-Id: MavenTest
-Build-Jdk: 1.7.0_91
-Built-By: atul
-Created-By: Maven Integration for Eclipse
-Main-Class: org.airavata.teamzenith.test.TestRun
-
