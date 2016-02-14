@@ -1,5 +1,0 @@
-[2016-01-25 20:25:13,243] INFO     0[main] - org.airavata.teamzenith.main.Core.main(Core.java:18) - Yolo logging
-[2016-01-25 20:25:55,868] INFO     0[main] - org.airavata.teamzenith.main.Core.main(Core.java:18) - Yolo logging
-[2016-01-25 20:43:32,631] INFO     0[main] - org.airavata.teamzenith.main.Core.main(Core.java:18) - Yolo logging
-[2016-01-25 21:14:41,368] INFO     0[main] - org.airavata.teamzenith.main.Core.main(Core.java:15) - Yolo logging
-[2016-01-25 21:14:41,370]ERROR     2[main] - org.airavata.teamzenith.main.Core.main(Core.java:16) - Test error message
