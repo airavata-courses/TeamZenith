@@ -36,18 +36,20 @@ public class SshUtil {
 			String privateKeyPath = pc.getWorkSpace();
 			System.out.println(privateKeyPath);
 			String privateKeyFile= privateKeyPath+pc.getPrivateKeyFileName();
-			jsch.addIdentity(privateKeyFile);
+			jsch.addIdentity(privateKeyFile, pc.getPassPhrase());
+			
 
 
 			//System.out.println("identity added ");
-
+           
 			Session session = jsch.getSession(user, host, port);
 			//System.out.println("session created.");
 			session.setConfig("StrictHostKeyChecking", "no");
 			return session;
 		}
 		catch(ExceptionHandler e){
-			throw new ExceptionHandler(e);		    }
+			throw new ExceptionHandler(e);		
+		}
 	}
 
 	public void sessionStart(Session session) throws ExceptionHandler, JSchException{

@@ -30,6 +30,10 @@ public class InputMain {
 		String PrivateKey=inputScan.next();
 		pc.setPrivateKeyFileName(PrivateKey);
 		
+		System.out.println("Enter the PassPhrase for Private key:");
+		String passPhrase=inputScan.next();
+		pc.setPassPhrase(passPhrase);
+		
 		
 		System.out.println("Enter the source code filename:");
 		String sourceFile=inputScan.next();

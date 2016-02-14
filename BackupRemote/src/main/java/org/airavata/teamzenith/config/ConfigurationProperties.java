@@ -12,6 +12,13 @@ private String emailAddress;
 private boolean hasMoreInput;
 private String workSpace;
 private String privateKeyFileName;
+private String passPhrase;
+public String getPassPhrase() {
+	return passPhrase;
+}
+public void setPassPhrase(String passPhrase) {
+	this.passPhrase = passPhrase;
+}
 private String destinationDirectory;
 
 public boolean isHasMoreInput() {
