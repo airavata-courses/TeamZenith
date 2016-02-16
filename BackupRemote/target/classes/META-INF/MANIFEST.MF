@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: BackupRemote
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Anuj
+Implementation-Vendor-Id: BackupRemote
+Class-Path: lib/jsch-0.1.53.jar lib/log4j-1.2.14.jar lib/commons-compr
+ ess-1.10.jar
+Build-Jdk: 1.8.0_73
+Created-By: Maven Integration for Eclipse
+Main-Class: org.airavata.teamzenith.main.Core
+
