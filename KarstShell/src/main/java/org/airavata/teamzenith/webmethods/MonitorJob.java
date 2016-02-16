@@ -2,7 +2,7 @@ package org.airavata.teamzenith.webmethods;
 
 import java.io.IOException;
 
-import org.airavata.teamzenith.dao.UserDetails;
+import org.airavata.teamzenith.dao.*;
 import org.airavata.teamzenith.drivers.JobManagementImpl;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
