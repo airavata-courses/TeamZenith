@@ -108,13 +108,10 @@
 					<hr class="section-heading-spacer">
 					<div class="clearfix"></div>
 					<h2 class="section-heading">
-						Death to the Stock Photo:<br>Special Thanks
+						Job Creation
 					</h2>
 					<p class="lead">
-						A special thanks to <a target="_blank"
-							href="http://join.deathtothestockphoto.com/">Death to the
-							Stock Photo</a> for providing the photographs that you see in this
-						template. Visit their website to become a member.
+						This service will allow you to create and submit job on Karst computing cluster
 					</p>
 					<button type="button" class="btn btn-default btn-lg"
 						data-toggle="modal" data-target="#myModal">
@@ -128,40 +125,95 @@
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h4 class="modal-title">Modal Header</h4>
+									<h4 class="modal-title">Job Creation</h4>
 								</div>
 								<div class="modal-body">
-									<div class="input-group">
-										<span class="input-group-addon" id="basic-addon1">Job name:</span> <input
-											type="text" class="form-control" placeholder="Ex: DataMiner"
-											aria-describedby="basic-addon1">
-									</div>
-
-									<div class="input-group">
-										<input type="text" class="form-control"
-											placeholder="Recipient's email"
-											aria-describedby="basic-addon2"> <span
-											class="input-group-addon" id="basic-addon2">@example.com</span>
-									</div>
-
-									<div class="input-group">
-										<span class="input-group-addon">Private Key:</span> <input type="text"
-											class="form-control"
-											aria-label="Amount (to the nearest dollar)"> <span
-											class="input-group-addon">.00</span>
-									</div>
-
-									<label for="basic-url">Your vanity URL</label>
-									<div class="input-group">
-										<span class="input-group-addon" id="basic-addon3">https://example.com/users/</span>
-										<input type="text" class="form-control" id="basic-url"
-											aria-describedby="basic-addon3">
-									</div>
+									<form method="POST" enctype="multipart/form-data"
+										action="http://localhost:8080/KarstShell/upload">
+										<h3 class="section-heading">User Details:</h3>
+										<fieldset class="form-group">
+											<label for="UserID">User Name</label> <input type="username"
+												class="form-control" id="exampleInputEmail1"
+												placeholder="Enter SSH User ID" name="user"> <small
+												class="text-muted">We'll never share your email with
+												anyone else.</small>
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="exampleInputEmail1">Email</label> <input
+												type="email" class="form-control" id="exampleInputEmail1"
+												placeholder="Email id to be notified upon completion" name="emailId">
+											<small class="text-muted">We'll never share your
+												email with anyone else.</small>
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="exampleInputPassword1">PassPhrase :</label> <input
+												type="password" class="form-control"
+												id="exampleInputPassword1"
+												placeholder="Private Key PassPhrase" name="pass">
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="PrivateKeyFileInput">Private Key File</label> <input
+												type="file" class="form-control-file"
+												id="PrivateKeyFileInput" name="ppk"> <small class="text-muted">Select
+												the pre-configured private key file to be used for SSH
+												authentication.</small>
+										</fieldset>
+										<div role="separator" class="divider"></div>
+										<h3 class="section-heading">Job Details:</h3>
+										<fieldset class="form-group">
+											<label for="JobSourceCode">Input File</label> <input
+												type="file" class="form-control-file"
+												id="PrivateKeyFileInput" name="file"> <small class="text-muted">Select
+												the source code file, compatible types ".c"</small>
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="exampleSelect1">Compilation required ?</label>
+											<div class="radio">
+												<label> <input type="radio" name="optionsRadios"
+													id="optionsRadios1" value="yes" name="isCompile" checked>yes</label>
+											</div>
+											<div class="radio">
+												<label> <input type="radio" name="optionsRadios"
+													id="optionsRadios2" name="isCompile" value="no">No</label>
+											</div>
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="jobName">Job Name</label> <input type="text"
+												class="form-control" id="jobName"
+												placeholder="Assign a name to job" name="jobName">
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="nodeCount">Node Count</label> <input type="text"
+												class="form-control" id="nodeCount"
+												placeholder="1,2,3 etc" name="nodes"> <small
+												class="text-muted">Enter the required number of computing nodes</small>
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="UserID">Processor per node</label> <input type="text"
+												class="form-control" id="UserID"
+												placeholder="1,2,3 or 4" name="ppn">					
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="wallTime">Wall Time</label> <input type="text"
+												class="form-control" id="wallTime"
+												placeholder="HH:MM:SS" name="walltime">					
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="nodeCount">Remote Workspace path</label> <input type="text"
+												class="form-control" id="nodeCount"
+												placeholder="/N/u/anujbhan/Karst/workspace" name="tpath"> <small
+												class="text-muted">We need a workspace directory on remote machine, Please provide a Absolute path for the same.</small>
+										</fieldset>
+										<button type="submit" class="btn btn-primary">Submit</button>
+										
+									</form>
 								</div>
+
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default"
 										data-dismiss="modal">Close</button>
 								</div>
+
 							</div>
 
 						</div>
