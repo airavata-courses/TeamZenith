@@ -30,7 +30,9 @@ public class UserSession {
 	UserSession(){
 		
 	}
-	/*For internal Use only*/
+	/*
+	 * For internal Use only
+	 */
 	
 	UserSession(Session session, String userName){
 		this.userName = userName;
@@ -44,11 +46,11 @@ public class UserSession {
 			SSHConnectionHandler.sessionStart(userSessionObject.session);
 			return userSessionObject;
 		} catch (IOException e) {
-			LOGGER.error("Auth Error: User Authentication Failed");
+			LOGGER.error("Auth Error: User Authentication Failed"+e.getMessage());
             return null;
 		}
 		catch(JSchException e){
-			LOGGER.error("Auth Error: User Authentication Failed");
+			LOGGER.error("Auth Error: User Authentication Failed"+e.getMessage());
             return null;
 		}
 		

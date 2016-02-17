@@ -1,11 +1,7 @@
 package org.airavata.teamzenith.drivers;
 
 import java.io.IOException;
-import java.util.Properties;
 
-//import org.airavata.teamzenith.config.SSHPropertyHandler;
-import org.airavata.teamzenith.exceptions.ExceptionHandler;
-import org.airavata.teamzenith.ssh.SSHConnectionHandler;
 import org.airavata.teamzenith.ssh.SshUtil;
 import org.airavata.teamzenith.utils.PbsConstants;
 import org.apache.log4j.LogManager;
@@ -15,25 +11,21 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
 public class FileManagementImpl implements FileManagement{
-	
+
 	private static final Logger LOGGER = LogManager.getLogger(FileManagementImpl.class);
 
 	@Override
 	public boolean putFile(Session session, String localFile, String remotePath) throws IOException, JSchException {
-		// TODO Auto-generated method stub
 		SshUtil ssh = new SshUtil();
 		try
 		{
-		//	SSHPropertyHandler sph;
-		//	sph = new SSHPropertyHandler();
 			/* Transfer related files to remote machine */
-			
+
 			if (localFile == null || remotePath == null){
-				LOGGER.error("FILE ERROR: file path given null in putFile");
+				LOGGER.error("FILE ERROR: File path is null");
 				return false;
 			}
-				
-				
+
 			if (ssh.ScpTo(session, localFile, remotePath) != true) {
 				LOGGER.error("Script file copy failed");
 			}
@@ -41,12 +33,12 @@ public class FileManagementImpl implements FileManagement{
 			return true;
 		}catch(IOException e){
 			LOGGER.error("FILE ERROR: File not found in putFile");
-			throw new IOException("FILE ERROR: File not found in putFile"+e.getMessage(),e);
+			throw new IOException("FILE ERROR: File not found in putFile",e);
 		}catch(JSchException e){
 			LOGGER.error("SSH ERROR: problem with SSH session object in putFile");
-			throw new JSchException("SSH ERROR: problem with SSH session object in putFile"+e.getMessage(),e);
+			throw new JSchException("SSH ERROR: problem with SSH session object in putFile",e);
 		}
-		
+
 	}
 
 	@Override
@@ -59,25 +51,25 @@ public class FileManagementImpl implements FileManagement{
 	public boolean compileFile(Session session, String language, String artifact,String path) throws IOException, JSchException {
 		SshUtil ssh = new SshUtil();
 		try {
-		//	SSHPropertyHandler sph;
-			Properties pr;
-		//	sph = new SSHPropertyHandler();
 			String destSource = new StringBuffer(path).append(artifact).toString();
-			String compileCommand = PbsConstants.compileCmd + " " + destSource + " -o " + destSource + ".out";
-			System.out.println("Compile command is " + compileCommand);
+			String compileCommand = new StringBuffer(PbsConstants.compileCmd).append(" ").append(destSource)
+				.append(" -o ").append(destSource).append(".out").toString();
+			
+			if(LOGGER.isInfoEnabled())
+				LOGGER.info("Compile command is " + compileCommand);
+			
 			String cmdOut=ssh.executeCommand(session, compileCommand);
+			
 			if (cmdOut.equals("")) {
-				System.out.println("Input file compilation failed");
-				return false;
+				return true;
 			}
-
-			return true;
-	        } catch(IOException e){
-	        	LOGGER.error("FILE ERROR: Source Code file not found");
-	        	throw new IOException("FILE ERROR: Source Code file not found",e);
-	        } catch(JSchException e){
-	        	LOGGER.error("SSH ERROR: problem with session object");
-	        	throw new IOException("SSH ERROR: problem with session object",e);
-	        }
+			return false;
+		} catch(IOException e){
+			LOGGER.error("FILE ERROR: Source Code file not found");
+			throw new IOException("FILE ERROR: Source Code file not found",e);
+		} catch(JSchException e){
+			LOGGER.error("SSH ERROR: problem with session object");
+			throw new IOException("SSH ERROR: problem with session object",e);
+		}
 	}
 }

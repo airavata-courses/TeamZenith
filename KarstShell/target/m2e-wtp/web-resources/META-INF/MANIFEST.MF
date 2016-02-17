@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
+Implementation-Vendor: Pivotal Software, Inc.
 Implementation-Title: gs-uploading-files
 Implementation-Version: 0.1.0
-Built-By: Anuj
 Implementation-Vendor-Id: org.springframework
-Build-Jdk: 1.8.0_73
+Build-Jdk: 1.7.0_91
+Built-By: atul
 Created-By: Maven Integration for Eclipse
-Implementation-Vendor: Pivotal Software, Inc.
-Main-Class: hello.Application
+Main-Class: org.airavata.teamzenith.init.Application
 

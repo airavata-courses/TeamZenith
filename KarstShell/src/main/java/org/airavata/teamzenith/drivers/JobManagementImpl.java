@@ -1,10 +1,7 @@
 package org.airavata.teamzenith.drivers;
 
 import java.io.IOException;
-import java.util.Properties;
 
-//import org.airavata.teamzenith.config.SSHPropertyHandler;
-import org.airavata.teamzenith.exceptions.ExceptionHandler;
 import org.airavata.teamzenith.ssh.SshUtil;
 import org.airavata.teamzenith.utils.PbsConstants;
 import org.apache.log4j.LogManager;
@@ -14,7 +11,7 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
 public class JobManagementImpl implements JobManagement {
-	
+
 	private static final Logger LOGGER = LogManager.getLogger(JobManagement.class);
 
 	@Override
@@ -26,7 +23,7 @@ public class JobManagementImpl implements JobManagement {
 			System.out.println("Command is " + qsubCommand);
 			String cmdResult=ssh.executeCommand(session, qsubCommand);
 			if (cmdResult.equals("")) {
-				System.out.println("Job Scheduling Failed");
+				LOGGER.error("Job Scheduling Failed");
 				return cmdResult;
 			}
 
@@ -45,16 +42,20 @@ public class JobManagementImpl implements JobManagement {
 	@Override
 	public String getJobStatus(Session session, String jobNumber) throws IOException, JSchException {
 		SshUtil ssh = new SshUtil();
-		String Command = "qstat -f "+jobNumber+" |grep job_state";
+		String Command = new StringBuffer("qstat -f ").append(jobNumber).append(" |grep job_state").toString();
 		String op=ssh.executeCommand(session, Command);
 		String opTokens[]=op.split("= ");
-		String status=PbsConstants.statusMap.get(opTokens[1]);
-		return status;
+		if(opTokens.length > 1){
+			String status=PbsConstants.statusMap.get(opTokens[1].trim());
+			return status;
+		}
+		return "";
+		
 	}
 	@Override
 	public String getCancelJob(Session session, String jobNumber) throws IOException, JSchException {
 		SshUtil ssh = new SshUtil();
-		String Command = "qdel "+jobNumber;
+		String Command = new StringBuffer("qdel ").append(jobNumber).toString();
 		ssh.executeCommand(session, Command);
 		return null;
 

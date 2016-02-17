@@ -5,35 +5,23 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Properties;
 
-//import org.airavata.teamzenith.config.PbsConfig;
-//import org.airavata.teamzenith.config.SSHPropertyHandler;
-import org.airavata.teamzenith.exceptions.ExceptionHandler;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelExec;
-import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
-/**
- * @author Anuj
- * All the SSH related functions are encapsulated in this class
- */
 public class SshUtil {
 	private static final Logger LOGGER = LogManager.getLogger(SshUtil.class);
 
 	public boolean ScpTo(Session session, String source, String dest) throws JSchException, IOException {
 
-
-
 		FileInputStream fis=null;
 		boolean ptimestamp = true;
 		try{
-			// exec 'scp -t rfile' remotely
 			String command="scp " + (ptimestamp ? "-p" :"") +" -t "+dest;
 			Channel channel=session.openChannel("exec");
 			((ChannelExec)channel).setCommand(command);

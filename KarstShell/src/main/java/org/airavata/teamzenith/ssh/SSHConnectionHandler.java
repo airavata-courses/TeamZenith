@@ -1,12 +1,8 @@
 package org.airavata.teamzenith.ssh;
 
 import java.io.IOException;
-import java.util.Properties;
 
-//import org.airavata.teamzenith.config.PbsConfig;
-//import org.airavata.teamzenith.config.SSHPropertyHandler;
 import org.airavata.teamzenith.dao.UserDetails;
-import org.airavata.teamzenith.exceptions.ExceptionHandler;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -16,29 +12,31 @@ import com.jcraft.jsch.Session;
 
 
 public class SSHConnectionHandler {
-	
+
 	private static final Logger LOGGER = LogManager.getLogger(SSHConnectionHandler.class);
-	
+
 	public static Session createSession(UserDetails ud) throws IOException, JSchException {
 		try{
 			JSch jsch=new JSch();
-			
+
 			String privateKeyFile= ud.getKeyPath();
+			
 			if(ud.getPassphrase().isEmpty())
 				jsch.addIdentity(privateKeyFile);
 			else
 				jsch.addIdentity(privateKeyFile, ud.getPassphrase());
-            
+
 			Session session = jsch.getSession(ud.getUserName(), SSHConstants.hostName, SSHConstants.port);
-			LOGGER.error("Username is"+ud.getUserName()+"and "+SSHConstants.hostName);
-			//System.out.println("session created.");
+			if(LOGGER.isInfoEnabled()){
+				LOGGER.info("Username is "+ud.getUserName()+" and "+SSHConstants.hostName);
+			}
 			session.setConfig("StrictHostKeyChecking", "no");
 			return session;
 		}
 		catch(JSchException e){
 			LOGGER.error("SSH ERROR: Unable to create session");
 			throw new JSchException("SSH ERROR: Unable to create session"+e.getMessage(), e);
-			
+
 		}
 	}
 
@@ -54,11 +52,12 @@ public class SSHConnectionHandler {
 
 
 	public static void sessionStop(Session session) {
-		
-			session.disconnect();
+
+		session.disconnect();
+		if(LOGGER.isInfoEnabled())
 			LOGGER.info("Session disconnected !!!");
-		
+
 	}
-	
+
 
 }

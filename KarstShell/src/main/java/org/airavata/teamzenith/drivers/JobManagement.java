@@ -2,8 +2,6 @@ package org.airavata.teamzenith.drivers;
 
 import java.io.IOException;
 
-import org.airavata.teamzenith.exceptions.ExceptionHandler;
-
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
