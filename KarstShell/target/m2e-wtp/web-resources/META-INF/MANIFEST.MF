@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Implementation-Title: gs-uploading-files
+Implementation-Title: KarstShell-REST-Api
 Implementation-Version: 0.1.0
 Built-By: Anuj
 Implementation-Vendor-Id: org.springframework

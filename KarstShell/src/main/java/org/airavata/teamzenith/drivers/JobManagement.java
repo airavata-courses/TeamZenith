@@ -1,6 +1,7 @@
 package org.airavata.teamzenith.drivers;
 
 import java.io.IOException;
+import java.util.Properties;
 
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
