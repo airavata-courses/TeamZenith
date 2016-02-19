@@ -37,7 +37,7 @@
 </head>
 <body>
 	<!-- Navigation -->
-	<nav class="navbar navbar-default navbar-fixed-top topnav"
+	<nav class="navbar navbar-inverse navbar-fixed-top"
 		role="navigation">
 	<div class="container topnav">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -48,7 +48,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand topnav" href="#">Science Gateway</a>
+			<a class="navbar-brand" href="#">Science Gateway</a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse"
@@ -125,12 +125,12 @@
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h4 class="modal-title">Job Creation</h4>
+									<h3 class="modal-title">Job Creation</h3>
 								</div>
 								<div class="modal-body">
 									<form method="POST" enctype="multipart/form-data"
 										action="http://localhost:8080/KarstShell/upload">
-										<h3 class="section-heading">User Details:</h3>
+										<h4 class="section-heading">User Details:</h4>
 										<fieldset class="form-group">
 											<label for="UserID">User Name</label> <input type="username"
 												class="form-control" id="exampleInputEmail1"
@@ -158,8 +158,9 @@
 												the pre-configured private key file to be used for SSH
 												authentication.</small>
 										</fieldset>
-										<div role="separator" class="divider"></div>
-										<h3 class="section-heading">Job Details:</h3>
+										<a role="separator" class="divider"></a>
+										<hr>
+										<h4 class="section-heading">Job Details:</h4>
 										<fieldset class="form-group">
 											<label for="JobSourceCode">Input File</label> <input
 												type="file" class="form-control-file"
@@ -341,10 +342,10 @@
 	</footer>
 
 	<!-- jQuery -->
-	<script src="js/jquery.js"></script>
+	<script src="bootStrap/js/jquery.js"></script>
 
 	<!-- Bootstrap Core JavaScript -->
-	<script src="js/bootstrap.min.js"></script>
+	<script src="bootStrap/js/bootstrap.min.js"></script>
 
 </body>
 </html>
