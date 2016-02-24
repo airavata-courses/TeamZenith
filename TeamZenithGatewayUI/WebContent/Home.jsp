@@ -263,32 +263,31 @@
 						</div>
 
 					</div>
-					<!-- Job submission response modal -->
-					<div class="modal fade" id="responseModal" role="dialog">
-						<div class="modal-dialog">
-
-							<!-- Modal content-->
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h4 class="modal-title">Job submission response</h4>
-								</div>
-								<div class="modal-body">
-									<p id="jobSubmitResponse"></p>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal">Close</button>
-								</div>
-							</div>
-
-						</div>
-					</div>
 				</div>
-			</div>
-			<div class="col-lg-5 col-lg-offset-2 col-sm-6">
+				<div class="col-lg-5 col-lg-offset-2 col-sm-6">
 				<img class="img-responsive" src="bootStrap/img/ipad.png" alt="">
 			</div>
+			</div>
+			<!-- Job submission response modal -->
+			<div class="modal fade" id="responseModal" role="dialog">
+				<div class="modal-dialog">
+
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Job submission response</h4>
+						</div>
+						<div class="modal-body" id="alert_placeholder"></div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Close</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			
 		</div>
 		<!-- /.container -->
 
@@ -328,8 +327,9 @@
 									<h4 class="modal-title">Job submission response</h4>
 								</div>
 								<div class="modal-body">
-									<form action="javascript:;" enctype="multipart/form-data" method="post" accept-charset="utf-8"
-										id="jobMonitorForm" name="job" >
+									<form action="javascript:;" enctype="multipart/form-data"
+										method="post" accept-charset="utf-8" id="jobMonitorForm"
+										name="job">
 										<h4 class="section-heading">User Details:</h4>
 										<fieldset class="form-group">
 											<label for="UserID">User Name</label> <input type="username"
@@ -338,8 +338,7 @@
 										</fieldset>
 										<fieldset class="form-group">
 											<label for="passPhrase">PassPhrase :</label> <input
-												type="password" class="form-control"
-												id="mpass"
+												type="password" class="form-control" id="mpass"
 												placeholder="Private Key PassPhrase" name="passPhrase">
 										</fieldset>
 										<fieldset class="form-group">
@@ -353,25 +352,26 @@
 										<hr>
 										<h4 class="section-heading">Job Details:</h4>
 										<fieldset class="form-group">
-											<label for="jobID">Job ID :</label> <input
-												type="password" class="form-control"
-												id="jobID"
+											<label for="jobID">Job ID :</label> <input type="password"
+												class="form-control" id="jobID"
 												placeholder="Enter the job ID Ex: 1242254" name="jobNumber">
 										</fieldset>
+
 										<button type="submit" class="btn btn-primary"
 											id="jobMonitorButton">Submit</button>
 
 									</form>
-									
+
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default"
-										data-dismiss="modal">Close</button>
+										data-dismiss="modal" id="jobMonitorFormCloseButton">Close</button>
 								</div>
 							</div>
 
 						</div>
 					</div>
+
 				</div>
 				<div class="col-lg-5 col-sm-pull-6  col-sm-6">
 					<img class="img-responsive" src="bootStrap/img/dog.png" alt="">

@@ -14,9 +14,13 @@ $(document).ready(function () {
         //console.log(formData);
         //alert(formData);
         //var formData = $(this).serialize();
-        var xhr = new XMLHttpRequest;
-        xhr.open('POST', '/', true);
-        xhr.send(formData);
+       // var xhr = new XMLHttpRequest;
+       // xhr.open('POST', '/', true);
+       // xhr.send(formData);
+        
+        var options = {
+        	    "show" : "false"
+        	}
 
         $.ajax({
             url: "http://localhost:8080/gs-uploading-files-0.1.0/monitor",
@@ -26,14 +30,22 @@ $(document).ready(function () {
             cache: false,
             contentType: false,
             processData: false,
-            success: function () {
-                alert('Form Submitted!');
+            success: function (data) {
+            	bootstrap_alert.warning(JSON.parse(data));
             },
-            error: function(){
-                alert("error in ajax form submission");
+            error: function(data){
+            	
+            //$('jobMonitorFormButton').modal('hide');
+           // $('#jobMonitorFormButton').click();		
+            $('#responseModal').modal('show');
+            	
+            	//bootstrap_alert.warning('oops something went wrong !!!');
             }
         });
 
         return false;
     });
+    bootstrap_alert.warning = function(message) {
+        $('#alert_placeholder').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>')
+    }
 });
