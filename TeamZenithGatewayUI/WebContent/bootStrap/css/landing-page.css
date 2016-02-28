@@ -167,6 +167,15 @@ h6 {
     }
 }
 
+.hideOverflow
+{
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    display: block;
+   
+}
 footer {
     padding: 50px 0;
     background-color: #f8f8f8;

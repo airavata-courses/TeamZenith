@@ -126,25 +126,25 @@
 									<h3 class="modal-title">Job Creation</h3>
 								</div>
 								<div class="modal-body">
-									<form method="POST" enctype="multipart/form-data"
-										id="jobSubmitForm">
+									<form action="javascript:;" enctype="multipart/form-data"
+										method="post" accept-charset="utf-8" id="jobSubmitForm"
+										name="jobSubmit">
 										<h4 class="section-heading">User Details:</h4>
 										<fieldset class="form-group">
 											<label for="UserID">User Name</label> <input type="username"
-												class="form-control" id="exampleInputEmail1"
+												class="form-control" id="userName"
 												placeholder="Enter SSH User ID" name="user">
 										</fieldset>
 										<fieldset class="form-group">
 											<label for="exampleInputEmail1">Email</label> <input
-												type="email" class="form-control" id="exampleInputEmail1"
+												type="email" class="form-control" id="InputEmail"
 												placeholder="Email id to be notified upon completion"
 												name="emailId"> <small class="text-muted">We'll
 												never share your email with anyone else.</small>
 										</fieldset>
 										<fieldset class="form-group">
 											<label for="exampleInputPassword1">PassPhrase :</label> <input
-												type="password" class="form-control"
-												id="exampleInputPassword1"
+												type="password" class="form-control" id="passPhrase"
 												placeholder="Private Key PassPhrase" name="pass">
 										</fieldset>
 										<fieldset class="form-group">
@@ -159,10 +159,9 @@
 										<h4 class="section-heading">Job Details:</h4>
 										<fieldset class="form-group">
 											<label for="JobSourceCode">Input File</label> <input
-												type="file" class="form-control-file"
-												id="PrivateKeyFileInput" name="file"> <small
-												class="text-muted">Select the source code file,
-												compatible types ".c"</small>
+												type="file" class="form-control-file" id="FileInput"
+												name="file"> <small class="text-muted">Select
+												the source code file, compatible types ".c"</small>
 										</fieldset>
 										<fieldset class="form-group">
 											<label for="exampleSelect1">Compilation required ?</label>
@@ -190,7 +189,7 @@
 										</fieldset>
 										<fieldset class="form-group">
 											<label for="UserID">Processor per node</label> <input
-												type="text" class="form-control" id="UserID"
+												type="text" class="form-control" id="ppn"
 												placeholder="1,2,3 or 4" name="ppn">
 										</fieldset>
 										<fieldset class="form-group">
@@ -200,7 +199,7 @@
 										</fieldset>
 										<fieldset class="form-group">
 											<label for="nodeCount">Remote Workspace path</label> <input
-												type="text" class="form-control" id="nodeCount"
+												type="text" class="form-control" id="targetPath"
 												placeholder="/N/u/anujbhan/Karst/workspace" name="tpath">
 											<small class="text-muted">We need a workspace
 												directory on remote machine, Please provide a Absolute path
@@ -208,48 +207,9 @@
 										</fieldset>
 										<button type="submit" class="btn btn-primary"
 											id="jobSubmitButton">Submit</button>
-
 									</form>
-									<script type="text/javascript">
-										$("#jobSubmitForm")
-												.submit(
-														function(e) {
-
-															var url = "http://localhost:8080/gs-uploading-files-0.1.0/upload"; // the script where you handle the form input.
-
-															$
-																	.ajax({
-																		cache : false,
-																		contentType : 'multipart/form-data',
-																		processData : false,
-																		type : "POST",
-																		url : url,
-																		data : $(
-																				"#jobSubmitForm")
-																				.serialize(), // serializes the form's elements.
-																		success : function(
-																				data) {
-																			alert(data); // show response from the php script.
-																			$(
-																					'#myModal')
-																					.moadal(
-																							'hide');
-																			$(
-																					'#responseModal')
-																					.modal(
-																							'show');
-																			$(
-																					'#jobSubmitResponse')
-																					.text(
-																							data);
-
-																		}
-																	});
-
-															e.preventDefault(); // avoid to execute the actual submit of the form.
-															//return false;
-														});
-									</script>
+									<a role="separator" class="divider"></a> 
+									<div style = "word-wrap: break-word;" id = "result"></div>
 								</div>
 
 								<div class="modal-footer">
@@ -265,8 +225,8 @@
 					</div>
 				</div>
 				<div class="col-lg-5 col-lg-offset-2 col-sm-6">
-				<img class="img-responsive" src="bootStrap/img/ipad.png" alt="">
-			</div>
+					<img class="img-responsive" src="bootStrap/img/ipad.png" alt="">
+				</div>
 			</div>
 			<!-- Job submission response modal -->
 			<div class="modal fade" id="responseModal" role="dialog">
@@ -287,7 +247,7 @@
 
 				</div>
 			</div>
-			
+
 		</div>
 		<!-- /.container -->
 
