@@ -1,0 +1,4 @@
+  module swap PrgEnv-cray PrgEnv-gnu
+  module load fftw
+  module load cudatoolkit 
+  module load lammps/gnu/gpu/15May15
