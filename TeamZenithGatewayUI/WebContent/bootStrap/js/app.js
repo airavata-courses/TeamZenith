@@ -99,6 +99,7 @@ $(document).ready(function () {
 		return false;
 	});
 	
+	
 	bootstrap_alert.warning = function(message) {
 		$('#result').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>')
 	}	

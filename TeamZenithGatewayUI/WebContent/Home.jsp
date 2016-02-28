@@ -208,7 +208,8 @@
 										<button type="submit" class="btn btn-primary"
 											id="jobSubmitButton">Submit</button>
 									</form>
-									<a role="separator" class="divider"></a> 
+									<a role="separator" class="divider"></a>
+									<!-- response div --> 
 									<div style = "word-wrap: break-word;" id = "result"></div>
 								</div>
 
