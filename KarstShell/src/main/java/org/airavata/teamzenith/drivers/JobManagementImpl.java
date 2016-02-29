@@ -47,7 +47,7 @@ public class JobManagementImpl implements JobManagement {
 	public String getJobStatus(Session session, String jobNumber) throws IOException, JSchException {
 		SshUtil ssh = new SshUtil();
 //		String Command = new StringBuffer("qstat -f ").append(jobNumber).append(" |grep job_state").toString();
-		String Command = new StringBuffer("qstat -f ").append(jobNumber).append(" |grep \'Job_Name\\|job_state\\|Resource_List.nodect\\|Resource_List.walltime\\|euser\'").toString();
+		String Command = new StringBuffer("qstat -f ").append(jobNumber).append(" |grep \'Job_Name\\|job_state\\|Resource_List.nodect\\|Job_Owner\\|Resource_List.walltime\\|euser\'").toString();
 		String op=ssh.executeCommand(session, Command);
 		System.out.println(op);
 		Properties prop = new Properties();

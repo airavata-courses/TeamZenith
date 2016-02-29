@@ -1,9 +1,13 @@
 package org.airavata.teamzenith.init;
 
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.Properties;
 
 import org.airavata.teamzenith.dao.JobDetails;
 import org.airavata.teamzenith.dao.UserDetails;
@@ -98,12 +102,14 @@ public class RestApiController {
 		return "A Karst job can be monitored by POSTing to this URL";
 	}
 
-	@RequestMapping(value="/monitor", method=RequestMethod.POST)
-	public @ResponseBody String MonitorJobEndPoint(@RequestParam("username") String name,
+	@RequestMapping(value="/monitor", method=RequestMethod.POST, produces = "application/json")
+	public @ResponseBody DataPost MonitorJobEndPoint(@RequestParam("username") String name,
 			@RequestParam(name = "passPhrase", defaultValue = "null") String passPhrase, 
-			@RequestParam("jobNumber") String jobNumber, @RequestParam("ppkFile") MultipartFile file){
-
+			@RequestParam("size") String jobNumber, @RequestParam("file") MultipartFile file){
+//		Properties prop = new Properties();
+		String value = null;
 		UserDetails userObject = new UserDetails();
+		DataPost dp = new DataPost();
 		if (!file.isEmpty()) {
 			try {
 				/*
@@ -121,21 +127,29 @@ public class RestApiController {
 				MonitorJob job = new MonitorJob();
 				String jStatus=job.getJobStatus(userObject, jobNumber);
 				if(!jStatus.equals("")){
-					return new StringBuffer("Status of job ID ").append(jobNumber).append(": ").
-							append(jStatus).toString()	;
+					
+					dp.setBean(jStatus);
+					//InputStream stream = new ByteArrayInputStream(jStatus.getBytes(StandardCharsets.UTF_8));
+//					pr//op.load(stream);
+//					System.out.println(prop.getProperty("Resource_List.nodect"));
+					return dp	;
 
 				}
 				else{
-					return "Job Monitoring failed";
+//					return "Job Monitoring failed";
+					return dp;
 				}
 				
 			} catch (IOException e) {
-				return "Could not get the status for job:" + jobNumber + " ERROR => " + e.getMessage();
+//				return "Could not get the status for job:" + jobNumber + " ERROR => " + e.getMessage();
+				return dp;
 			} catch (JSchException e){
-				return "Could not get the status for job:" + jobNumber + " ERROR => " + e.getMessage();
+//				return "Could not get the status for job:" + jobNumber + " ERROR => " + e.getMessage();
+				return dp;
 			}
 		} else {
-			return "Private Key file for user:  " + name + " is empty";
+//			return "Private Key file for user:  " + name + " is empty";
+			return dp;
 		}
 	}
 	

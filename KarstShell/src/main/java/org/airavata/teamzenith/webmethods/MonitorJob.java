@@ -19,6 +19,7 @@ public class MonitorJob {
 		UserSession getSession = UserSession.login(user);
         JobManagementImpl job = new JobManagementImpl();
         try{
+        	System.out.println(jobNumber);
         	String status=job.getJobStatus(getSession.getUserSession(), jobNumber);
     		return status;
 
