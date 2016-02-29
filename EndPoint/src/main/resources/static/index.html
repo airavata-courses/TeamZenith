@@ -35,7 +35,7 @@
    
     <!-- FORM -->
     <!-- pass in the variable if our form is valid or invalid -->
-    <form name="userForm"  ng-submit="saveUser()" novalidate> <!-- novalidate prevents HTML5 validation since we will be validating ourselves -->
+    <form name="userForm"  ng-submit="uploadFile()" novalidate> <!-- novalidate prevents HTML5 validation since we will be validating ourselves -->
 
         <!-- NAME -->
         <div class="form-group">
@@ -64,7 +64,15 @@
             <label>No of Hours</label>
             <input type="number" name="size" class="form-control" ng-model="size" ng->
         </div>
-     
+        
+        <!-- FILE UPLOAD -->
+        <div class="form-group">
+        <label>Upload private key</label>
+          <input type="file" file-model="myFile"><br /> 
+        
+<!--          <input type="file" name="file" file-model="myFile" onchange="angular.element(this).scope().uploadedFile(this)" 	 />-->
+		</div>
+		
         <!-- SUBMIT BUTTON -->
         <div class="form-group">
         <button type="submit" class="btn btn-primary" ng-disabled = "userForm.$invalid">Submit</button>

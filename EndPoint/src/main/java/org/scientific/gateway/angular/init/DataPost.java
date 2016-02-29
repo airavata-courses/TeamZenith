@@ -1,13 +1,13 @@
 package org.scientific.gateway.angular.init;
 import java.io.Serializable;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.springframework.web.multipart.MultipartFile;
 public class DataPost implements Serializable {
 	
-	 private String username;
+		private String username;
 	    private String name;
 	    private String email;
-	     
+	    private MultipartFile file;
 	    
 	    public String getName() {
 	        return name;
@@ -26,6 +26,13 @@ public class DataPost implements Serializable {
 		}
 		public void setUsername(String username) {
 			this.username = username;
+		}
+		public MultipartFile getFile() {
+			return file;
+		}
+		public void setFile(MultipartFile file) {
+			this.file = file;
+			System.out.println(file);
 		}
 
 }

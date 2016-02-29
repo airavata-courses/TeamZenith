@@ -36,16 +36,38 @@ public class RestApiController {
 		return "A Karst job can be submitted by POSTing to this URL.";
 	}
 
-	@RequestMapping(value="/upload", method=RequestMethod.POST, consumes = "application/json",produces= "application/json")
-	public @ResponseBody DataPost handleFileUpload( @RequestBody DataPost datapost){
-		
-		System.out.println(datapost.getUsername());
-		datapost.setUsername(datapost.getUsername()+"Controller");
-		System.out.println("hello");
-		return datapost;
-	}
-
-	
+//	@RequestMapping(value="/upload", method=RequestMethod.POST,produces= "application/json")
+//	public @ResponseBody String handleFileUpload( @RequestParam("file") MultipartFile file, @RequestParam("username") String userName,
+//			@RequestParam("email") String email, @RequestParam("name") String name,
+//			@RequestParam("temp") String temp){
+//		
+//		System.out.println(email);
+////		datapost.setUsername(datapost.getUsername()+"Controller");
+//		System.out.println("hello");
+//		return email+"asdlasd";
+//		
+//	}
+	@RequestMapping(value="/upload", method=RequestMethod.POST,produces= "application/json")
+	 public String handleFileUpload(@RequestParam("name") String name,@RequestParam("username") String username,@RequestParam("size") String size,
+	            @RequestParam("file") MultipartFile file){
+		System.out.println(username);
+	        if (!file.isEmpty()) {
+	            try {
+	                byte[] bytes = file.getBytes();
+	                BufferedOutputStream stream =
+	                        new BufferedOutputStream(new FileOutputStream(new File(name)));
+	                System.out.println(stream);
+	                System.out.println(bytes);
+	                stream.write(bytes);
+	                stream.close();
+	                return "You successfully uploaded " + name + "!";
+	            } catch (Exception e) {
+	                return "You failed to upload " + name + " => " + e.getMessage();
+	            }
+	        } else {
+	            return "You failed to upload " + name + " because the file was empty.";
+	        }
+	    }	
 	}
 
 //public @ResponseBody String handleFileUpload(			@RequestParam(value = "username", required =false) String jobName, @RequestParam(value ="size",required = false) String nodes,
