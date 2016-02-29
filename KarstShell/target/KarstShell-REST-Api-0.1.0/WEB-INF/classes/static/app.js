@@ -70,6 +70,37 @@ helloApp.controller('HttpController', ['$scope', '$http', function($scope, $http
         .error(function(){
         });
     }
+    
+    
+    $scope.cancelJob = function(){
+        var file = $scope.myFile;
+//        var storedata = this;
+        
+        $scope.datapost = [];
+        var fd = new FormData();
+        fd.append('file', file);
+//We can send anything in name parameter, 
+//it is hard coded to abc as it is irrelavant in this case.
+        var uploadUrl = "/cancel?username="+$scope.namec+'&passphrase='+$scope.passphrasec+'&jobnumber='+$scope.jobnum;
+        console.log(uploadUrl);
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
+        .success(function(response){
+        	console.log(response)
+        	$scope.datapost = response;
+        	$scope.CancelMessage = true;
+        	$scope.userFormc.$invalid = false;	
+//        	$scope.datapost = response
+        })
+        .error(function(){
+        });
+    }
+    
+    
+    
+    
 
 }]);
 

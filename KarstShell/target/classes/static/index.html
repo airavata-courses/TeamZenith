@@ -13,9 +13,8 @@
 </head>
 <body ng-app = "SG" ng-controller="HttpController" >
 
-<div class="intro-message">
-<h1>First Page</h1>
-<h3></h3>
+<div class="jumbotron">
+<h1>Team Zenith</h1></div>
 <div>
 <section>
 <ul class = "nav nav-pills">
@@ -25,8 +24,8 @@
 </ul>
 </section>
 </div>
-<div class = "panel" ng-show="tab ===1">
-
+<div class = "panel" ng-show="tab ===2">
+<h3>Monitor Job Form</h3>
 <div class="container">
 <div class="col-sm-8 col-sm-offset-2">
     
@@ -106,13 +105,62 @@
 </div><!-- /container -->
 
 
-<div class = "panel" ng-show="tab ===2">
-<h3>Monitor Job Form</h3>
+<div class = "panel" ng-show="tab ===1">
+<h3>Submit Job Form</h3>
 
 </div>
 <div class = "panel" ng-show="tab ===3">
 <h3>Cancel Job Form</h3>
+<div class="container">
+<div class="col-sm-8 col-sm-offset-2">
+    
+    <!-- PAGE HEADER -->
+    <div class="page-header"><h1>User configuration parameters</h1></div>
 
+
+ <form name="userFormc"  ng-submit="cancelJob()" novalidate> <!-- novalidate prevents HTML5 validation since we will be validating ourselves -->
+	<div ng-show="CancelMessage" class="alert alert-success">
+  <strong>Success!</strong> {{datapost.message}}
+</div>
+        <!-- NAME -->
+        <div class="form-group">
+            <label>Enter the Username :</label>
+            <input type="text" name="name" class="form-control" ng-model="namec" >
+            <p ng-show="userFormc.name.$invalid" class="help-block">You name is required.</p>
+            
+        </div>
+
+        <!-- USERNAME -->
+        <div class="form-group">
+            <label>Enter the passphrase(if any)</label>
+            <input type="text" name="passphrase" class="form-control" ng-model="passphrasec">
+			<p ng-show="userFormc.name.$invalid" class="help-block">You name is required.</p>
+        </div>
+        
+            <!-- JOB NO -->
+        <div class="form-group">
+            <label>Enter the job number</label>
+            <input type="number" name="size" class="form-control" ng-model="jobnum" >
+        </div>
+        
+        <!-- FILE UPLOAD -->
+        <div class="form-group">
+        <label>Upload private key</label>
+          <input type="file" file-model="myFile"><br /> 
+        
+<!--          <input type="file" name="file" file-model="myFile" onchange="angular.element(this).scope().uploadedFile(this)" 	 />-->
+		</div>
+		
+        <!-- SUBMIT BUTTON -->
+        <div class="form-group">
+        <button type="submit" class="btn btn-primary" ng-disabled = "userFormc.$invalid">Submit</button>
+        </div>
+    </form>
+	
+
+</div>
+
+</div>
 </div>
 </body>
 </html>

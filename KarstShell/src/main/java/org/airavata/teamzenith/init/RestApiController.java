@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jcraft.jsch.JSchException;
+
+import scala.annotation.meta.setter;
 /*
  * This is the main controller class which provides the following three REST APIs
  * upload- Accepts user and job details in order to submit a job on Karst
@@ -159,12 +161,12 @@ public class RestApiController {
 	}
 
 	@RequestMapping(value="/cancel", method=RequestMethod.POST)
-	public @ResponseBody String CancelJobEndPoint(@RequestParam("username") String name,
+	public @ResponseBody DataPost CancelJobEndPoint(@RequestParam("username") String name,
 			@RequestParam(name = "passPhrase", defaultValue = "null") String passPhrase, 
-			@RequestParam("jobNumber") String jobNumber, @RequestParam("ppkFile") MultipartFile file){
+			@RequestParam("jobnumber") String jobNumber, @RequestParam("file") MultipartFile file){
 		UserDetails userObject = new UserDetails();
 		CancelJob job = new CancelJob();
-
+		DataPost dpc = new DataPost();
 		if (!file.isEmpty()) {
 			try {
 				/*
@@ -181,15 +183,23 @@ public class RestApiController {
 				userObject.setPassphrase(passPhrase);
 
 				job.getCancelJob(userObject, jobNumber);
-				return "Job:" + jobNumber + " Cancelled successfully";
+				dpc.setMessage("Job:" + jobNumber + " Cancelled successfully");
+				return dpc;
 
 			} catch (IOException e) {
-				return "Could not cancel the job:" + jobNumber + " ERROR => " + e.getMessage();
+				
+				dpc.setMessage("Could not cancel the job:" + jobNumber + " ERROR => " + e.getMessage());
+				return dpc;
+//				return "Could not cancel the job:" + jobNumber + " ERROR => " + e.getMessage();
 			} catch (JSchException e){
-				return "Could not cancel the job:" + jobNumber + " ERROR => " + e.getMessage();
+//				return "Could not cancel the job:" + jobNumber + " ERROR => " + e.getMessage();
+				dpc.setMessage("Could not cancel the job:" + jobNumber + " ERROR => " + e.getMessage());
+				return dpc;
 			}
 		} else {
-			return "Private Key file for user:  " + name + " is empty";
+			dpc.setMessage("Private Key file for user:  " + name + " is empty");
+			return dpc;
+//			return "Private Key file for user:  " + name + " is empty";
 		}
 	}
 
