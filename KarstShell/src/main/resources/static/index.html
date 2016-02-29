@@ -13,7 +13,7 @@
 </head>
 <body ng-app = "SG" ng-controller="HttpController" >
 
-<div class="jumbotron">
+<div class="jumbotron" style="padding: 1px;text-align: center;">
 <h1>Team Zenith</h1></div>
 <div>
 <section>
@@ -25,12 +25,11 @@
 </section>
 </div>
 <div class = "panel" ng-show="tab ===2">
-<h3>Monitor Job Form</h3>
 <div class="container">
 <div class="col-sm-8 col-sm-offset-2">
     
     <!-- PAGE HEADER -->
-    <div class="page-header"><h1>User configuration parameters</h1></div>
+    <div class="page-header"><h1>Monitor Job Form</h1></div>
    
     <!-- FORM -->
     <!-- pass in the variable if our form is valid or invalid -->
@@ -110,12 +109,11 @@
 
 </div>
 <div class = "panel" ng-show="tab ===3">
-<h3>Cancel Job Form</h3>
 <div class="container">
 <div class="col-sm-8 col-sm-offset-2">
     
     <!-- PAGE HEADER -->
-    <div class="page-header"><h1>User configuration parameters</h1></div>
+    <div class="page-header"><h1>Cancel Job Form</h1></div>
 
 
  <form name="userFormc"  ng-submit="cancelJob()" novalidate> <!-- novalidate prevents HTML5 validation since we will be validating ourselves -->
