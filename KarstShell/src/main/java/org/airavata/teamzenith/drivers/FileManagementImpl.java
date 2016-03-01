@@ -42,9 +42,31 @@ public class FileManagementImpl implements FileManagement{
 	}
 
 	@Override
-	public boolean getFile(String localPath, String remoteFile) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean getFile(Session session, String localPath, String remoteFile) throws IOException, JSchException {
+		SshUtil ssh = new SshUtil();
+		try
+		{
+			/* Transfer related files to remote machine */
+
+			if (localPath == null || remoteFile == null){
+				LOGGER.error("FILE ERROR: File path is null");
+				return false;
+			}
+
+			if (ssh.ScpFrom(session, remoteFile,localPath) != true) {
+				LOGGER.error("Script file copy failed");
+			}
+			LOGGER.error("File download successful");
+
+			return true;
+		}catch(IOException e){
+			LOGGER.error("FILE ERROR: File not found in putFile");
+			e.printStackTrace();
+			throw new IOException("FILE ERROR: File not found in putFile",e);
+		}catch(JSchException e){
+			LOGGER.error("SSH ERROR: problem with SSH session object in putFile");
+			throw new JSchException("SSH ERROR: problem with SSH session object in putFile",e);
+		}		
 	}
 
 	@Override

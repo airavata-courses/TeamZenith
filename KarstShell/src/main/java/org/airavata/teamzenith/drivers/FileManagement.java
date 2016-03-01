@@ -8,5 +8,5 @@ import com.jcraft.jsch.Session;
 public interface FileManagement {
 	public boolean compileFile(Session session, String language, String artifact, String path) throws IOException, JSchException;
 	public boolean putFile(Session session, String localFile, String remotePath) throws IOException, JSchException;
-	public boolean getFile(String localPath, String remoteFile);
+	public boolean getFile(Session session, String localPath, String remoteFile) throws IOException, JSchException;
 }

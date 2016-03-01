@@ -3,6 +3,7 @@ package org.airavata.teamzenith.init;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,8 +13,12 @@ import java.util.Properties;
 import org.airavata.teamzenith.dao.JobDetails;
 import org.airavata.teamzenith.dao.UserDetails;
 import org.airavata.teamzenith.webmethods.CancelJob;
+import org.airavata.teamzenith.webmethods.FetchFile;
 import org.airavata.teamzenith.webmethods.MonitorJob;
 import org.airavata.teamzenith.webmethods.SubmitJob;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -202,6 +207,59 @@ public class RestApiController {
 //			return "Private Key file for user:  " + name + " is empty";
 		}
 	}
+	
+	@RequestMapping(value = "/download", method = RequestMethod.POST, produces = "application/zip")
+	public @ResponseBody ResponseEntity<InputStreamResource> downloadPDFFile(@RequestParam("username") String name,
+			@RequestParam(name = "passPhrase", defaultValue = "null") String passPhrase, 
+			@RequestParam("jobName") String jobName, @RequestParam("workPath") String workPath,
+			@RequestParam("ppkFile") MultipartFile file)
+	        throws IOException {
+
+		try {
+			UserDetails ud=new UserDetails();
+			JobDetails jd=new JobDetails();
+			FetchFile ff=new FetchFile();
+
+			ud.setUserName(name);
+			ud.setTargetPath(workPath);
+			ud.setPassphrase(passPhrase);
+			jd.setJobName(jobName);
+			/*
+			 * Write job file
+			 *
+			 * Write private key
+			 */
+			byte[] ppkBytes = file.getBytes();
+			BufferedOutputStream ppkStream = 
+					new BufferedOutputStream(new FileOutputStream(new File(file.getOriginalFilename())));
+			ppkStream.write(ppkBytes);
+			ppkStream.close();
+
+			ud.setKeyPath(file.getOriginalFilename());
+			String outputZip=ff.fetch(jd, ud);
+
+		File dwnldFile= 
+				new File(outputZip);
+	    return ResponseEntity
+	            .ok()
+	            .contentLength(dwnldFile.length())
+	            .contentType(
+	                    MediaType.parseMediaType("application/zip"))   //octet-stream
+	            .header("Content-disposition", "attachment; filename="+ outputZip)
+	            .body(new InputStreamResource(new FileInputStream(dwnldFile)));
+	}
+		catch(IOException e){
+			System.out.println("Failed during download");
+			e.printStackTrace();
+			return null;
+		}
+		catch(JSchException e){
+			System.out.println("Failed during jsch download");
+			return null;
+		}
+
+
+}
 
 
 }
