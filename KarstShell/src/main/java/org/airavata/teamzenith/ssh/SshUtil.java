@@ -138,8 +138,9 @@ public class SshUtil {
 
 			//FileOutputStream fos=new FileOutputStream("/tmp/stderr");
 			//((ChannelExec)channel).setErrStream(fos);
+			System.out.println("start");
 			((ChannelExec)channel).setErrStream(System.err);
-
+            System.out.println("end");
 			InputStream in=channel.getInputStream();
 
 			channel.connect();
@@ -163,6 +164,7 @@ public class SshUtil {
 			}
 			channel.disconnect();
 			LOGGER.info(command +": Executed successfully !!!");
+			LOGGER.info("command output: " + cmdOutput);
 			return cmdOutput;
 			//return true;
 		}
