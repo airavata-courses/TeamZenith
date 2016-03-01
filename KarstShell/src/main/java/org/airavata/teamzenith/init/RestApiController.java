@@ -39,12 +39,12 @@ public class RestApiController {
 	}
 
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public @ResponseBody String handleFileUpload(@RequestParam("tpath") String tPath,
-			@RequestParam("file") MultipartFile file, @RequestParam("user") String userName,
-			@RequestParam("jobName") String jobName, @RequestParam("nodes") String nodes,
-			@RequestParam("ppn") String ppn, @RequestParam("walltime") String wallTime, 
-			@RequestParam("isCompile") String isComp, @RequestParam("emailId") String emailId, 
-			@RequestParam("ppk") MultipartFile ppk, @RequestParam(name = "pass", defaultValue = "null") String pass){
+	public @ResponseBody String handleFileUpload(@RequestParam("path") String tPath,
+			@RequestParam("filejob") MultipartFile file, @RequestParam("username") String userName,
+			@RequestParam("jobname") String jobName, @RequestParam("noofnodes") String nodes,
+			@RequestParam("noofppn") String ppn, @RequestParam("walltime") String wallTime, 
+			@RequestParam("compreq") String isComp, @RequestParam("email") String emailId, 
+			@RequestParam("file") MultipartFile ppk, @RequestParam(name = "pass", defaultValue = "null") String pass){
 
 		if (!file.isEmpty()) {
 			try {
