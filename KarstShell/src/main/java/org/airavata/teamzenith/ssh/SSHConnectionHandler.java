@@ -19,19 +19,17 @@ public class SSHConnectionHandler {
 		try{
 			JSch jsch=new JSch();
 
-			/* Uncomment for actual flow
 			String privateKeyFile= ud.getKeyPath();
 			
 			if(ud.getPassphrase().isEmpty())
 				jsch.addIdentity(privateKeyFile);
 			else
 				jsch.addIdentity(privateKeyFile, ud.getPassphrase());
-*/
 			Session session = jsch.getSession(ud.getUserName(), SSHConstants.hostName, SSHConstants.port);
 			if(LOGGER.isInfoEnabled()){
 				LOGGER.info("Username is "+ud.getUserName()+" and "+SSHConstants.hostName);
 			}
-			 session.setPassword("best clan word evah");
+			 //session.setPassword("best");
 			session.setConfig("StrictHostKeyChecking", "no");
 			return session;
 		}
