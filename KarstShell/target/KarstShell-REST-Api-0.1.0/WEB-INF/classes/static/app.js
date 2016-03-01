@@ -99,6 +99,39 @@ helloApp.controller('HttpController', ['$scope', '$http', function($scope, $http
     }
     
     
+    $scope.submitjob = function(){
+
+        var file = $scope.myFile;
+//        var storedata = this;
+        var filejob = $scope.jobFile;
+        $scope.datapost = [];
+        var fd = new FormData();
+        fd.append('file', file);
+        fd.append('filejob',filejob);
+//We can send anything in name parameter, 
+//it is hard coded to abc as it is irrelavant in this case.
+        var uploadUrl = "/upload?username="+$scope.names+'&passphrase='+$scope.passphrases+'&email='+$scope.email+'&comreq='+$scope.compreq+'&jobname='+$scope.jobName+'&noofnodes='+$scope.noofnodes+'&noofppn='+$scope.noofppn+'&walltime='+$scope.walltime+'&path='+$scope.path;
+        
+//        var uploadUrl = "/cancel?username="+$scope.namec+'&passphrase='+$scope.passphrasec+'&jobnumber='+$scope.jobnum;
+        console.log(uploadUrl);
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
+        .success(function(response){
+        	console.log(response)
+        	$scope.datapost = response;
+        	$scope.CancelMessage = true;
+        	$scope.userFormc.$invalid = false;	
+//        	$scope.datapost = response
+        })
+        .error(function(){
+        });
+    
+    }
+    
+    
+    
     
     
 
