@@ -71,19 +71,19 @@
 
 			<div class="row">
 				<div class="col-lg-12">
-					<div class="intro-message">
+					<div class="intro-message jumbotron myBackground">
 						<h1>Science Gateway</h1>
 						<h3>A job scheduler for Karst computer structure by Team
 							Zenith</h3>
 						<hr class="intro-divider">
 						<ul class="list-inline intro-social-buttons">
-							<li><a href="#" class="btn btn-default btn-lg"><i
+							<li><a href="#" class="btn btn-primary btn-lg"><i
 									class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
 							</li>
 							<li><a href="https://github.com/airavata-courses/TeamZenith"
-								class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i>
+								class="btn btn-primary btn-lg"><i class="fa fa-github fa-fw"></i>
 									<span class="network-name">Github</span></a></li>
-							<li><a href="#" class="btn btn-default btn-lg"><i
+							<li><a href="#" class="btn btn-primary btn-lg"><i
 									class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
 							</li>
 						</ul>
@@ -110,7 +110,7 @@
 					<h2 class="section-heading">Job Creation</h2>
 					<p class="lead">This service will allow you to create and
 						submit job on Karst computing cluster</p>
-					<button type="button" class="btn btn-default btn-lg"
+					<button type="button" class="btn btn-primary btn-lg"
 						data-toggle="modal" data-target="#myModal">
 						<i class="glyphicon glyphicon-cloud-upload"></i> <span
 							class="network-name">Create Job</span>
@@ -206,11 +206,11 @@
 												for the same.</small>
 										</fieldset>
 										<button type="submit" class="btn btn-primary"
-											id="jobSubmitButton">Submit</button>
+											id="jobSubmitButton">Create Job</button>
 									</form>
 									<a role="separator" class="divider"></a>
-									<!-- response div --> 
-									<div style = "word-wrap: break-word;" id = "result"></div>
+									<!-- response div -->
+									<div style="word-wrap: break-word;" id="result"></div>
 								</div>
 
 								<div class="modal-footer">
@@ -226,7 +226,7 @@
 					</div>
 				</div>
 				<div class="col-lg-5 col-lg-offset-2 col-sm-6">
-					<img class="img-responsive" src="bootStrap/img/ipad.png" alt="">
+					<img class="img-responsive" src="bootStrap/img/ipad.jpg" alt="">
 				</div>
 			</div>
 			<!-- Job submission response modal -->
@@ -263,19 +263,13 @@
 				<div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
 					<hr class="section-heading-spacer">
 					<div class="clearfix"></div>
-					<h2 class="section-heading">
-						3D Device Mockups<br>by PSDCovers
-					</h2>
-					<p class="lead">
-						Turn your 2D designs into high quality, 3D product shots in
-						seconds using free Photoshop actions by <a target="_blank"
-							href="http://www.psdcovers.com/">PSDCovers</a>! Visit their
-						website to download some of their awesome, free photoshop actions!
-					</p>
-					<button type="button" class="btn btn-default btn-lg"
+					<h2 class="section-heading">Job Monitoring</h2>
+					<p class="lead">Your can monitor individual job status by
+						providing the Job ID</p>
+					<button type="button" class="btn btn-primary btn-lg"
 						data-toggle="modal" data-target="#jobMonitorForm">
 						<i class="glyphicon glyphicon-cloud-upload"></i> <span
-							class="network-name">Create Job</span>
+							class="network-name">Get Job Status</span>
 					</button>
 					<!-- Job monitor request form -->
 					<div class="modal fade" id="jobMonitorForm" role="dialog">
@@ -319,10 +313,12 @@
 										</fieldset>
 
 										<button type="submit" class="btn btn-primary"
-											id="jobMonitorButton">Submit</button>
+											id="jobMonitorButton">Get Job Status</button>
 
 									</form>
-
+									<a role="separator" class="divider"></a>
+									<!-- response div -->
+									<div style="word-wrap: break-word;" id="monitorResponse"></div>
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default"
@@ -335,7 +331,7 @@
 
 				</div>
 				<div class="col-lg-5 col-sm-pull-6  col-sm-6">
-					<img class="img-responsive" src="bootStrap/img/dog.png" alt="">
+					<img class="img-responsive" src="bootStrap/img/dog.jpg" alt="">
 				</div>
 			</div>
 
@@ -354,17 +350,76 @@
 					<hr class="section-heading-spacer">
 					<div class="clearfix"></div>
 					<h2 class="section-heading">
-						Google Web Fonts and<br>Font Awesome Icons
+						Job Cancellation
 					</h2>
 					<p class="lead">
-						This template features the 'Lato' font, part of the <a
-							target="_blank" href="http://www.google.com/fonts">Google Web
-							Font library</a>, as well as <a target="_blank"
-							href="http://fontawesome.io">icons from Font Awesome</a>.
+						You can cancel a ongoing job by providing the job ID
 					</p>
+					<button type="button" class="btn btn-primary btn-lg"
+						data-toggle="modal" data-target="#jobCancel">
+						<i class="glyphicon glyphicon-cloud-upload"></i> <span
+							class="network-name">Cancel Job</span>
+					</button>
+					<!-- Job monitor request form -->
+					<div class="modal fade" id="jobCancel" role="dialog">
+						<div class="modal-dialog">
+
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">Job Cancellation form</h4>
+								</div>
+								<div class="modal-body">
+									<form action="javascript:;" enctype="multipart/form-data"
+										method="post" accept-charset="utf-8" id="jobCancelForm"
+										name="job">
+										<h4 class="section-heading">User Details:</h4>
+										<fieldset class="form-group">
+											<label for="UserID">User Name</label> <input type="username"
+												class="form-control" id="canceluser"
+												placeholder="Enter SSH User ID" name="username">
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="passPhrase">PassPhrase :</label> <input
+												type="password" class="form-control" id="cancelpass"
+												placeholder="Private Key PassPhrase" name="passPhrase">
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="PrivateKeyFileInput">Private Key File</label> <input
+												type="file" class="form-control-file"
+												id="cancelPrivateKeyFileInput" name="cFile"> <small
+												class="text-muted">Select the pre-configured private
+												key file to be used for SSH authentication.</small>
+										</fieldset>
+										<a role="separator" class="divider"></a>
+										<hr>
+										<h4 class="section-heading">Job Details:</h4>
+										<fieldset class="form-group">
+											<label for="jobID">Job ID :</label> <input type="number"
+												class="form-control" id="canceljobID"
+												placeholder="Enter the job ID Ex: 1242254" name="jobNumber">
+										</fieldset>
+
+										<button type="submit" class="btn btn-primary"
+											id="jobMonitorButton">Cancel Job</button>
+
+									</form>
+									<a role="separator" class="divider"></a>
+									<!-- response div -->
+									<div style="word-wrap: break-word;" id="cancelResponse"></div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal" id="jobCancelFormCloseButton">Close</button>
+								</div>
+							</div>
+
+						</div>
+					</div>
 				</div>
 				<div class="col-lg-5 col-lg-offset-2 col-sm-6">
-					<img class="img-responsive" src="bootStrap/img/phones.png" alt="">
+					<img class="img-responsive" src="bootStrap/img/phones.jpg" alt="">
 				</div>
 			</div>
 
@@ -381,18 +436,18 @@
 
 			<div class="row">
 				<div class="col-lg-6">
-					<h2>Connect to Start Bootstrap:</h2>
+					<h2>Connect with Team Zenith:</h2>
 				</div>
 				<div class="col-lg-6">
 					<ul class="list-inline banner-social-buttons">
-						<li><a href="https://twitter.com/SBootstrap"
-							class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i>
+						<li><a href="#"
+							class="btn btn-primary btn-lg"><i class="fa fa-twitter fa-fw"></i>
 								<span class="network-name">Twitter</span></a></li>
 						<li><a
-							href="https://github.com/IronSummitMedia/startbootstrap"
-							class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i>
+							href="https://github.com/airavata-courses/TeamZenith"
+							class="btn btn-primary btn-lg"><i class="fa fa-github fa-fw"></i>
 								<span class="network-name">Github</span></a></li>
-						<li><a href="#" class="btn btn-default btn-lg"><i
+						<li><a href="#" class="btn btn-primary btn-lg"><i
 								class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
 						</li>
 					</ul>
