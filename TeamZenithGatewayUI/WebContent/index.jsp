@@ -428,7 +428,98 @@
 
 	</div>
 	<!-- /.content-section-a -->
+	<div class="content-section-b">
 
+		<div class="container">
+
+			<div class="row">
+				<div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+					<hr class="section-heading-spacer">
+					<div class="clearfix"></div>
+					<h2 class="section-heading">
+						Download Output Files
+					</h2>
+					<p class="lead">
+						Download output files of completed jobs
+					</p>
+					<button type="button" class="btn btn-primary btn-lg"
+						data-toggle="modal" data-target="#jobDownload">
+						<i class="glyphicon glyphicon-cloud-upload"></i> <span
+							class="network-name">Download</span>
+					</button>
+					<!-- Job monitor request form -->
+					<div class="modal fade" id="jobDownload" role="dialog">
+						<div class="modal-dialog">
+
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">Job Download form</h4>
+								</div>
+								<div class="modal-body">
+									<form action="javascript:;" enctype="multipart/form-data"
+										method="post" accept-charset="utf-8" id="jobDownloadForm"
+										name="job">
+										<h4 class="section-heading">User Details:</h4>
+										<fieldset class="form-group">
+											<label for="UserID">User Name</label> <input type="username"
+												class="form-control" id="downloaduser"
+												placeholder="Enter SSH User ID" name="username">
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="passPhrase">PassPhrase :</label> <input
+												type="password" class="form-control" id="downloadpass"
+												placeholder="Private Key PassPhrase" name="passPhrase">
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="PrivateKeyFileInput">Private Key File</label> <input
+												type="file" class="form-control-file"
+												id="downloadPrivateKeyFileInput" name="cFile"> <small
+												class="text-muted">Select the pre-configured private
+												key file to be used for SSH authentication.</small>
+										</fieldset>
+										<a role="separator" class="divider"></a>
+										<hr>
+										<h4 class="section-heading">Job Details:</h4>
+										<fieldset class="form-group">
+											<label for="jobID">Job Name :</label> <input type="number"
+												class="form-control" id="downloadJobName"
+												placeholder="Enter the job Name" name="jobName">
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="jobID">Working Directory :</label> <input type="number"
+												class="form-control" id="downloadWorkPath"
+												placeholder="Enter the working directory" name="workPath">
+										</fieldset>
+
+										<button type="submit" class="btn btn-primary"
+											id="jobMonitorButton">Download output</button>
+
+									</form>
+									<a role="separator" class="divider"></a>
+									<!-- response div -->
+									<div style="word-wrap: break-word;" id="downloadResponse"></div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal" id="jobCancelFormCloseButton">Close</button>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-5 col-sm-pull-6  col-sm-6">
+					<img class="img-responsive" src="bootStrap/img/down.jpg" alt="">
+				</div>
+			</div>
+
+		</div>
+		<!-- /.container -->
+
+	</div>
+	<!-- /.content-section-a -->
 	<a name="contact"></a>
 	<div class="banner">
 

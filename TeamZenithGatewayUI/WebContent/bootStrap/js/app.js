@@ -141,6 +141,44 @@ $(document).ready(function () {
 		return false;
 	});
 
+	$("#jobDownloadForm").submit(function (event) {
+
+		$( "downloadResponse" ).empty();
+		//disable the default form submission
+		event.preventDefault();
+		//grab all form data  
+		var formData = new FormData();
+		formData.append('username', $('#downloaduser').val());
+		formData.append('passPhrase', $('#downloadpass').val());
+		formData.append('jobName', $('#downloadjobName').val());
+		formData.append('workPath', $('#downloadjobID').val());
+		formData.append('file', $('input[name=cFile]')[0].files[0]);
+
+		var options = {
+				"show" : "false"
+		}
+
+		$.ajax({
+			url: "http://localhost:8080/KarstShell-REST-Api-0.1.0/download",
+			type: "POST",
+			data: formData,
+			async: false,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function (data) {
+				var content = JSON.stringify(data);
+				$('#cancelResponse').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">&times</a><span>'+content+'</span></div>');
+
+			},
+			error: function(data){		
+				var content = JSON.stringify(data);
+				$('#cancelResponse').html('<div class="alert alert-warning"><a class="close" data-dismiss="alert">&times</a><span>'+content+'</span></div>');
+			}
+		});
+
+		return false;
+	});
 	bootstrap_alert.warning = function(message) {
 		$('#result').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>')
 	}	
