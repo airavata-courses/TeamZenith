@@ -307,7 +307,7 @@
 										<hr>
 										<h4 class="section-heading">Job Details:</h4>
 										<fieldset class="form-group">
-											<label for="jobID">Job ID :</label> <input type="password"
+											<label for="jobID">Job ID :</label> <input type="number"
 												class="form-control" id="jobID"
 												placeholder="Enter the job ID Ex: 1242254" name="jobNumber">
 										</fieldset>
@@ -483,12 +483,12 @@
 										<hr>
 										<h4 class="section-heading">Job Details:</h4>
 										<fieldset class="form-group">
-											<label for="jobID">Job Name :</label> <input type="number"
+											<label for="jobName">Job Name :</label> <input type="text"
 												class="form-control" id="downloadJobName"
 												placeholder="Enter the job Name" name="jobName">
 										</fieldset>
 										<fieldset class="form-group">
-											<label for="jobID">Working Directory :</label> <input type="number"
+											<label for="path">Working Directory :</label> <input type="text"
 												class="form-control" id="downloadWorkPath"
 												placeholder="Enter the working directory" name="workPath">
 										</fieldset>

@@ -16,6 +16,7 @@ $(document).ready(function () {
 		}
 
 		$.ajax({
+			dataType: "json",
 			url: "http://localhost:8080/KarstShell-REST-Api-0.1.0/monitor",
 			type: "POST",
 			data: formData,
@@ -23,10 +24,10 @@ $(document).ready(function () {
 			cache: false,
 			contentType: false,
 			processData: false,
-			success: function (data,status) {
-				if(status == 200){
+			success: function (data, statusText, xhr) {
+				if(xhr.status == 200){
 					var content = JSON.stringify(data);
-					$('#monitorResponse').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">&times</a><span><table class="table"><thead><tr><th>Job Name</th><th>Job owner</th><th>Job Status</th><th>NodeCt</th><th>User</th></tr></thead><tbody><tr><td>'+data.jobname+'</td><td>'+data.name+'</td><td>'+data.jobstate+'</td><td>'+data.nodect+'</td><td>'+data.user+'</td></tr></tbody></table></span></div>');
+					$('#monitorResponse').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">&times</a><span><table class="table"><thead><tr><th>Job Name</th><th>Job owner</th><th>Job Status</th><th>Wall Time</th><th>Username</th></tr></thead><tbody><tr><td>'+data.jobname+'</td><td>'+data.name+'</td><td>'+data.jobstate+'</td><td>'+data.walltime+'</td><td>'+data.user+'</td></tr></tbody></table></span></div>');
 				} else {
 					var content = JSON.stringify(data);
 					$('#monitorResponse').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">&times</a><span>'+content+'</span></div>');
@@ -55,16 +56,16 @@ $(document).ready(function () {
 
 		var formData = new FormData();
 
-		formData.append('tpath', $('#targetPath').val());
-		formData.append('file', $('input[name=file]')[0].files[0]);
-		formData.append('user', $('#userName').val());
-		formData.append('jobName', $('#jobName').val());
-		formData.append('nodes', $('#nodeCount').val());
-		formData.append('ppn', $('#ppn').val());
+		formData.append('path', $('#targetPath').val());
+		formData.append('filejob', $('input[name=file]')[0].files[0]);
+		formData.append('username', $('#userName').val());
+		formData.append('jobname', $('#jobName').val());
+		formData.append('noofnodes', $('#nodeCount').val());
+		formData.append('noofppn', $('#ppn').val());
 		formData.append('walltime', $('#wallTime').val());
-		formData.append('isCompile', $("input[name=isCompile]:checked").val());
-		formData.append('emailId', $('#InputEmail').val());
-		formData.append('ppk', $('input[name=ppk]')[0].files[0]);
+		formData.append('compreq', $("input[name=isCompile]:checked").val());
+		formData.append('email', $('#InputEmail').val());
+		formData.append('file', $('input[name=ppk]')[0].files[0]);
 		formData.append('pass', $('#passPhrase').val());
 
 		var options = {
@@ -79,8 +80,8 @@ $(document).ready(function () {
 			cache: false,
 			contentType: false,
 			processData: false,
-			success: function (data,status) {
-				if(status != 200){
+			success: function (data, statusText, xhr) {
+				if(xhr.status != 200){
 					var content = JSON.stringify(data);
 					$('#result').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">&times</a><span>'+content+'</span></div>');
 				} else {
@@ -88,8 +89,8 @@ $(document).ready(function () {
 					$('#result').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">&times</a><span>'+content+'</span></div>');
 				}
 			},
-			error: function(data,status){
-				if(status == 400){
+			error: function(data, statusText, xhr){
+				if(xhr.status == 400){
 					var content = "Bad Request : Please verify the form details and retry";
 					$('#result').html('<div class="alert alert-warning"><a class="close" data-dismiss="alert">&times</a><span>'+content+'</span></div>');
 				} else {
@@ -127,14 +128,24 @@ $(document).ready(function () {
 			cache: false,
 			contentType: false,
 			processData: false,
-			success: function (data) {
-				var content = JSON.stringify(data);
-				$('#cancelResponse').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">&times</a><span>'+content+'</span></div>');
-
+			success: function (data, statusText, xhr) {
+			if(xhr.status != 200){
+					var content = JSON.stringify(data);
+					$('#cancelResponse').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">&times</a><span>'+content+'</span></div>');
+				} else {
+					var content = JSON.stringify(data);
+					$('#cancelResponse').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">&times</a><span>'+content+'</span></div>');
+				}
 			},
-			error: function(data){		
-				var content = JSON.stringify(data);
-				$('#cancelResponse').html('<div class="alert alert-warning"><a class="close" data-dismiss="alert">&times</a><span>'+content+'</span></div>');
+			error: function(data, statusText, xhr){
+				if(xhr.status == 400){
+					var content = "Bad Request : Please verify the form details and retry";
+					$('#cancelResponse').html('<div class="alert alert-warning"><a class="close" data-dismiss="alert">&times</a><span>'+content+'</span></div>');
+				} else {
+					var content = JSON.stringify(data);
+					$('#cancelResponse').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">&times</a><span>'+content+'</span></div>');
+				}
+
 			}
 		});
 
@@ -166,20 +177,27 @@ $(document).ready(function () {
 			cache: false,
 			contentType: false,
 			processData: false,
-			success: function (data) {
-				var content = JSON.stringify(data);
-				$('#cancelResponse').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">&times</a><span>'+content+'</span></div>');
+			success: function (data, statusText, xhr) {
+				if(xhr.status != 200){
+						var content = JSON.stringify(data);
+						$('#downloadResponse').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">&times</a><span>Click save on the prompt to download the output file in .zip package</span></div>');
+					} else {
+						var content = JSON.stringify(data);
+						$('#downloadResponse').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">&times</a><span>'+content+'</span></div>');
+					}
+				},
+				error: function(data, statusText, xhr){
+					if(xhr.status == 400){
+						var content = "Bad Request : Please verify the form details and retry";
+						$('#downloadResponse').html('<div class="alert alert-warning"><a class="close" data-dismiss="alert">&times</a><span>'+content+'</span></div>');
+					} else {
+						var content = JSON.stringify(data);
+						$('#downloadResponse').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">&times</a><span>'+content+'</span></div>');
+					}
 
-			},
-			error: function(data){		
-				var content = JSON.stringify(data);
-				$('#cancelResponse').html('<div class="alert alert-warning"><a class="close" data-dismiss="alert">&times</a><span>'+content+'</span></div>');
-			}
+				}
 		});
 
 		return false;
-	});
-	bootstrap_alert.warning = function(message) {
-		$('#result').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>')
-	}	
+	});	
 });
