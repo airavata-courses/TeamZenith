@@ -219,7 +219,6 @@ public class RestApiController {
 			UserDetails ud=new UserDetails();
 			JobDetails jd=new JobDetails();
 			FetchFile ff=new FetchFile();
-
 			ud.setUserName(name);
 			ud.setTargetPath(workPath);
 			ud.setPassphrase(passPhrase);
@@ -247,6 +246,7 @@ public class RestApiController {
 	                    MediaType.parseMediaType("application/zip"))   //octet-stream
 	            .header("Content-disposition", "attachment; filename="+ outputZip)
 	            .body(new InputStreamResource(new FileInputStream(dwnldFile)));
+
 	}
 		catch(IOException e){
 			System.out.println("Failed during download");

@@ -76,7 +76,6 @@ public class FileManagementImpl implements FileManagement{
 			String destSource = new StringBuffer(path).append(artifact).toString();
 			String compileCommand = new StringBuffer(PbsConstants.compileCmd).append(" ").append(destSource)
 				.append(" -o ").append(destSource).append(".out").toString();
-			
 			if(LOGGER.isInfoEnabled())
 				LOGGER.info("Compile command is " + compileCommand);
 			

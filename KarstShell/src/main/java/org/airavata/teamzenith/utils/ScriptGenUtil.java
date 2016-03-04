@@ -37,10 +37,10 @@ public class ScriptGenUtil {
 			String nFlag = new StringBuffer(PbsConstants.pbsPrefix).append(" -N ").append(job.getJobName()).toString();
 			String mailFlag = new StringBuffer(PbsConstants.pbsPrefix).append(" -m abe").toString();
 			String recvFlag = new StringBuffer(PbsConstants.pbsPrefix).append(" -M ").append(user.getEmail()).toString();
-			String errorFile=new StringBuffer(user.getTargetPath()).append(fileName).append(".err").toString();
+			String errorFile=new StringBuffer(user.getTargetPath()).append(job.getJobName()).append(".err").toString();
 			String errorPath=new StringBuffer(PbsConstants.pbsPrefix).append(" -e ").append(errorFile).toString();
 
-			String outFile=new StringBuffer(user.getTargetPath()).append(fileName).append(".log").toString();
+			String outFile=new StringBuffer(user.getTargetPath()).append(job.getJobName()).append(".log").toString();
 			String outPath=new StringBuffer(PbsConstants.pbsPrefix).append(" -o ").append(outFile).toString();
 			if(job.isCompileReqd())
 				executeCmd = new StringBuffer("./").append(job.getJobFile()).append(".out").toString();
@@ -53,7 +53,9 @@ public class ScriptGenUtil {
 					append(PbsConstants.mailCommand).append(" -r Zenith").append(" -s")
 					.append("\"Karst execution results\" -a ").append(errorFile).append(" -a ")
 					.append(outFile).append(" \"").append(user.getEmail()).append("\"").toString();
-
+			
+			String zipCmd=new StringBuffer("zip ").append(job.getJobName()).append(".zip ").append(errorFile).append
+					(" ").append(outFile).append(" 1> /dev/null").toString();
 			if(LOGGER.isInfoEnabled()){
 				LOGGER.info("Mail cmd is " + mailCmd);
 			}
@@ -70,7 +72,7 @@ public class ScriptGenUtil {
 			pwr.write(executeCmd + "\n");
 			pwr.write(mailCmd +"\n");
 			pwr.write(mailCmd +"\n");
-
+			pwr.write(zipCmd + "\n");
 			if(LOGGER.isInfoEnabled()){
 				LOGGER.info("PBS Script File generation successful");
 			}

@@ -371,6 +371,8 @@
 									<h4 class="modal-title">Job Cancellation form</h4>
 								</div>
 								<div class="modal-body">
+								
+								
 									<form action="javascript:;" enctype="multipart/form-data"
 										method="post" accept-charset="utf-8" id="jobCancelForm"
 										name="job">
@@ -458,9 +460,11 @@
 									<h4 class="modal-title">Job Download form</h4>
 								</div>
 								<div class="modal-body">
-									<form action="javascript:;" enctype="multipart/form-data"
-										method="post" accept-charset="utf-8" id="jobDownloadForm"
-										name="job">
+									<!-- <form action="javascript:;" enctype="multipart/form-data"
+										method="post" accept="application/zip" id="jobDownloadForm"
+										name="job"> -->
+							<form method="POST" enctype="multipart/form-data"
+		action="http://localhost:8080/KarstShell-REST-Api-0.1.0/download">
 										<h4 class="section-heading">User Details:</h4>
 										<fieldset class="form-group">
 											<label for="UserID">User Name</label> <input type="username"
@@ -475,7 +479,7 @@
 										<fieldset class="form-group">
 											<label for="PrivateKeyFileInput">Private Key File</label> <input
 												type="file" class="form-control-file"
-												id="downloadPrivateKeyFileInput" name="cFile"> <small
+												id="downloadPrivateKeyFileInput" name="ppkFile"> <small
 												class="text-muted">Select the pre-configured private
 												key file to be used for SSH authentication.</small>
 										</fieldset>
@@ -502,8 +506,10 @@
 									<div style="word-wrap: break-word;" id="downloadResponse"></div>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal" id="jobCancelFormCloseButton">Close</button>
+									<!-- <input type="submit"
+			value="Download file"> -->
+									 <button type="button" class="btn btn-default"
+										data-dismiss="modal" id="jobCancelFormCloseButton">Close</button> 
 								</div>
 							</div>
 
@@ -511,7 +517,7 @@
 					</div>
 				</div>
 				<div class="col-lg-5 col-sm-pull-6  col-sm-6">
-					<img class="img-responsive" src="bootStrap/img/down.jpg" alt="">
+					<img class="img-responsive" src="bootStrap/img/intro-bg.jpg" alt="">
 				</div>
 			</div>
 
