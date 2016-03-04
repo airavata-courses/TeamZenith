@@ -158,12 +158,12 @@
 										<a role="separator" class="divider"></a>
 										<hr>
 										<h4 class="section-heading">Job Details:</h4>
-										<label for="JobType">Job Type</label>
-										<select id="jobType" name="jobType" style="width: 212px;">
-            								<option value="gro">GROMACS</option>
-            								<option value="cust">Custom</option>
-            								</select>
-            								
+										<label for="JobType">Job Type</label> <select id="jobType"
+											name="jobType" style="width: 212px;">
+											<option value="gro">GROMACS</option>
+											<option value="cust">Custom</option>
+										</select>
+
 										<fieldset class="form-group">
 											<label for="JobSourceCode">Input File</label> <input
 												type="file" class="form-control-file" id="FileInput"
@@ -171,13 +171,13 @@
 												the source code file, compatible types ".c"</small>
 										</fieldset>
 										<fieldset class="form-group">
-											<div class="radio" style="display:none">
-										<label for="exampleSelect1">Compilation required ?</label><br />
-											<label> <input type="radio" id="optionsRadios1"
+											<div class="radio" style="display: none">
+												<label for="exampleSelect1">Compilation required ?</label><br />
+												<label> <input type="radio" id="optionsRadios1"
 													name="isCompile" value="yes" checked>yes
 												</label>
 											</div>
-											<div class="radio" style="display:none">
+											<div class="radio" style="display: none">
 												<label> <input type="radio" id="optionsRadios2"
 													name="isCompile" value="no">No
 												</label>
@@ -356,12 +356,9 @@
 				<div class="col-lg-5 col-sm-6">
 					<hr class="section-heading-spacer">
 					<div class="clearfix"></div>
-					<h2 class="section-heading">
-						Job Cancellation
-					</h2>
-					<p class="lead">
-						You can cancel a ongoing job by providing the job ID
-					</p>
+					<h2 class="section-heading">Job Cancellation</h2>
+					<p class="lead">You can cancel a ongoing job by providing the
+						job ID</p>
 					<button type="button" class="btn btn-primary btn-lg"
 						data-toggle="modal" data-target="#jobCancel">
 						<i class="glyphicon glyphicon-cloud-upload"></i> <span
@@ -378,8 +375,8 @@
 									<h4 class="modal-title">Job Cancellation form</h4>
 								</div>
 								<div class="modal-body">
-								
-								
+
+
 									<form action="javascript:;" enctype="multipart/form-data"
 										method="post" accept-charset="utf-8" id="jobCancelForm"
 										name="job">
@@ -445,12 +442,8 @@
 				<div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
 					<hr class="section-heading-spacer">
 					<div class="clearfix"></div>
-					<h2 class="section-heading">
-						Download Output Files
-					</h2>
-					<p class="lead">
-						Download output files of completed jobs
-					</p>
+					<h2 class="section-heading">Download Output Files</h2>
+					<p class="lead">Download output files of completed jobs</p>
 					<button type="button" class="btn btn-primary btn-lg"
 						data-toggle="modal" data-target="#jobDownload">
 						<i class="glyphicon glyphicon-cloud-upload"></i> <span
@@ -470,8 +463,8 @@
 									<!-- <form action="javascript:;" enctype="multipart/form-data"
 										method="post" accept="application/zip" id="jobDownloadForm"
 										name="job"> -->
-							<form method="POST" enctype="multipart/form-data"
-		action="http://localhost:8080/KarstShell-REST-Api-0.1.0/download">
+									<form method="POST" enctype="multipart/form-data"
+										action="http://localhost:8080/KarstShell-REST-Api-0.1.0/download">
 										<h4 class="section-heading">User Details:</h4>
 										<fieldset class="form-group">
 											<label for="UserID">User Name</label> <input type="username"
@@ -499,8 +492,8 @@
 												placeholder="Enter the job Name" name="jobName">
 										</fieldset>
 										<fieldset class="form-group">
-											<label for="path">Working Directory :</label> <input type="text"
-												class="form-control" id="downloadWorkPath"
+											<label for="path">Working Directory :</label> <input
+												type="text" class="form-control" id="downloadWorkPath"
 												placeholder="Enter the working directory" name="workPath">
 										</fieldset>
 
@@ -515,8 +508,8 @@
 								<div class="modal-footer">
 									<!-- <input type="submit"
 			value="Download file"> -->
-									 <button type="button" class="btn btn-default"
-										data-dismiss="modal" id="jobCancelFormCloseButton">Close</button> 
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal" id="jobCancelFormCloseButton">Close</button>
 								</div>
 							</div>
 
@@ -544,11 +537,9 @@
 				</div>
 				<div class="col-lg-6">
 					<ul class="list-inline banner-social-buttons">
-						<li><a href="#"
-							class="btn btn-primary btn-lg"><i class="fa fa-twitter fa-fw"></i>
-								<span class="network-name">Twitter</span></a></li>
-						<li><a
-							href="https://github.com/airavata-courses/TeamZenith"
+						<li><a href="#" class="btn btn-primary btn-lg"><i
+								class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a></li>
+						<li><a href="https://github.com/airavata-courses/TeamZenith"
 							class="btn btn-primary btn-lg"><i class="fa fa-github fa-fw"></i>
 								<span class="network-name">Github</span></a></li>
 						<li><a href="#" class="btn btn-primary btn-lg"><i
