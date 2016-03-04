@@ -14,6 +14,11 @@ public class PbsConstants {
 	public final static String pbsFormat="<pbs_file_name>";
 	public final static String chmod ="chmod 777";
 	public final static String mailCommand="mailx";
+	public final static String moduleList="module load intel \n module load openmpi/intel \n module load gromacs \n";
+	public final static String gromacs="gro";
+	public final static String custom="cust";
+	public final static String mpirun="mpirun";
+
 	public final static Map<String, String> statusMap;
     static
     {

@@ -42,12 +42,18 @@ public class ScriptGenUtil {
 
 			String outFile=new StringBuffer(user.getTargetPath()).append(job.getJobName()).append(".log").toString();
 			String outPath=new StringBuffer(PbsConstants.pbsPrefix).append(" -o ").append(outFile).toString();
-			if(job.isCompileReqd())
+			if(job.getJobType().equals(PbsConstants.gromacs)){
+				executeCmd= new StringBuffer(PbsConstants.mpirun).append(" ").append("mdrun_mpi_d -s ").append(job.getJobFile()).toString();
+			}
+			else{
+				if(job.isCompileReqd())
+	
 				executeCmd = new StringBuffer("./").append(job.getJobFile()).append(".out").toString();
 			else
 				executeCmd = new StringBuffer("./").append(job.getJobFile()).toString();
 			
-			String accessCmd=new StringBuffer(PbsConstants.chmod).append(" ").append(user.getTargetPath()).toString();
+			}
+				String accessCmd=new StringBuffer(PbsConstants.chmod).append(" ").append(user.getTargetPath()).toString();
 	//		String mailFiles="outputFiles=`ls "+job.getJobName()+"*`;";
 			String mailCmd = new StringBuffer("echo \"The log files are attached\"|").
 					append(PbsConstants.mailCommand).append(" -r Zenith").append(" -s")
@@ -68,6 +74,8 @@ public class ScriptGenUtil {
 			pwr.write(errorPath + "\n");
 			pwr.write(outPath + "\n");
 			pwr.write("cd " + user.getTargetPath() + "\n");
+			if(job.getJobType().equals(PbsConstants.gromacs))
+				pwr.write(PbsConstants.moduleList);
 			pwr.write(accessCmd+"\n");
 			pwr.write(executeCmd + "\n");
 			pwr.write(mailCmd +"\n");

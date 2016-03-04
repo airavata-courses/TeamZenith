@@ -30,7 +30,7 @@ $(document).ready(function () {
 					$('#monitorResponse').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">&times</a><span><table class="table"><thead><tr><th>Job Name</th><th>Job owner</th><th>Job Status</th><th>Wall Time</th><th>Username</th></tr></thead><tbody><tr><td>'+data.jobname+'</td><td>'+data.name+'</td><td>'+data.jobstate+'</td><td>'+data.walltime+'</td><td>'+data.user+'</td></tr></tbody></table></span></div>');
 				} else {
 					var content = JSON.stringify(data);
-					$('#monitorResponse').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">&times</a><span>'+content+'</span></div>');
+					$('#monitorResponse').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">&times</a><span>'+data.message+'</span></div>');
 				}	
 			},
 			error: function(data,status){
@@ -67,6 +67,7 @@ $(document).ready(function () {
 		formData.append('email', $('#InputEmail').val());
 		formData.append('file', $('input[name=ppk]')[0].files[0]);
 		formData.append('pass', $('#passPhrase').val());
+		formData.append('jType',$('#jobType').val());
 
 		var options = {
 				"show" : "false"
@@ -152,7 +153,7 @@ $(document).ready(function () {
 		return false;
 	});
 
-	$("#jobDownloadForm").submit(function (event) {
+	$("#jobDownloadForm_invalid").submit(function (event) {
 
 		$( "downloadResponse" ).empty();
 		//disable the default form submission

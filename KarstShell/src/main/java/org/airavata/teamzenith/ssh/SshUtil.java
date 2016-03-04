@@ -267,9 +267,11 @@ public class SshUtil {
 			//return true;
 		}
 		catch(JSchException e){
+			LOGGER.error("SSH ERROR: SSH session invalid in execute command");
 			throw new JSchException("SSH ERROR : problem with ssh connection found in Execute command", e);
 		}
 		catch(IOException e){
+			LOGGER.error("Stream ERROR : input stream error in Execute Command");
 			throw new IOException("Stream ERROR : input stream error in Execute Command");
 		}
 	}

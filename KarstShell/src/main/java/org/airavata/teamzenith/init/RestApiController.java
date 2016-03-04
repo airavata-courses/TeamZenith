@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import org.airavata.teamzenith.dao.JobDetails;
 import org.airavata.teamzenith.dao.UserDetails;
+import org.airavata.teamzenith.exceptions.ExceptionHandler;
 import org.airavata.teamzenith.webmethods.CancelJob;
 import org.airavata.teamzenith.webmethods.FetchFile;
 import org.airavata.teamzenith.webmethods.MonitorJob;
@@ -49,7 +50,8 @@ public class RestApiController {
 			@RequestParam("jobname") String jobName, @RequestParam("noofnodes") String nodes,
 			@RequestParam("noofppn") String ppn, @RequestParam("walltime") String wallTime, 
 			@RequestParam("compreq") String isComp, @RequestParam("email") String emailId, 
-			@RequestParam("file") MultipartFile ppk, @RequestParam(name = "pass", defaultValue = "null") String pass){
+			@RequestParam("file") MultipartFile ppk, @RequestParam(name = "pass", defaultValue = "null") String pass,
+			@RequestParam("jType") String jobType){
 
 		if (!file.isEmpty()) {
 			try {
@@ -85,8 +87,8 @@ public class RestApiController {
 				jd.setProcessorPerNode(Integer.parseInt(ppn));
 				jd.setWallTime(wallTime);
 				jd.setJobName(jobName);
-
-				if(isComp.equals("Yes"))
+				jd.setJobType(jobType);
+				if(isComp.equals("yes")&&jobType.equals("cust"))
 					jd.setCompileReqd(true);
 				else
 					jd.setCompileReqd(false);
@@ -96,8 +98,12 @@ public class RestApiController {
 				}
 				return "Job submission failed";
 				
-			} catch (Exception e) {
+			} catch (IOException e) {
 				return "You failed to upload " + file.getOriginalFilename() + " => " + e.getMessage();
+			} catch (JSchException e){
+				return "You failed to upload Authentication failure, Error message is => " + e.getMessage();
+			} catch (ExceptionHandler e){
+				return "You failed to upload Session is down, Error message is => " + e.getMessage();
 			}
 		} else {
 			return "Upload of file" + file.getOriginalFilename() + " failed because the file was empty.";
@@ -149,13 +155,14 @@ public class RestApiController {
 				
 			} catch (IOException e) {
 //				return "Could not get the status for job:" + jobNumber + " ERROR => " + e.getMessage();
+				dp.setMessage("Could not get the status for job:" + jobNumber + " ERROR => " + e.getMessage());
 				return dp;
 			} catch (JSchException e){
-//				return "Could not get the status for job:" + jobNumber + " ERROR => " + e.getMessage();
+				dp.setMessage("Could not get the status for job:" + jobNumber + " ERROR => " + e.getMessage());
 				return dp;
 			}
 		} else {
-//			return "Private Key file for user:  " + name + " is empty";
+			dp.setMessage("Could not get the status for job:" + jobNumber + " ERROR => The private key file is invalid");
 			return dp;
 		}
 	}

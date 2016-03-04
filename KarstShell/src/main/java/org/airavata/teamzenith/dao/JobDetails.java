@@ -10,6 +10,7 @@ public class JobDetails {
 	private String jobName;
 	private String jobFile;
 	private String jobId;
+	private String jobType;
 	public String getSource() {
 		return source;
 	}
@@ -63,5 +64,11 @@ public class JobDetails {
 	}
 	public void setJobId(String jobId) {
 		this.jobId = jobId;
+	}
+	public String getJobType() {
+		return jobType;
+	}
+	public void setJobType(String jobType) {
+		this.jobType = jobType;
 	}
 }

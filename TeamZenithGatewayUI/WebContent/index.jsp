@@ -28,6 +28,7 @@
 <script src="bootStrap/js/jquery.js" type="text/javascript"></script>
 <script src="bootStrap/js/bootstrap.js" type="text/javascript"></script>
 <script src="bootStrap/js/app.js" type="text/javascript"></script>
+<script src="test.js" type="text/javascript"></script>
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -157,6 +158,12 @@
 										<a role="separator" class="divider"></a>
 										<hr>
 										<h4 class="section-heading">Job Details:</h4>
+										<label for="JobType">Job Type</label>
+										<select id="jobType" name="jobType" style="width: 212px;">
+            								<option value="gro">GROMACS</option>
+            								<option value="cust">Custom</option>
+            								</select>
+            								
 										<fieldset class="form-group">
 											<label for="JobSourceCode">Input File</label> <input
 												type="file" class="form-control-file" id="FileInput"
@@ -164,13 +171,13 @@
 												the source code file, compatible types ".c"</small>
 										</fieldset>
 										<fieldset class="form-group">
-											<label for="exampleSelect1">Compilation required ?</label>
-											<div class="radio">
-												<label> <input type="radio" id="optionsRadios1"
+											<div class="radio" style="display:none">
+										<label for="exampleSelect1">Compilation required ?</label><br />
+											<label> <input type="radio" id="optionsRadios1"
 													name="isCompile" value="yes" checked>yes
 												</label>
 											</div>
-											<div class="radio">
+											<div class="radio" style="display:none">
 												<label> <input type="radio" id="optionsRadios2"
 													name="isCompile" value="no">No
 												</label>

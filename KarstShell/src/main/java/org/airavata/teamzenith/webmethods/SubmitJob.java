@@ -27,7 +27,7 @@ public class SubmitJob {
 			ScriptGenUtil sgu=new ScriptGenUtil();
 			String scriptFile=sgu.generateScript(jd, uDetail);
 			Session session=sch.createSession(uDetail); 
-			
+			LOGGER.info("Job type is"+jd.getJobType());
 			sch.sessionStart(session);
 			/*
 			 * Transfer PBS script file to Karst
@@ -41,6 +41,7 @@ public class SubmitJob {
 			
 			//fm.putFile(session, mailScript, uDetail.getTargetPath());
 			if(jd.isCompileReqd()){
+				LOGGER.info("I'm gonna compile");
 				fm.compileFile(session, "C", jd.getJobFile(),uDetail.getTargetPath()); 		
 			}
 			
