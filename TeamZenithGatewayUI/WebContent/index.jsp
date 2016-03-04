@@ -458,9 +458,12 @@
 									<h4 class="modal-title">Job Download form</h4>
 								</div>
 								<div class="modal-body">
+								<!-- TODO this is to be uncommented
 									<form action="javascript:;" enctype="multipart/form-data"
 										method="post" accept-charset="utf-8" id="jobDownloadForm"
-										name="job">
+										name="job"> -->
+										<form method="POST" enctype="multipart/form-data"
+											action="http://localhost:8080/KarstShell-REST-Api-0.1.0/download">
 										<h4 class="section-heading">User Details:</h4>
 										<fieldset class="form-group">
 											<label for="UserID">User Name</label> <input type="username"
@@ -493,9 +496,11 @@
 												placeholder="Enter the working directory" name="workPath">
 										</fieldset>
 
-										<button type="submit" class="btn btn-primary"
-											id="jobMonitorButton">Download output</button>
-
+						<!--TODO Remove comment 
+							 			<button type="submit" class="btn btn-primary"
+											id="jobMonitorButton">Download output</button> -->
+									<input type="submit"
+										value="Download file"> 
 									</form>
 									<a role="separator" class="divider"></a>
 									<!-- response div -->
