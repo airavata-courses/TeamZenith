@@ -19,3 +19,23 @@ There are two ways in which the project can be run.
 
 
 The index page provides navigation to the forms specific to each of the APIs which can be used to invoke the APIs.
+
+The job submission workflow accepts the following parameters from the user:
+
+- Username of the user
+- Private key of the user which would be used to authenticate with Karst
+- Email address of the user. The job execution output will be sent to this email address
+- The executable file location that needs to be run in Karst. The user also has an option to upload a C file, in which case the Compilation required parameter needs to be set to 'Y'
+- Job configuration parameters such as Number of nodes and Wall time
+
+The job monitor workflow accepts the following parameters:
+- Username of the user
+- Private key of the user which would be used to authenticate with Karst
+- The job number. This number will be provided by the job submission API upon successful job submission.
+- Upon successful invocation, the present status of the Job is displayed. Q denotes Queued, C denotes Completed and R denotes Running status
+
+The job cancel workflow accepts the following parameters:
+- Username of the user
+- Private key of the user which would be used to authenticate with Karst
+- The job number. This number will be provided by the job submission API upon successful job submission.
+- Upon successful invocation, the job would be cancelled.
