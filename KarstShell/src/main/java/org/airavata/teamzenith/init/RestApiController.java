@@ -10,8 +10,13 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
+import org.airavata.teamzenith.dao.JobData;
+import org.airavata.teamzenith.dao.JobDataDao;
 import org.airavata.teamzenith.dao.JobDetails;
+import org.airavata.teamzenith.dao.UserData;
 import org.airavata.teamzenith.dao.UserDetails;
+import org.airavata.teamzenith.dao.UserJobData;
+import org.airavata.teamzenith.dao.UserJobDataDao;
 import org.airavata.teamzenith.exceptions.ExceptionHandler;
 import org.airavata.teamzenith.webmethods.CancelJob;
 import org.airavata.teamzenith.webmethods.FetchFile;
@@ -26,6 +31,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.airavata.teamzenith.dao.UserData;
+import org.airavata.teamzenith.dao.UserDataDao;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jcraft.jsch.JSchException;
 
@@ -93,7 +105,7 @@ public class RestApiController {
 				else
 					jd.setCompileReqd(false);
 
-				if(sub.submit(jd, ud)){
+				if(sub.submit(jd, ud,userjobDao,jobDao)){
 					return "Job submitted successfully with job Id "+jd.getJobId();
 				}
 				return "Job submission failed";
@@ -266,7 +278,10 @@ public class RestApiController {
 		}
 
 
-}
+}  
 
-
+		@Autowired
+		  private UserJobDataDao userjobDao;
+		@Autowired
+		  private JobDataDao jobDao;
 }
