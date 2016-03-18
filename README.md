@@ -1,5 +1,6 @@
 # Zenith
 Team Zenith Repository for Spring 2016 I590 Class
+Branch Milestone-2 
 
 Team Members :
 
@@ -17,6 +18,5 @@ Arpit Aggarwal
   
 # Milestone details:
 
-1. Milestone 1: For source code refer the project "BackupRemote". The jar file and instructions are present in "Project_one_Submission" folder.
-2. Milestone 2: we have restructed the project including the folder heirachy for 2nd milestone, Refer the source code in "KarstShell".
+Milestone 2: we have restructed the project including the folder heirachy for 2nd milestone, Refer the source code in "KarstShell".
 
