@@ -37,13 +37,18 @@ public class SubmitJob {
 			/*
 			 * Transfer job file to Karst
 			 */
-			fm.putFile(session, jd.getJobFile(), uDetail.getTargetPath());
-			
-			//fm.putFile(session, mailScript, uDetail.getTargetPath());
-			if(jd.isCompileReqd()){
-				LOGGER.info("I'm gonna compile");
-				fm.compileFile(session, "C", jd.getJobFile(),uDetail.getTargetPath()); 		
+			if(jd.getJobType().equals("gro")){
+				for(int i=0;i<jd.getJobFile().length;i++)
+					fm.putFile(session, jd.getJobFile()[i],  uDetail.getTargetPath());
 			}
+			else{
+				fm.putFile(session, jd.getJobFile()[0], uDetail.getTargetPath());
+				if(jd.isCompileReqd()){
+					fm.compileFile(session, "C", jd.getJobFile(),uDetail.getTargetPath()); 		
+				}
+			}
+			//fm.putFile(session, mailScript, uDetail.getTargetPath());
+			
 			
 			String commandRes=jm.submitJob(session, uDetail.getTargetPath()+scriptFile);
 			String opToken[]=commandRes.split("\\.");

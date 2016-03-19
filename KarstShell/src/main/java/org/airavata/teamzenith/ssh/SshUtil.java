@@ -93,6 +93,7 @@ public class SshUtil {
 			throw new JSchException("SSH ERROR : problem with ssh connection found in ScpTO"+e.getMessage(), e);
 		}
 		catch(IOException e){
+			e.printStackTrace();
 			throw new IOException("FILE ERROR : cannot access source file in ScpTo");
 		}
 	}

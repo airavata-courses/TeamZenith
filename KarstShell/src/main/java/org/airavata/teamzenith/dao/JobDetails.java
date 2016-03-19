@@ -8,7 +8,7 @@ public class JobDetails {
 	private boolean isCompileReqd;
 	private int processorPerNode;
 	private String jobName;
-	private String jobFile;
+	private String[] jobFile;
 	private String jobId;
 	private String jobType;
 	public String getSource() {
@@ -53,10 +53,10 @@ public class JobDetails {
 	public void setJobName(String jobName) {
 		this.jobName = jobName;
 	}
-	public String getJobFile() {
+	public String[] getJobFile() {
 		return jobFile;
 	}
-	public void setJobFile(String jobFile) {
+	public void setJobFile(String[] jobFile) {
 		this.jobFile = jobFile;
 	}
 	public String getJobId() {

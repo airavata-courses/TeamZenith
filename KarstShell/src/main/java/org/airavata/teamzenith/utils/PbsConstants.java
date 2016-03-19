@@ -14,11 +14,13 @@ public class PbsConstants {
 	public final static String pbsFormat="<pbs_file_name>";
 	public final static String chmod ="chmod 777";
 	public final static String mailCommand="mailx";
-	public final static String moduleList="module load intel \n module load openmpi/intel \n module load gromacs \n";
+	public final static String moduleList="module load gromacs \nmodule load fftw\n";
 	public final static String gromacs="gro";
 	public final static String custom="cust";
 	public final static String mpirun="mpirun";
-
+	public final static String gromacsGmx="echo -e \"1\\n1\"|pdb2gmx -f pdb1y6l.ent -o pdb1y6l.gro -p pdb1y6l.top -ignh \n";
+	public final static String gromacsGrompp="grompp -v -f minim.mdp -c pdb1y6l.gro -p pdb1y6l.top -o pdb1y6l-EM-vacuum.tpr \n";
+	public final static String gromacsMdrun="mdrun -v -deffnm pdb1y6l-EM-vacuum.tpr -c pdb1y6l-EM-vacuum.gro \n";
 	public final static Map<String, String> statusMap;
     static
     {

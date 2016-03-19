@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Logger;
 
 import scala.annotation.meta.setter;
 /*
@@ -46,14 +47,13 @@ public class RestApiController {
 
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
 	public @ResponseBody String handleFileUpload(@RequestParam("path") String tPath,
-			@RequestParam("filejob") MultipartFile file, @RequestParam("username") String userName,
+			@RequestParam("filejob[]") MultipartFile[] file, @RequestParam("username") String userName,
 			@RequestParam("jobname") String jobName, @RequestParam("noofnodes") String nodes,
 			@RequestParam("noofppn") String ppn, @RequestParam("walltime") String wallTime, 
 			@RequestParam("compreq") String isComp, @RequestParam("email") String emailId, 
 			@RequestParam("file") MultipartFile ppk, @RequestParam(name = "pass", defaultValue = "null") String pass,
 			@RequestParam("jType") String jobType){
-
-		if (!file.isEmpty()) {
+		if (!file[0].isEmpty()) {
 			try {
 				UserDetails ud=new UserDetails();
 				JobDetails jd=new JobDetails();
@@ -61,16 +61,23 @@ public class RestApiController {
 
 				ud.setUserName(userName);
 				ud.setEmail(emailId);
+				if(tPath.charAt(tPath.length()-1)!='/')
+					tPath=tPath+"/";
 				ud.setTargetPath(tPath);
 				ud.setPassphrase(pass);
 				/*
 				 * Write job file
 				 */
-				byte[] bytes = file.getBytes();
-				BufferedOutputStream stream = 
-						new BufferedOutputStream(new FileOutputStream(new File(file.getOriginalFilename())));
-				stream.write(bytes);
-				stream.close();
+				byte[] bytes = file[0].getBytes();
+				System.out.println(bytes.length);
+				for(int i=0;i<file.length;i++){
+					
+					BufferedOutputStream stream = 
+							new BufferedOutputStream(new FileOutputStream(new File(file[i].getOriginalFilename())));
+					stream.write(bytes);
+					stream.close();
+				}
+				
 				/*
 				 * Write private key
 				 */
@@ -81,8 +88,10 @@ public class RestApiController {
 				ppkStream.close();
 
 				ud.setKeyPath(ppk.getOriginalFilename());
-
-				jd.setJobFile(file.getOriginalFilename());
+				String fileNames[]=new String[file.length];
+				for(int i=0;i<file.length;i++)
+					fileNames[i]=file[i].getOriginalFilename();
+				jd.setJobFile(fileNames);
 				jd.setNumNodes(Integer.parseInt(nodes));
 				jd.setProcessorPerNode(Integer.parseInt(ppn));
 				jd.setWallTime(wallTime);
@@ -99,14 +108,14 @@ public class RestApiController {
 				return "Job submission failed";
 				
 			} catch (IOException e) {
-				return "You failed to upload " + file.getOriginalFilename() + " => " + e.getMessage();
+				return "You failed to upload " + file[0].getOriginalFilename() + " => " + e.getMessage();
 			} catch (JSchException e){
 				return "You failed to upload Authentication failure, Error message is => " + e.getMessage();
 			} catch (ExceptionHandler e){
 				return "You failed to upload Session is down, Error message is => " + e.getMessage();
 			}
 		} else {
-			return "Upload of file" + file.getOriginalFilename() + " failed because the file was empty.";
+			return "Upload of file" + file[0].getOriginalFilename() + " failed because the file was empty.";
 		}
 	}
 
@@ -227,6 +236,8 @@ public class RestApiController {
 			JobDetails jd=new JobDetails();
 			FetchFile ff=new FetchFile();
 			ud.setUserName(name);
+			if(workPath.charAt(workPath.length()-1)!='/')
+				workPath=workPath+"/";
 			ud.setTargetPath(workPath);
 			ud.setPassphrase(passPhrase);
 			jd.setJobName(jobName);

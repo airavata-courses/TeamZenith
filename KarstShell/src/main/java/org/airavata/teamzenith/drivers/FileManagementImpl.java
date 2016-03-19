@@ -19,6 +19,8 @@ public class FileManagementImpl implements FileManagement{
 		SshUtil ssh = new SshUtil();
 		try
 		{
+			LOGGER.info("File name is "+ localFile);
+
 			/* Transfer related files to remote machine */
 
 			if (localFile == null || remotePath == null){
@@ -70,7 +72,7 @@ public class FileManagementImpl implements FileManagement{
 	}
 
 	@Override
-	public boolean compileFile(Session session, String language, String artifact,String path) throws IOException, JSchException {
+	public boolean compileFile(Session session, String language, String[] artifact,String path) throws IOException, JSchException {
 		SshUtil ssh = new SshUtil();
 		try {
 			String destSource = new StringBuffer(path).append(artifact).toString();
