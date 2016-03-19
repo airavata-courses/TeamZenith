@@ -55,9 +55,37 @@ $(document).ready(function () {
 		event.preventDefault();
 
 		var formData = new FormData();
+		var filejob=[];
+		if($('#jobType').val()=="cust"){
+			filejob[0]=$('input[name=customfile]')[0].files[0];
 
+		}
+		else{
+			filejob[0]=$('input[name=fileent]')[0].files[0];
+			filejob[1]=$('input[name=filegro]')[0].files[0];
+			filejob[2]=$('input[name=filetop]')[0].files[0];
+			filejob[3]=$('input[name=filemdp]')[0].files[0];
+			filejob[4]=$('input[name=filetpr]')[0].files[0];
+		}
 		formData.append('path', $('#targetPath').val());
-		formData.append('filejob', $('input[name=file]')[0].files[0]);
+		for (var i = 0; i < filejob.length; i++) {
+			formData.append('filejob[]', filejob[i]);
+		}
+
+	/*	var ins = document.getElementById('file[1]').files.length;
+		alert(ins);
+		for (var x = 0; x < ins; x++) {
+			formData.append("filejob[]", document.getElementById('file').files[x]);
+		}
+		
+		/*var ins = $('input[name=file]')[0].files.length;
+
+		for (var x = 0; x < ins; x++) {
+			alert(ins);
+
+			formData.append("filejob[]", $('input[name=file]')[0].files[x]);
+		}
+		*/
 		formData.append('username', $('#userName').val());
 		formData.append('jobname', $('#jobName').val());
 		formData.append('noofnodes', $('#nodeCount').val());

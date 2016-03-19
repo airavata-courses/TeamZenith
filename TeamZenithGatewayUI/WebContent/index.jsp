@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">-->
+ <!DOCTYPE html> 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -160,16 +161,47 @@
 										<h4 class="section-heading">Job Details:</h4>
 										<label for="JobType">Job Type</label> <select id="jobType"
 											name="jobType" style="width: 212px;">
-											<option value="gro">GROMACS</option>
+											<option selected="selected" value="gro">GROMACS</option>
 											<option value="cust">Custom</option>
 										</select>
-
-										<fieldset class="form-group">
+									
+									<!-- <fieldset class="form-group">
 											<label for="JobSourceCode">Input File</label> <input
 												type="file" class="form-control-file" id="FileInput"
-												name="file"> <small class="text-muted">Select
+												name="file"> <small class="text-muted" multiple>Select
 												the source code file, compatible types ".c"</small>
-										</fieldset>
+										</fieldset>  									-->
+										
+									<fieldset class="form-group">
+										<div class="gromacsbox" >
+											<label for="JobSourceCode">ENT File</label> <input
+												type="file" class="form-control-file" id="FileInput1"
+												name="fileent"> 
+											
+											<label for="JobSourceCode">GRO File</label> <input
+												type="file" class="form-control-file" id="FileInput2"
+												name="filegro"> 
+												
+											<label for="JobSourceCode">TOP File</label> <input
+												type="file" class="form-control-file" id="FileInput3"
+												name="filetop"> 
+												
+											<label for="JobSourceCode">TPR file File</label> <input
+												type="file" class="form-control-file" id="FileInput3"
+												name="filetpr"> 
+												
+											<label for="JobSourceCode">MDP File</label> <input
+												type="file" class="form-control-file" id="FileInput4"
+												name="filemdp"> 
+												</div>
+												
+												<div class="custombox" style="display: none">
+											<label for="JobSourceCode">Job File</label> <input
+												type="file" class="form-control-file" id="FileInput"
+												name="customfile"> <small class="text-muted">Select
+												the source code file, compatible types ".c"</small>
+												</div> 
+										</fieldset> 
 										<fieldset class="form-group">
 											<div class="radio" style="display: none">
 												<label for="exampleSelect1">Compilation required ?</label><br />
