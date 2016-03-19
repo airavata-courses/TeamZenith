@@ -1,0 +1,23 @@
+Milestone 3 submission
+As part of this milestone submission, we have developed the following three REST APIs:
+
+- /upload : This accepts user and job details and submits a job to Karst
+	   The user would have to upload the private key that would be used to verify the identity to Karst
+- /monitor: This requests user credentials and job details and provides the latest status of the input job.
+- /cancel:  This requests user credentials and job details and cancels the job.
+- /download: This reequests user credntials and job details will fetch the output files of completed jobs.
+
+Installation instructions:
+
+There are two ways in which the project can be run.
+
+1. Please Checkout the KarstShell and TeamZenithGatewayUI folder into Eclipse.
+
+2. Use mvn package to package both the projects and copy the war files to the webapps folder of your tomcat installation. Reboot the server and the application would be accessible at http://localhost:8080/. Now navigate 
+   to the localhost URL.
+   
+3. URL to access: http://localhost:8080/TeamZenithGatewayUI-0.0.1/
+
+4. User interface is self explainatory.
+
+Note:The job file is actually the executable file that needs to be executed on Karst. It can also be a C program file which can be submitted. But in the latter case, Compilation Required should be set to Yes.The index page provides navigation to the forms specific to each of the APIs which can be used to invoke the APIs.
