@@ -1,5 +1,5 @@
 Milestone 3 submission
-As part of this milestone submission, we have developed the following three REST APIs:
+As part of this milestone submission, we have developed the following four REST APIs:
 
 - /upload : This accepts user and job details and submits a job to Karst
 	   The user would have to upload the private key that would be used to verify the identity to Karst
@@ -18,6 +18,23 @@ There are two ways in which the project can be run.
    
 3. URL to access: http://localhost:8080/TeamZenithGatewayUI-0.0.1/
 
-4. User interface is self explainatory.
+4. User interface is self explanatory.
 
-Note:The job file is actually the executable file that needs to be executed on Karst. It can also be a C program file which can be submitted. But in the latter case, Compilation Required should be set to Yes.The index page provides navigation to the forms specific to each of the APIs which can be used to invoke the APIs.
+Instructions to run GROMACS as well as custom jobs on KarstShell:
+
+GROMACS:
+The input files specific to GROMACS  have been uploaded to the GROMACS folder within KarstShell. Therefore, for testing the GROMACS job, please follow the following steps:
+- Access http://localhost:8080/TeamZenithGatewayUI-0.0.1/ and then navigate to the Create Job page
+- Provide values for the user specific parameters and select the Job Type as GROMACS.
+- Please upload the provided GROMACS input files to each of the provided upload forms.
+- Provide the number of nodes as 1 and number of processors per node as 16.
+- Provide the walltime with a value greater than 10:00
+- Provide the working directory, which means the directory within Karst which can be used by KarstShell to copy the input data and submit the job. If not sure, please provide the home folder
+  location of your Karst account.
+- Submit the job and upon job completion, the user will receive an email notification with the job related files.
+
+Custom jobs:
+-The user can provide program files written in the C language or the executables generated from the C files as input to KarstShell.
+-In order to do this, select the job type as Custom in the Create job page and upload the file that you would like to run on Karst.
+- Please note that in case a C file is uploaded, make sure to set the option 'Compilation Required' as Yes.
+- For your convenience, a sample C file has been provided in the KarstShell folder.
