@@ -4,6 +4,7 @@ $(document).ready(function () {
 		$( "monitorResponse" ).empty();
 		//disable the default form submission
 		event.preventDefault();
+		console.log('asdasd');
 		//grab all form data  
 		var formData = new FormData();
 		formData.append('username', $('#muser').val());
@@ -18,7 +19,7 @@ $(document).ready(function () {
 
 		$.ajax({
 			dataType: "json",
-			url: "http://localhost:8080/KarstShell-REST-Api-0.1.0/monitor",
+			url: "monitor",
 			type: "POST",
 			data: formData,
 			async: false,
@@ -74,7 +75,7 @@ $(document).ready(function () {
 		}
 
 		$.ajax({
-			url: "https://localhost:8443/KarstShell-REST-Api-0.1.0/upload?format=json&callback=?",
+			url: "/upload?format=json&callback=?",
 			type: "POST",
 			data: formData,
 			async: false,
@@ -123,7 +124,7 @@ $(document).ready(function () {
 		}
 
 		$.ajax({
-			url: "http://localhost:8080/KarstShell-REST-Api-0.1.0/cancel",
+			url: "/cancel",
 			type: "POST",
 			data: formData,
 			async: false,
@@ -172,7 +173,7 @@ $(document).ready(function () {
 		}
 
 		$.ajax({
-			url: "http://localhost:8080/KarstShell-REST-Api-0.1.0/download",
+			url: "/download",
 			type: "POST",
 			data: formData,
 			async: false,
