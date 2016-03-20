@@ -1,21 +1,40 @@
-Milestone 2 submission
-As part of this milestone submission, we have developed the following three REST APIs:
+Milestone 3 submission
+As part of this milestone submission, we have developed the following four REST APIs:
 
 - /upload : This accepts user and job details and submits a job to Karst
 	   The user would have to upload the private key that would be used to verify the identity to Karst
 - /monitor: This requests user credentials and job details and provides the latest status of the input job.
 - /cancel:  This requests user credentials and job details and cancels the job.
+- /download: This reequests user credntials and job details will fetch the output files of completed jobs.
 
 Installation instructions:
 
 There are two ways in which the project can be run.
 
-1. Checkout the KarstShell folder into Eclipse and install the SpringToolSuite plugin for eclipse. Then deploy the project as a SpringBoot application
-   and the application would be accessible at http://localhost:8080/ 
-   Please note that the context root is /
+1. Please Checkout the KarstShell and TeamZenithGatewayUI folder into Eclipse.
 
-2. Use mvn package to package the project to a war file and copy the file to the webapps folder of your tomcat installation. Reboot the server and navigate 
+2. Use mvn package to package both the projects and copy the war files to the webapps folder of your tomcat installation. Reboot the server and the application would be accessible at http://localhost:8080/. Now navigate 
    to the localhost URL.
+   
+3. URL to access: http://localhost:8080/TeamZenithGatewayUI-0.0.1/
 
+4. User interface is self explanatory.
 
-The index page provides navigation to the forms specific to each of the APIs which can be used to invoke the APIs.
+Instructions to run GROMACS as well as custom jobs on KarstShell:
+
+GROMACS:
+The input files specific to GROMACS  have been uploaded to the GROMACS folder within KarstShell. Therefore, for testing the GROMACS job, please follow the following steps:
+- Access http://localhost:8080/TeamZenithGatewayUI-0.0.1/ and then navigate to the Create Job page
+- Provide values for the user specific parameters and select the Job Type as GROMACS.
+- Please upload the provided GROMACS input files to each of the provided upload forms.
+- Provide the number of nodes as 1 and number of processors per node as 16.
+- Provide the walltime with a value greater than 10:00
+- Provide the working directory, which means the directory within Karst which can be used by KarstShell to copy the input data and submit the job. If not sure, please provide the home folder
+  location of your Karst account.
+- Submit the job and upon job completion, the user will receive an email notification with the job related files.
+
+Custom jobs:
+-The user can provide program files written in the C language or the executables generated from the C files as input to KarstShell.
+-In order to do this, select the job type as Custom in the Create job page and upload the file that you would like to run on Karst.
+- Please note that in case a C file is uploaded, make sure to set the option 'Compilation Required' as Yes.
+- For your convenience, a sample C file has been provided in the KarstShell folder.
