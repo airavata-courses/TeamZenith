@@ -122,7 +122,7 @@
 							class="network-name">Create Job</span>
 					</button>
 					<!-- Job submit request form -->
-					<div id="myModal" class="modal fade" role="dialog">
+					<div id="myModal" class="modal fade" role="dialog" style="text-align: left;">
 						<div class="modal-dialog">
 
 							<!-- Modal content-->
@@ -163,12 +163,18 @@
 										<a role="separator" class="divider"></a>
 										<hr></hr>
 										<h4 class="section-heading">Job Details:</h4>
+										<fieldset class="form-group">
 										<label for="JobType">Job Type</label> <select id="jobType"
 											name="jobType" style="width: 212px;">
 											<option value="gro">GROMACS</option>
 											<option value="cust">Custom</option>
-										</select>
-
+										</select></fieldset>
+										<fieldset class="form-group">
+										<label for="sysType">System Type</label> <select id="sysType"
+											name="sysType" style="width: 212px;">
+											<option value="K">Karst</option>
+											<option value="B">Big Red II</option>
+										</select></fieldset>
 										<fieldset class="form-group">
 											<label for="JobSourceCode">Input File</label> <input
 												type="file" class="form-control-file" id="FileInput"
@@ -272,7 +278,7 @@
 							class="network-name">Get Job Status</span>
 					</button>
 					<!-- Job monitor request form -->
-					<div class="modal fade" id="jobMonitorForm" role="dialog">
+					<div class="modal fade" id="jobMonitorForm" role="dialog" style="text-align: left;">
 						<div class="modal-dialog">
 
 							<!-- Modal content-->
@@ -311,6 +317,14 @@
 												class="form-control" id="jobID"
 												placeholder="Enter the job ID Ex: 1242254" name="jobNumber"></input>
 										</fieldset>
+										
+										
+										<fieldset class="form-group">
+										<label for="sysType">System Type</label> <select id="sysType_js"
+											name="sysType_js" style="width: 212px;">
+											<option value="K">Karst</option>
+											<option value="B">Big Red II</option>
+										</select></fieldset>
 
 										<button type="submit" class="btn btn-primary"
 											id="jobMonitorButton">Get Job Status</button>
@@ -343,8 +357,8 @@
 							class="network-name">Cancel Job</span>
 					</button>
                         
-                        <!-- Job monitor request form -->
-					<div class="modal fade" id="jobCancel" role="dialog">
+                        <!-- Job cancel request form -->
+					<div class="modal fade" id="jobCancel" role="dialog" style="text-align: left;">
 						<div class="modal-dialog">
 
 							<!-- Modal content-->
@@ -385,7 +399,12 @@
 												class="form-control" id="canceljobID"
 												placeholder="Enter the job ID Ex: 1242254" name="jobNumber"></input>
 										</fieldset>
-
+										<fieldset class="form-group">
+										<label for="sysType">System Type</label> <select id="sysType_cj"
+											name="sysType_cj" style="width: 212px;">
+											<option value="K">Karst</option>
+											<option value="B">Big Red II</option>
+										</select></fieldset>
 										<button type="submit" class="btn btn-primary"
 											id="jobMonitorButton">Cancel Job</button>
 
@@ -414,8 +433,8 @@
 						<i class="glyphicon glyphicon-cloud-upload"></i> <span
 							class="network-name">Download</span>
 					</button>
-					<!-- Job monitor request form -->
-					<div class="modal fade" id="jobDownload" role="dialog">
+					<!-- Job download request form -->
+					<div class="modal fade" id="jobDownload" role="dialog" style="text-align: left;">
 						<div class="modal-dialog">
 
 							<!-- Modal content-->
@@ -454,6 +473,12 @@
 												class="form-control" id="downloadJobName"
 												placeholder="Enter the job Name" name="jobName"></input>
 										</fieldset>
+										<fieldset class="form-group">
+										<label for="sysType">System Type</label> <select id="sysType_jd"
+											name="sysType_jd" style="width: 212px;">
+											<option value="K">Karst</option>
+											<option value="B">Big Red II</option>
+										</select></fieldset>
 										<fieldset class="form-group">
 											<label for="path">Working Directory :</label> <input
 												type="text" class="form-control" id="downloadWorkPath"
@@ -523,7 +548,7 @@
 					<li><a href="#contact">Contact</a></li>
 				</ul>
 				<p class="copyright text-muted small">Copyright &copy; Your
-					Company 2014. All Rights Reserved</p>
+					Company 2016. All Rights Reserved</p>
 			</div>
 		</div>
 	</div>
