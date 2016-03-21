@@ -43,14 +43,23 @@ public class ScriptGenUtil {
 			String outFile=new StringBuffer(user.getTargetPath()).append(job.getJobName()).append(".log").toString();
 			String outPath=new StringBuffer(PbsConstants.pbsPrefix).append(" -o ").append(outFile).toString();
 			if(job.getJobType().equals(PbsConstants.gromacs)){
-				executeCmd= new StringBuffer(PbsConstants.mpirun).append(" ").append("mdrun_mpi_d -s ").append(job.getJobFile()).toString();
+				
+				executeCmd= new StringBuffer(PbsConstants.gromacsGmx).append(PbsConstants.gromacsGrompp).append(PbsConstants.gromacsMdrun).toString();
 			}
 			else{
-				if(job.isCompileReqd())
-	
-				executeCmd = new StringBuffer("./").append(job.getJobFile()).append(".out").toString();
+				if(job.isCompileReqd()){
+					if(job.getExecEnv().equals("Karst"))
+						executeCmd = new StringBuffer("./").append(job.getJobFile()[0]).append(".out").toString();
+					else
+						executeCmd = new StringBuffer(PbsConstants.bigRedJobRun).append
+						(" ").append(job.getJobFile()[0]).append(".out").toString();
+				}
 			else
-				executeCmd = new StringBuffer("./").append(job.getJobFile()).toString();
+				if(job.getExecEnv().equals("Karst"))
+					executeCmd = new StringBuffer("./").append(job.getJobFile()[0]).toString();
+				else
+					executeCmd = new StringBuffer(PbsConstants.bigRedJobRun).append
+					(" ").append(job.getJobFile()[0]).toString();
 			
 			}
 				String accessCmd=new StringBuffer(PbsConstants.chmod).append(" ").append(user.getTargetPath()).toString();

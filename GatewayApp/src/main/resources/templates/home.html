@@ -35,6 +35,8 @@
 <link rel="stylesheet" href="bootstrap/css/bootstrap-table.css"
 	type="text/css" />
 <script type="text/javascript" src="bootstrap/js/app.js"></script>
+<script type="text/javascript" src="bootstrap/js/test.js"></script>
+
 <!-- Custom Theme JavaScript -->
 <script src="bootstrap/js/creative.js"></script>
 </head>
@@ -77,7 +79,7 @@
 			<div class="header-content-inner">
 				<h1>Science Gateway</h1>
 
-				<p>A job schedkuler for Karst computer structure by Team Zenith</p>
+				<p>A job scheduler for Karst computer structure by Team Zenith</p>
 				<a href="#about" class="btn btn-primary btn-xl page-scroll">Previous
 					Job History</a>
 			</div>
@@ -188,18 +190,44 @@
 												</select>
 											</fieldset>
 											<fieldset class="form-group">
-												<label for="sysType">System Type</label> <select
-													id="sysType" name="sysType" style="width: 212px;">
-													<option value="K">Karst</option>
-													<option value="B">Big Red II</option>
+												<label for="execEnv">System Type</label> <select
+													id="execEnv" name="execEnv" style="width: 212px;">
+													<option value="Karst">Karst</option>
+													<option value="Bigred2">Big Red II</option>
 												</select>
 											</fieldset>
 											<fieldset class="form-group">
-												<label for="JobSourceCode">Input File</label> <input
-													type="file" class="form-control-file" id="FileInput"
-													name="file"></input> <small class="text-muted">Select
-													the source code file, compatible types ".c"</small>
-											</fieldset>
+										<div class="gromacsbox" >
+											<label for="JobSourceCode">ENT File</label> <input
+												type="file" class="form-control-file" id="FileInput1"
+												name="fileent"> </input>
+											
+											<label for="JobSourceCode">GRO File</label> <input
+												type="file" class="form-control-file" id="FileInput2"
+												name="filegro"> </input>
+												
+											<label for="JobSourceCode">TOP File</label> <input
+												type="file" class="form-control-file" id="FileInput3"
+												name="filetop"> </input>
+												
+											<label for="JobSourceCode">TPR file File</label> <input
+												type="file" class="form-control-file" id="FileInput3"
+												name="filetpr"> </input>
+												
+											<label for="JobSourceCode">MDP File</label> <input
+												type="file" class="form-control-file" id="FileInput4"
+												name="filemdp"> </input>
+												</div>
+												
+												<div class="custombox">
+												<!--  style="display: none"> -->
+											<label for="JobSourceCode">Job File</label> <input
+												type="file" class="form-control-file" id="FileInput"
+												name="customfile"> <small class="text-muted">Select
+												the source code file, compatible types ".c"</small></input>
+												</div> 
+										</fieldset> 
+
 											<fieldset class="form-group">
 												<div class="radio" style="display: none">
 													<label for="exampleSelect1">Compilation required ?</label><br />

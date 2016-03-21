@@ -25,7 +25,11 @@ public class SSHConnectionHandler {
 				jsch.addIdentity(privateKeyFile);
 			else
 				jsch.addIdentity(privateKeyFile, ud.getPassphrase());
-			Session session = jsch.getSession(ud.getUserName(), SSHConstants.hostName, SSHConstants.port);
+			Session session ;
+			if(ud.getHostName().equals("Karst"))
+				session = jsch.getSession(ud.getUserName(), SSHConstants.hostName, SSHConstants.port);
+			else
+				session = jsch.getSession(ud.getUserName(), SSHConstants.bigRedHostName, SSHConstants.port);
 			if(LOGGER.isInfoEnabled()){
 				LOGGER.info("Username is "+ud.getUserName()+" and "+SSHConstants.hostName);
 			}

@@ -8,9 +8,10 @@ public class JobDetails {
 	private boolean isCompileReqd;
 	private int processorPerNode;
 	private String jobName;
-	private String jobFile;
+	private String[] jobFile;
 	private String jobId;
 	private String jobType;
+	private String execEnv;
 	public String getSource() {
 		return source;
 	}
@@ -53,10 +54,10 @@ public class JobDetails {
 	public void setJobName(String jobName) {
 		this.jobName = jobName;
 	}
-	public String getJobFile() {
+	public String[] getJobFile() {
 		return jobFile;
 	}
-	public void setJobFile(String jobFile) {
+	public void setJobFile(String[] jobFile) {
 		this.jobFile = jobFile;
 	}
 	public String getJobId() {
@@ -70,5 +71,11 @@ public class JobDetails {
 	}
 	public void setJobType(String jobType) {
 		this.jobType = jobType;
+	}
+	public String getExecEnv() {
+		return execEnv;
+	}
+	public void setExecEnv(String execEnv) {
+		this.execEnv = execEnv;
 	}
 }

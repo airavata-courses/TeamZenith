@@ -1,6 +1,7 @@
 package org.airavata.teamzenith.init.controller;
 
 import java.io.BufferedOutputStream;
+import org.airavata.teamzenith.dao.JobData;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,20 +9,22 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import org.airavata.teamzenith.dao.JobData;
+import org.airavata.teamzenith.dao.JobDataDao;
 import org.airavata.teamzenith.dao.JobDetails;
+import org.airavata.teamzenith.dao.UserData;
 import org.airavata.teamzenith.dao.UserDetails;
+import org.airavata.teamzenith.dao.UserJobData;
+import org.airavata.teamzenith.dao.UserJobDataDao;
 import org.airavata.teamzenith.exceptions.ExceptionHandler;
 import org.airavata.teamzenith.webmethods.CancelJob;
 import org.airavata.teamzenith.webmethods.FetchFile;
 import org.airavata.teamzenith.webmethods.MonitorJob;
 import org.airavata.teamzenith.webmethods.SubmitJob;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +34,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.airavata.teamzenith.init.service.AdminService;
+import org.airavata.teamzenith.dao.UserData;
+import org.airavata.teamzenith.dao.UserDataDao;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jcraft.jsch.JSchException;
+
+import scala.annotation.meta.setter;
 /*
  * This is the main controller class which provides the following three REST APIs
  * upload- Accepts user and job details in order to submit a job on Karst
@@ -42,15 +53,12 @@ import com.jcraft.jsch.JSchException;
  */
 @Controller
 public class RestController {
-	
-	
+
 
     @RequestMapping("/")
     String home() {
         return "home";
     }
-
-
 	@RequestMapping(value="/upload", method=RequestMethod.GET)
 	public @ResponseBody String provideUploadInfo() {
 		return "A Karst job can be submitted by POSTing to this URL.";
@@ -58,14 +66,14 @@ public class RestController {
 
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
 	public @ResponseBody String handleFileUpload(@RequestParam("path") String tPath,
-			@RequestParam("filejob") MultipartFile file, @RequestParam("username") String userName,
+			@RequestParam("filejob[]") MultipartFile[] file, @RequestParam("username") String userName,
 			@RequestParam("jobname") String jobName, @RequestParam("noofnodes") String nodes,
 			@RequestParam("noofppn") String ppn, @RequestParam("walltime") String wallTime, 
 			@RequestParam("compreq") String isComp, @RequestParam("email") String emailId, 
 			@RequestParam("file") MultipartFile ppk, @RequestParam(name = "pass", defaultValue = "null") String pass,
-			@RequestParam("jType") String jobType, @RequestParam("sysType") String sysType){
+			@RequestParam("jType") String jobType, @RequestParam("execEnv") String env){
 
-		if (!file.isEmpty()) {
+		if (!file[0].isEmpty()) {
 			try {
 				UserDetails ud=new UserDetails();
 				JobDetails jd=new JobDetails();
@@ -73,16 +81,21 @@ public class RestController {
 
 				ud.setUserName(userName);
 				ud.setEmail(emailId);
+				if(tPath.charAt(tPath.length()-1)!='/')
+					tPath=tPath+"/";
 				ud.setTargetPath(tPath);
 				ud.setPassphrase(pass);
 				/*
 				 * Write job file
 				 */
-				byte[] bytes = file.getBytes();
-				BufferedOutputStream stream = 
-						new BufferedOutputStream(new FileOutputStream(new File(file.getOriginalFilename())));
-				stream.write(bytes);
-				stream.close();
+				byte[] bytes = file[0].getBytes();
+				for(int i=0;i<file.length;i++){
+					
+					BufferedOutputStream stream = 
+							new BufferedOutputStream(new FileOutputStream(new File(file[i].getOriginalFilename())));
+					stream.write(bytes);
+					stream.close();
+				}
 				/*
 				 * Write private key
 				 */
@@ -93,32 +106,36 @@ public class RestController {
 				ppkStream.close();
 
 				ud.setKeyPath(ppk.getOriginalFilename());
-
-				jd.setJobFile(file.getOriginalFilename());
+				ud.setHostName(env);
+				String fileNames[]=new String[file.length];
+				for(int i=0;i<file.length;i++)
+					fileNames[i]=file[i].getOriginalFilename();
+				jd.setJobFile(fileNames);
 				jd.setNumNodes(Integer.parseInt(nodes));
 				jd.setProcessorPerNode(Integer.parseInt(ppn));
 				jd.setWallTime(wallTime);
 				jd.setJobName(jobName);
 				jd.setJobType(jobType);
+				jd.setExecEnv(env);
 				if(isComp.equals("yes")&&jobType.equals("cust"))
 					jd.setCompileReqd(true);
 				else
 					jd.setCompileReqd(false);
 
-				if(sub.submit(jd, ud)){
+				if(sub.submit(jd, ud,userjobDao,jobDao)){
 					return "Job submitted successfully with job Id "+jd.getJobId();
 				}
 				return "Job submission failed";
 				
 			} catch (IOException e) {
-				return "You failed to upload " + file.getOriginalFilename() + " => " + e.getMessage();
+				return "You failed to upload " + file[0].getOriginalFilename() + " => " + e.getMessage();
 			} catch (JSchException e){
 				return "You failed to upload Authentication failure, Error message is => " + e.getMessage();
 			} catch (ExceptionHandler e){
 				return "You failed to upload Session is down, Error message is => " + e.getMessage();
 			}
 		} else {
-			return "Upload of file" + file.getOriginalFilename() + " failed because the file was empty.";
+			return "Upload of file" + file[0].getOriginalFilename() + " failed because the file was empty.";
 		}
 	}
 
@@ -130,7 +147,7 @@ public class RestController {
 	@RequestMapping(value="/monitor", method=RequestMethod.POST, produces = "application/json")
 	public @ResponseBody DataPost MonitorJobEndPoint(@RequestParam("username") String name,
 			@RequestParam(name = "passPhrase", defaultValue = "null") String passPhrase, 
-			@RequestParam("size") String jobNumber, @RequestParam("file") MultipartFile file,@RequestParam("sysType_js") String sysType){
+			@RequestParam("size") String jobNumber, @RequestParam("file") MultipartFile file){
 //		Properties prop = new Properties();
 		String value = null;
 		UserDetails userObject = new UserDetails();
@@ -140,7 +157,6 @@ public class RestController {
 				/*
 				 * Write private key
 				 */
-				System.out.println(name+passPhrase+jobNumber+sysType);
 				byte[] ppkBytes = file.getBytes();
 				BufferedOutputStream ppkStream = 
 						new BufferedOutputStream(new FileOutputStream(new File(file.getOriginalFilename())));
@@ -188,7 +204,7 @@ public class RestController {
 	@RequestMapping(value="/cancel", method=RequestMethod.POST)
 	public @ResponseBody DataPost CancelJobEndPoint(@RequestParam("username") String name,
 			@RequestParam(name = "passPhrase", defaultValue = "null") String passPhrase, 
-			@RequestParam("jobnumber") String jobNumber, @RequestParam("file") MultipartFile file,@RequestParam("sysType_jc") String sysType){
+			@RequestParam("jobnumber") String jobNumber, @RequestParam("file") MultipartFile file){
 		UserDetails userObject = new UserDetails();
 		CancelJob job = new CancelJob();
 		DataPost dpc = new DataPost();
@@ -232,7 +248,7 @@ public class RestController {
 	public @ResponseBody ResponseEntity<InputStreamResource> downloadPDFFile(@RequestParam("username") String name,
 			@RequestParam(name = "passPhrase", defaultValue = "null") String passPhrase, 
 			@RequestParam("jobName") String jobName, @RequestParam("workPath") String workPath,
-			@RequestParam("ppkFile") MultipartFile file, @RequestParam("sysType_jd") String sysType)
+			@RequestParam("ppkFile") MultipartFile file)
 	        throws IOException {
 
 		try {
@@ -279,7 +295,31 @@ public class RestController {
 		}
 
 
-}
+}  
+	
+
+	@RequestMapping(value = "/fetchjob", method = RequestMethod.GET)
+	public @ResponseBody String fetchJobHistory(@RequestParam("username") String name)
+	        throws IOException {
+
+		try {
+			List <JobData> lst=jobDao.getByUser(name);
+			return lst.get(0).getJobName();
+			//return res.getJobName();
+			
+
+	}
+		catch(Exception e){
+			System.out.println("Failed during jsch download");
+			e.printStackTrace();
+			return null;
+		}
 
 
+}  
+
+		@Autowired
+		  private UserJobDataDao userjobDao;
+		@Autowired
+		  private JobDataDao jobDao;
 }
