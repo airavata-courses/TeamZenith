@@ -58,14 +58,28 @@ $(document).ready(function () {
 
 	$("#jobSubmitForm").submit(function (event) {
 		var formtoken = $('#csrfTokenJobSubmit').val();
-
+		console.log("inside Job submit");
 		$( "result" ).empty();
 		//disable the default form submission
 		event.preventDefault();
 
 		var formData = new FormData();
+		var filejob=[];
+		if($('#jobType').val()=="cust"){
+			filejob[0]=$('input[name=customfile]')[0].files[0];
+
+		}
+		else{
+			filejob[0]=$('input[name=fileent]')[0].files[0];
+			filejob[1]=$('input[name=filegro]')[0].files[0];
+			filejob[2]=$('input[name=filetop]')[0].files[0];
+			filejob[3]=$('input[name=filemdp]')[0].files[0];
+			filejob[4]=$('input[name=filetpr]')[0].files[0];
+		}
 		formData.append('path', $('#targetPath').val());
-		formData.append('filejob', $('input[name=file]')[0].files[0]);
+		for (var i = 0; i < filejob.length; i++) {
+			formData.append('filejob[]', filejob[i]);
+		}
 		formData.append('username', $('#userName').val());
 		formData.append('jobname', $('#jobName').val());
 		formData.append('noofnodes', $('#nodeCount').val());
@@ -76,12 +90,12 @@ $(document).ready(function () {
 		formData.append('file', $('input[name=ppk]')[0].files[0]);
 		formData.append('pass', $('#passPhrase').val());
 		formData.append('jType',$('#jobType').val());
-		formData.append('sysType_js',$('#sysType').val());
+		formData.append('execEnv', $("input[name=execEnv]:checked").val());
 		var options = {
 				"show" : "false"
 		}
 
-		$.ajaxSetup({
+		$.ajax({
 			url: "/upload?format=json&callback=?",
 			type: "POST",
 			data: formData,
