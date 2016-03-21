@@ -1,5 +1,8 @@
 $(document).ready(function () {
+
 	$("#jobMonitorForm").submit(function (event) {
+		var formtoken = $('#csrfTokenJobMonitor').val();
+		console.log(formtoken);
 
 		$( "monitorResponse" ).empty();
 		//disable the default form submission
@@ -10,7 +13,7 @@ $(document).ready(function () {
 		formData.append('username', $('#muser').val());
 		formData.append('passPhrase', $('#mpass').val());
 		formData.append('size', $('#jobID').val());
-		formData.append('sysType',$('#sysType_js').val());
+		formData.append('sysType_js',$('#sysType_js').val());
 		formData.append('file', $('input[name=ppkFile]')[0].files[0]);
 
 		var options = {
@@ -22,6 +25,9 @@ $(document).ready(function () {
 			url: "monitor",
 			type: "POST",
 			data: formData,
+			beforeSend: function( xhr ) {
+				xhr.setRequestHeader("X-CSRF-Token", formtoken);
+			  },
 			async: false,
 			cache: false,
 			contentType: false,
@@ -51,6 +57,7 @@ $(document).ready(function () {
 	});
 
 	$("#jobSubmitForm").submit(function (event) {
+		var formtoken = $('#csrfTokenJobSubmit').val();
 
 		$( "result" ).empty();
 		//disable the default form submission
@@ -69,15 +76,18 @@ $(document).ready(function () {
 		formData.append('file', $('input[name=ppk]')[0].files[0]);
 		formData.append('pass', $('#passPhrase').val());
 		formData.append('jType',$('#jobType').val());
-		formData.append('sysType',$('#sysType').val());
+		formData.append('sysType_js',$('#sysType').val());
 		var options = {
 				"show" : "false"
 		}
 
-		$.ajax({
+		$.ajaxSetup({
 			url: "/upload?format=json&callback=?",
 			type: "POST",
 			data: formData,
+			beforeSend: function( xhr ) {
+				xhr.setRequestHeader("X-CSRF-Token", formtoken);
+			  },
 			async: false,
 			cache: false,
 			contentType: false,
@@ -107,7 +117,8 @@ $(document).ready(function () {
 	});
 
 	$("#jobCancelForm").submit(function (event) {
-
+		var formtoken = $('#csrfTokenCancelJob').val();
+		
 		$( "cancelResponse" ).empty();
 		//disable the default form submission
 		event.preventDefault();
@@ -117,7 +128,7 @@ $(document).ready(function () {
 		formData.append('passPhrase', $('#cancelpass').val());
 		formData.append('jobnumber', $('#canceljobID').val());
 		formData.append('file', $('input[name=cFile]')[0].files[0]);
-		formData.append('sysType',$('#sysType_jc').val());
+		formData.append('sysType_js',$('#sysType_jc').val());
 
 		var options = {
 				"show" : "false"
@@ -127,6 +138,9 @@ $(document).ready(function () {
 			url: "/cancel",
 			type: "POST",
 			data: formData,
+			beforeSend: function( xhr ) {
+				xhr.setRequestHeader("X-CSRF-Token", formtoken);
+			  },
 			async: false,
 			cache: false,
 			contentType: false,
@@ -156,6 +170,7 @@ $(document).ready(function () {
 	});
 
 	$("#jobDownloadForm_invalid").submit(function (event) {
+		var formtoken = $('#csrfTokenDownload').val();
 
 		$( "downloadResponse" ).empty();
 		//disable the default form submission
@@ -167,7 +182,7 @@ $(document).ready(function () {
 		formData.append('jobName', $('#downloadjobName').val());
 		formData.append('workPath', $('#downloadjobID').val());
 		formData.append('file', $('input[name=cFile]')[0].files[0]);
-		formData.append('sysType',$('#sysType_jd').val());
+		formData.append('sysType_js',$('#sysType_jd').val());
 		var options = {
 				"show" : "false"
 		}
@@ -176,6 +191,9 @@ $(document).ready(function () {
 			url: "/download",
 			type: "POST",
 			data: formData,
+			beforeSend: function( xhr ) {
+				xhr.setRequestHeader("X-CSRF-Token", formtoken);
+			  },
 			async: false,
 			cache: false,
 			contentType: false,
