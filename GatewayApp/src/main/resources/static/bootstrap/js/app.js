@@ -92,11 +92,6 @@ console.log([deeemon]);
 	
 	
 	
-	
-	
-	
-	
-	
 	$('#table').bootstrapTable({
         data: [deeemon]
     });
@@ -116,7 +111,7 @@ console.log([deeemon]);
 		formData.append('username', $('#muser').val());
 		formData.append('passPhrase', $('#mpass').val());
 		formData.append('size', $('#jobID').val());
-		formData.append('execEnv',$("input[name=execEnv]:checked").val());
+		formData.append('execEnv',$("#execEnv").val());
 		formData.append('file', $('input[name=ppkFile]')[0].files[0]);
 
 		var options = {
@@ -193,7 +188,7 @@ console.log([deeemon]);
 		formData.append('file', $('input[name=ppk]')[0].files[0]);
 		formData.append('pass', $('#passPhrase').val());
 		formData.append('jType',$('#jobType').val());
-		formData.append('execEnv', $("input[name=execEnv]:checked").val());
+		formData.append('execEnv', $("#execEnv").val());
 		var options = {
 				"show" : "false"
 		}
@@ -245,7 +240,7 @@ console.log([deeemon]);
 		formData.append('passPhrase', $('#cancelpass').val());
 		formData.append('jobnumber', $('#canceljobID').val());
 		formData.append('file', $('input[name=cFile]')[0].files[0]);
-		formData.append('execEnv', $("input[name=execEnv]:checked").val());
+		formData.append('execEnv', $("#execEnv").val());
 		var options = {
 				"show" : "false"
 		}
@@ -298,7 +293,7 @@ console.log([deeemon]);
 		formData.append('jobName', $('#downloadjobName').val());
 		formData.append('workPath', $('#downloadjobID').val());
 		formData.append('file', $('input[name=cFile]')[0].files[0]);
-		formData.append('execEnv', $("input[name=execEnv]:checked").val());
+		formData.append('execEnv', $("#execEnv").val());
 		var options = {
 				"show" : "false"
 		}
