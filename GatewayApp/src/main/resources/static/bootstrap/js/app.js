@@ -9,6 +9,7 @@ $(document).ready(function () {
 		formData.append('username', $('#muser').val());
 		formData.append('passPhrase', $('#mpass').val());
 		formData.append('size', $('#jobID').val());
+		formData.append('execEnv',$("input[name=execEnv]:checked").val());
 		formData.append('file', $('input[name=ppkFile]')[0].files[0]);
 
 		var options = {
@@ -49,7 +50,7 @@ $(document).ready(function () {
 	});
 
 	$("#jobSubmitForm").submit(function (event) {
-
+		var formtoken = $('#csrfTokenJobSubmit').val();
 		$( "result" ).empty();
 		//disable the default form submission
 		event.preventDefault();
@@ -81,7 +82,7 @@ $(document).ready(function () {
 		formData.append('file', $('input[name=ppk]')[0].files[0]);
 		formData.append('pass', $('#passPhrase').val());
 		formData.append('jType',$('#jobType').val());
-
+		formData.append('execEnv', $("input[name=execEnv]:checked").val());
 		var options = {
 				"show" : "false"
 		}
@@ -129,7 +130,7 @@ $(document).ready(function () {
 		formData.append('passPhrase', $('#cancelpass').val());
 		formData.append('jobnumber', $('#canceljobID').val());
 		formData.append('file', $('input[name=cFile]')[0].files[0]);
-
+		formData.append('execEnv', $("input[name=execEnv]:checked").val());
 		var options = {
 				"show" : "false"
 		}
@@ -178,7 +179,7 @@ $(document).ready(function () {
 		formData.append('jobName', $('#downloadjobName').val());
 		formData.append('workPath', $('#downloadjobID').val());
 		formData.append('file', $('input[name=cFile]')[0].files[0]);
-
+		formData.append('execEnv', $("input[name=execEnv]:checked").val());
 		var options = {
 				"show" : "false"
 		}

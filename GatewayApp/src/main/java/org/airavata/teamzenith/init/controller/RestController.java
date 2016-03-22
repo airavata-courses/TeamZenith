@@ -147,7 +147,7 @@ public class RestController {
 	@RequestMapping(value="/monitor", method=RequestMethod.POST, produces = "application/json")
 	public @ResponseBody DataPost MonitorJobEndPoint(@RequestParam("username") String name,
 			@RequestParam(name = "passPhrase", defaultValue = "null") String passPhrase, 
-			@RequestParam("size") String jobNumber, @RequestParam("file") MultipartFile file){
+			@RequestParam("size") String jobNumber, @RequestParam("file") MultipartFile file,@RequestParam("execEnv") String env){
 //		Properties prop = new Properties();
 		String value = null;
 		UserDetails userObject = new UserDetails();
@@ -165,6 +165,7 @@ public class RestController {
 				userObject.setKeyPath(file.getOriginalFilename());
 				userObject.setUserName(name);
 				userObject.setPassphrase(passPhrase);
+				userObject.setHostName(env);
 
 				MonitorJob job = new MonitorJob();
 				String jStatus=job.getJobStatus(userObject, jobNumber);
@@ -204,7 +205,7 @@ public class RestController {
 	@RequestMapping(value="/cancel", method=RequestMethod.POST)
 	public @ResponseBody DataPost CancelJobEndPoint(@RequestParam("username") String name,
 			@RequestParam(name = "passPhrase", defaultValue = "null") String passPhrase, 
-			@RequestParam("jobnumber") String jobNumber, @RequestParam("file") MultipartFile file){
+			@RequestParam("jobnumber") String jobNumber, @RequestParam("file") MultipartFile file, @RequestParam("execEnv") String env){
 		UserDetails userObject = new UserDetails();
 		CancelJob job = new CancelJob();
 		DataPost dpc = new DataPost();
@@ -222,7 +223,7 @@ public class RestController {
 				userObject.setKeyPath(file.getOriginalFilename());
 				userObject.setUserName(name);
 				userObject.setPassphrase(passPhrase);
-
+				userObject.setHostName(env);
 				job.getCancelJob(userObject, jobNumber);
 				dpc.setMessage("Job:" + jobNumber + " Cancelled successfully");
 				return dpc;
@@ -248,7 +249,7 @@ public class RestController {
 	public @ResponseBody ResponseEntity<InputStreamResource> downloadPDFFile(@RequestParam("username") String name,
 			@RequestParam(name = "passPhrase", defaultValue = "null") String passPhrase, 
 			@RequestParam("jobName") String jobName, @RequestParam("workPath") String workPath,
-			@RequestParam("ppkFile") MultipartFile file)
+			@RequestParam("ppkFile") MultipartFile file, @RequestParam("execEnv") String env)
 	        throws IOException {
 
 		try {
@@ -258,6 +259,7 @@ public class RestController {
 			ud.setUserName(name);
 			ud.setTargetPath(workPath);
 			ud.setPassphrase(passPhrase);
+			ud.setHostName(env);
 			jd.setJobName(jobName);
 			/*
 			 * Write job file

@@ -97,13 +97,19 @@
 						update</p>
 					<a href="#" class="btn btn-default btn-xl">Refresh!</a>
 					<hr></hr>
-					<table data-toggle="table" data-url="" data-height="299"
+					<table data-toggle="table" data-url="fetchjob?username=[[${account.userName}]]" data-height="299"
 						style="background-color: white;">
 						<thead style="background-color: white;">
 							<tr>
-								<th data-field="id">Item ID</th>
-								<th data-field="name">Item Name</th>
-								<th data-field="price">Item Price</th>
+								<th data-field="JobDataId">Item ID</th>
+								<th data-field="JobId">Item Name</th>
+								<th data-field="JobName">Item Price</th>
+								<th data-field="Nodes">Item Price</th>
+								<th data-field="Ppn">Item Price</th>
+								<th data-field="WallTime">Item Price</th>
+								<th data-field="JobFileName">Item Price</th>
+								<th data-field="CompilerFlag">Item Price</th>
+								
 							</tr>
 						</thead>
 					</table>
@@ -371,11 +377,11 @@
 											</fieldset>
 
 
-											<fieldset class="form-group">
-												<label for="sysType">System Type</label> <select
-													id="sysType_js" name="sysType_js" style="width: 212px;">
-													<option value="K">Karst</option>
-													<option value="B">Big Red II</option>
+										<fieldset class="form-group">
+												<label for="execEnv">System Type</label> <select
+													id="execEnv" name="execEnv" style="width: 212px;">
+													<option value="Karst">Karst</option>
+													<option value="Bigred2">Big Red II</option>
 												</select>
 											</fieldset>
 
@@ -459,10 +465,10 @@
 													placeholder="Enter the job ID Ex: 1242254" name="jobNumber"></input>
 											</fieldset>
 											<fieldset class="form-group">
-												<label for="sysType">System Type</label> <select
-													id="sysType_cj" name="sysType_cj" style="width: 212px;">
-													<option value="K">Karst</option>
-													<option value="B">Big Red II</option>
+												<label for="execEnv">System Type</label> <select
+													id="execEnv" name="execEnv" style="width: 212px;">
+													<option value="Karst">Karst</option>
+													<option value="Bigred2">Big Red II</option>
 												</select>
 											</fieldset>
 											<button type="submit" class="btn btn-primary"
@@ -540,10 +546,10 @@
 													placeholder="Enter the job Name" name="jobName"></input>
 											</fieldset>
 											<fieldset class="form-group">
-												<label for="sysType">System Type</label> <select
-													id="sysType_jd" name="sysType_jd" style="width: 212px;">
-													<option value="K">Karst</option>
-													<option value="B">Big Red II</option>
+												<label for="execEnv">System Type</label> <select
+													id="execEnv" name="execEnv" style="width: 212px;">
+													<option value="Karst">Karst</option>
+													<option value="Bigred2">Big Red II</option>
 												</select>
 											</fieldset>
 											<fieldset class="form-group">
@@ -620,6 +626,7 @@
 						<li class="footer-menu-divider">&sdot;</li>
 						<li><a href="#contact">Contact</a></li>
 					</ul>
+					<hr></hr>
 					<p class="copyright text-muted small">Copyright &copy; Your
 						Company 2016. All Rights Reserved</p>
 				</div>
