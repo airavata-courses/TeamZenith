@@ -1,19 +1,14 @@
 $(document).ready(function () {
-
 	$("#jobMonitorForm").submit(function (event) {
-		var formtoken = $('#csrfTokenJobMonitor').val();
-		console.log(formtoken);
 
 		$( "monitorResponse" ).empty();
 		//disable the default form submission
 		event.preventDefault();
-		console.log('asdasd');
 		//grab all form data  
 		var formData = new FormData();
 		formData.append('username', $('#muser').val());
 		formData.append('passPhrase', $('#mpass').val());
 		formData.append('size', $('#jobID').val());
-		formData.append('sysType_js',$('#sysType_js').val());
 		formData.append('file', $('input[name=ppkFile]')[0].files[0]);
 
 		var options = {
@@ -22,12 +17,9 @@ $(document).ready(function () {
 
 		$.ajax({
 			dataType: "json",
-			url: "monitor",
+			url: "http://localhost:8080/KarstShell-REST-Api-0.1.0/monitor",
 			type: "POST",
 			data: formData,
-			beforeSend: function( xhr ) {
-				xhr.setRequestHeader("X-CSRF-Token", formtoken);
-			  },
 			async: false,
 			cache: false,
 			contentType: false,
@@ -57,37 +49,47 @@ $(document).ready(function () {
 	});
 
 	$("#jobSubmitForm").submit(function (event) {
-		var formtoken = $('#csrfTokenJobSubmit').val();
 
 		$( "result" ).empty();
 		//disable the default form submission
 		event.preventDefault();
-
 		var formData = new FormData();
+		var filejob=[];
+		if($('#jobType').val()=="cust"){
+			filejob[0]=$('input[name=customfile]')[0].files[0];
+
+		}
+		else{
+			filejob[0]=$('input[name=fileent]')[0].files[0];
+			filejob[1]=$('input[name=filegro]')[0].files[0];
+			filejob[2]=$('input[name=filetop]')[0].files[0];
+			filejob[3]=$('input[name=filemdp]')[0].files[0];
+			filejob[4]=$('input[name=filetpr]')[0].files[0];
+		}
 		formData.append('path', $('#targetPath').val());
-		formData.append('filejob', $('input[name=file]')[0].files[0]);
+		for (var i = 0; i < filejob.length; i++) {
+			formData.append('filejob[]', filejob[i]);
+		}
 		formData.append('username', $('#userName').val());
 		formData.append('jobname', $('#jobName').val());
 		formData.append('noofnodes', $('#nodeCount').val());
 		formData.append('noofppn', $('#ppn').val());
 		formData.append('walltime', $('#wallTime').val());
 		formData.append('compreq', $("input[name=isCompile]:checked").val());
+		formData.append('execEnv', $("input[name=execEnv]:checked").val());
 		formData.append('email', $('#InputEmail').val());
 		formData.append('file', $('input[name=ppk]')[0].files[0]);
 		formData.append('pass', $('#passPhrase').val());
 		formData.append('jType',$('#jobType').val());
-		formData.append('sysType_js',$('#sysType').val());
+
 		var options = {
 				"show" : "false"
 		}
 
-		$.ajaxSetup({
-			url: "/upload?format=json&callback=?",
+		$.ajax({
+			url: "https://localhost:8443/KarstShell-REST-Api-0.1.0/upload?format=json&callback=?",
 			type: "POST",
 			data: formData,
-			beforeSend: function( xhr ) {
-				xhr.setRequestHeader("X-CSRF-Token", formtoken);
-			  },
 			async: false,
 			cache: false,
 			contentType: false,
@@ -117,8 +119,7 @@ $(document).ready(function () {
 	});
 
 	$("#jobCancelForm").submit(function (event) {
-		var formtoken = $('#csrfTokenCancelJob').val();
-		
+
 		$( "cancelResponse" ).empty();
 		//disable the default form submission
 		event.preventDefault();
@@ -128,19 +129,15 @@ $(document).ready(function () {
 		formData.append('passPhrase', $('#cancelpass').val());
 		formData.append('jobnumber', $('#canceljobID').val());
 		formData.append('file', $('input[name=cFile]')[0].files[0]);
-		formData.append('sysType_js',$('#sysType_jc').val());
 
 		var options = {
 				"show" : "false"
 		}
 
 		$.ajax({
-			url: "/cancel",
+			url: "http://localhost:8080/KarstShell-REST-Api-0.1.0/cancel",
 			type: "POST",
 			data: formData,
-			beforeSend: function( xhr ) {
-				xhr.setRequestHeader("X-CSRF-Token", formtoken);
-			  },
 			async: false,
 			cache: false,
 			contentType: false,
@@ -170,7 +167,6 @@ $(document).ready(function () {
 	});
 
 	$("#jobDownloadForm_invalid").submit(function (event) {
-		var formtoken = $('#csrfTokenDownload').val();
 
 		$( "downloadResponse" ).empty();
 		//disable the default form submission
@@ -182,18 +178,15 @@ $(document).ready(function () {
 		formData.append('jobName', $('#downloadjobName').val());
 		formData.append('workPath', $('#downloadjobID').val());
 		formData.append('file', $('input[name=cFile]')[0].files[0]);
-		formData.append('sysType_js',$('#sysType_jd').val());
+
 		var options = {
 				"show" : "false"
 		}
 
 		$.ajax({
-			url: "/download",
+			url: "http://localhost:8080/KarstShell-REST-Api-0.1.0/download",
 			type: "POST",
 			data: formData,
-			beforeSend: function( xhr ) {
-				xhr.setRequestHeader("X-CSRF-Token", formtoken);
-			  },
 			async: false,
 			cache: false,
 			contentType: false,
