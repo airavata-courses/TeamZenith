@@ -262,7 +262,7 @@ console.log([deeemon]);
 					$('#cancelResponse').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">&times</a><span>'+content+'</span></div>');
 				} else {
 					var content = JSON.stringify(data);
-					$('#cancelResponse').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">&times</a><span>'+content+'</span></div>');
+					$('#cancelResponse').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">&times</a><span>'+data.message+'</span></div>');
 				}
 			},
 			error: function(data, statusText, xhr){
