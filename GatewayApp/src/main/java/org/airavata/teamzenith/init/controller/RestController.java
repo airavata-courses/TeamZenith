@@ -300,13 +300,13 @@ public class RestController {
 }  
 	
 
-	@RequestMapping(value = "/fetchjob", method = RequestMethod.GET)
-	public @ResponseBody String fetchJobHistory(@RequestParam("username") String name)
+	@RequestMapping(value = "/fetchjob", method = RequestMethod.POST)
+	public @ResponseBody JobData fetchJobHistory(@RequestParam("username") String name)
 	        throws IOException {
 
 		try {
 			List <JobData> lst=jobDao.getByUser(name);
-			return lst.get(0).getJobName();
+			return lst.get(0);
 			//return res.getJobName();
 			
 

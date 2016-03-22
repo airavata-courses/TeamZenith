@@ -97,19 +97,26 @@
 						update</p>
 					<a href="#" class="btn btn-default btn-xl">Refresh!</a>
 					<hr></hr>
-					<table data-toggle="table" data-url="fetchjob?username=[[${account.userName}]]" data-height="299"
+					<table id = "table"
 						style="background-color: white;">
 						<thead style="background-color: white;">
-							<tr>
-								<th data-field="JobDataId">Item ID</th>
-								<th data-field="JobId">Item Name</th>
-								<th data-field="JobName">Item Price</th>
-								<th data-field="Nodes">Item Price</th>
-								<th data-field="Ppn">Item Price</th>
-								<th data-field="WallTime">Item Price</th>
-								<th data-field="JobFileName">Item Price</th>
-								<th data-field="CompilerFlag">Item Price</th>
-								
+						<!--    <tr>
+        <th data-field="name">Name</th>
+        <th data-field="stargazers_count">Stars</th>
+        <th data-field="forks_count">Forks</th>
+        <th data-field="description">Description</th>
+    </tr>-->
+						
+						<tr>
+								<th data-field="jobDataId">Item ID</th>
+								<th data-field="jobId">Item Name</th>
+								<th data-field="jobName">Item Price</th>
+								<th data-field="nodes">Item Price</th>
+								<th data-field="ppn">Item Price</th>
+								<th data-field="wallTime">Item Price</th>
+								<th data-field="jobFileName">Item Price</th>
+								<th data-field="jobPath">Item Price</th>
+								<th data-field="jobType">Item Price</th>						
 							</tr>
 						</thead>
 					</table>
