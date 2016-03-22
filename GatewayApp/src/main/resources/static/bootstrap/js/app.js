@@ -13,7 +13,7 @@ $(document).ready(function () {
 		formData.append('username', $('#muser').val());
 		formData.append('passPhrase', $('#mpass').val());
 		formData.append('size', $('#jobID').val());
-		formData.append('sysType_js',$('#sysType_js').val());
+		formData.append('execEnv',$("input[name=execEnv]:checked").val());
 		formData.append('file', $('input[name=ppkFile]')[0].files[0]);
 
 		var options = {
@@ -142,8 +142,7 @@ $(document).ready(function () {
 		formData.append('passPhrase', $('#cancelpass').val());
 		formData.append('jobnumber', $('#canceljobID').val());
 		formData.append('file', $('input[name=cFile]')[0].files[0]);
-		formData.append('sysType_js',$('#sysType_jc').val());
-
+		formData.append('execEnv', $("input[name=execEnv]:checked").val());
 		var options = {
 				"show" : "false"
 		}
@@ -196,7 +195,7 @@ $(document).ready(function () {
 		formData.append('jobName', $('#downloadjobName').val());
 		formData.append('workPath', $('#downloadjobID').val());
 		formData.append('file', $('input[name=cFile]')[0].files[0]);
-		formData.append('sysType_js',$('#sysType_jd').val());
+		formData.append('execEnv', $("input[name=execEnv]:checked").val());
 		var options = {
 				"show" : "false"
 		}
