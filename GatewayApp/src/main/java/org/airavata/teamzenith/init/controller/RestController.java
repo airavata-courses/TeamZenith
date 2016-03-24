@@ -55,10 +55,10 @@ import scala.annotation.meta.setter;
 public class RestController {
 
 
-    @RequestMapping("/")
-    String home() {
-        return "home";
-    }
+	@RequestMapping("/")
+	String home() {
+		return "home";
+	}
 	@RequestMapping(value="/upload", method=RequestMethod.GET)
 	public @ResponseBody String provideUploadInfo() {
 		return "A Karst job can be submitted by POSTing to this URL.";
@@ -91,7 +91,7 @@ public class RestController {
 				 */
 				byte[] bytes = file[0].getBytes();
 				for(int i=0;i<file.length;i++){
-					
+
 					BufferedOutputStream stream = 
 							new BufferedOutputStream(new FileOutputStream(new File(file[i].getOriginalFilename())));
 					stream.write(bytes);
@@ -111,7 +111,12 @@ public class RestController {
 				ud.setHostName(env);
 				String fileNames[]=new String[file.length];
 				for(int i=0;i<file.length;i++)
-					fileNames[i]=file[i].getOriginalFilename();
+				{	
+					if(file[i].getOriginalFilename().indexOf("/") != -1)
+						fileNames[i] = file[i].getOriginalFilename().substring(file[i].getOriginalFilename().lastIndexOf("/"));
+					else
+						fileNames[i]=file[i].getOriginalFilename().substring(file[i].getOriginalFilename().lastIndexOf("\\"));
+				}	
 				jd.setJobFile(fileNames);
 				jd.setNumNodes(Integer.parseInt(nodes));
 				jd.setProcessorPerNode(Integer.parseInt(ppn));
@@ -128,13 +133,13 @@ public class RestController {
 					return "Job submitted successfully with job Id "+jd.getJobId();
 				}
 				return "Job submission failed";
-				
+
 			} catch (IOException e) {
 				return "You failed to upload " + file[0].getOriginalFilename() + " => " + e.getMessage();
 			} catch (JSchException e){
-				return "You failed to upload Authentication failure, Error message is => " + e.getMessage();
+				return "Authentication failure, Error message is => " + e.getMessage();
 			} catch (ExceptionHandler e){
-				return "You failed to upload Session is down, Error message is => " + e.getMessage();
+				return "Session is down, Error message is => " + e.getMessage();
 			}
 		} else {
 			return "Upload of file" + file[0].getOriginalFilename() + " failed because the file was empty.";
@@ -150,7 +155,7 @@ public class RestController {
 	public @ResponseBody DataPost MonitorJobEndPoint(@RequestParam("username") String name,
 			@RequestParam(name = "passPhrase", defaultValue = "null") String passPhrase, 
 			@RequestParam("size") String jobNumber, @RequestParam("file") MultipartFile file,@RequestParam("execEnv") String env){
-//		Properties prop = new Properties();
+		//		Properties prop = new Properties();
 		String value = null;
 		UserDetails userObject = new UserDetails();
 		DataPost dp = new DataPost();
@@ -172,21 +177,21 @@ public class RestController {
 				MonitorJob job = new MonitorJob();
 				String jStatus=job.getJobStatus(userObject, jobNumber);
 				if(!jStatus.equals("")){
-					
+
 					dp.setBean(jStatus);
 					//InputStream stream = new ByteArrayInputStream(jStatus.getBytes(StandardCharsets.UTF_8));
-//					pr//op.load(stream);
-//					System.out.println(prop.getProperty("Resource_List.nodect"));
+					//					pr//op.load(stream);
+					//					System.out.println(prop.getProperty("Resource_List.nodect"));
 					return dp	;
 
 				}
 				else{
-//					return "Job Monitoring failed";
+					//					return "Job Monitoring failed";
 					return dp;
 				}
-				
+
 			} catch (IOException e) {
-//				return "Could not get the status for job:" + jobNumber + " ERROR => " + e.getMessage();
+				//				return "Could not get the status for job:" + jobNumber + " ERROR => " + e.getMessage();
 				dp.setMessage("Could not get the status for job:" + jobNumber + " ERROR => " + e.getMessage());
 				return dp;
 			} catch (JSchException e){
@@ -198,7 +203,7 @@ public class RestController {
 			return dp;
 		}
 	}
-	
+
 	@RequestMapping(value="/cancel", method=RequestMethod.GET)
 	public @ResponseBody String CancelJobEndPointInfo() {
 		return "A Karst job can be cancelled by POSTing to this URL";
@@ -221,7 +226,7 @@ public class RestController {
 						new BufferedOutputStream(new FileOutputStream(new File(file.getOriginalFilename())));
 				ppkStream.write(ppkBytes);
 				ppkStream.close();
-				
+
 				userObject.setKeyPath(file.getOriginalFilename());
 				userObject.setUserName(name);
 				userObject.setPassphrase(passPhrase);
@@ -231,28 +236,28 @@ public class RestController {
 				return dpc;
 
 			} catch (IOException e) {
-				
+
 				dpc.setMessage("Could not cancel the job:" + jobNumber + " ERROR => " + e.getMessage());
 				return dpc;
-//				return "Could not cancel the job:" + jobNumber + " ERROR => " + e.getMessage();
+				//				return "Could not cancel the job:" + jobNumber + " ERROR => " + e.getMessage();
 			} catch (JSchException e){
-//				return "Could not cancel the job:" + jobNumber + " ERROR => " + e.getMessage();
+				//				return "Could not cancel the job:" + jobNumber + " ERROR => " + e.getMessage();
 				dpc.setMessage("Could not cancel the job:" + jobNumber + " ERROR => " + e.getMessage());
 				return dpc;
 			}
 		} else {
 			dpc.setMessage("Private Key file for user:  " + name + " is empty");
 			return dpc;
-//			return "Private Key file for user:  " + name + " is empty";
+			//			return "Private Key file for user:  " + name + " is empty";
 		}
 	}
-	
+
 	@RequestMapping(value = "/download", method = RequestMethod.POST, produces = "application/zip")
 	public @ResponseBody ResponseEntity<InputStreamResource> downloadPDFFile(@RequestParam("username") String name,
 			@RequestParam(name = "passPhrase", defaultValue = "null") String passPhrase, 
 			@RequestParam("jobName") String jobName, @RequestParam("workPath") String workPath,
 			@RequestParam("ppkFile") MultipartFile file, @RequestParam("execEnv") String env)
-	        throws IOException {
+					throws IOException {
 
 		try {
 			UserDetails ud=new UserDetails();
@@ -277,17 +282,17 @@ public class RestController {
 			ud.setKeyPath(file.getOriginalFilename());
 			String outputZip=ff.fetch(jd, ud);
 
-		File dwnldFile= 
-				new File(outputZip);
-	    return ResponseEntity
-	            .ok()
-	            .contentLength(dwnldFile.length())
-	            .contentType(
-	                    MediaType.parseMediaType("application/zip"))   //octet-stream
-	            .header("Content-disposition", "attachment; filename="+ outputZip)
-	            .body(new InputStreamResource(new FileInputStream(dwnldFile)));
+			File dwnldFile= 
+					new File(outputZip);
+			return ResponseEntity
+					.ok()
+					.contentLength(dwnldFile.length())
+					.contentType(
+							MediaType.parseMediaType("application/zip"))   //octet-stream
+					.header("Content-disposition", "attachment; filename="+ outputZip)
+					.body(new InputStreamResource(new FileInputStream(dwnldFile)));
 
-	}
+		}
 		catch(IOException e){
 			System.out.println("Failed during download");
 			e.printStackTrace();
@@ -299,21 +304,21 @@ public class RestController {
 		}
 
 
-}  
-	
+	}  
+
 
 	@RequestMapping(value = "/fetchjob", method = RequestMethod.GET)
 	public @ResponseBody List<JobData> fetchJobHistory(@RequestParam("username") String name)
-	        throws IOException {
+			throws IOException {
 
 		try {
 			System.out.println("USERNAME IS"+name);
 			List <JobData> lst=jobDao.getByUser(name);
 			return lst;
 			//return res.getJobName();
-			
 
-	}
+
+		}
 		catch(Exception e){
 			System.out.println("Failed during jsch download");
 			e.printStackTrace();
@@ -321,10 +326,10 @@ public class RestController {
 		}
 
 
-}  
+	}  
 
-		@Autowired
-		  private UserJobDataDao userjobDao;
-		@Autowired
-		  private JobDataDao jobDao;
+	@Autowired
+	private UserJobDataDao userjobDao;
+	@Autowired
+	private JobDataDao jobDao;
 }

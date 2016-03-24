@@ -38,13 +38,13 @@ public class SubmitJob {
 
 		FileManagementImpl fm=new FileManagementImpl();
 		JobManagementImpl jm=new JobManagementImpl();
-		SSHConnectionHandler sch=new SSHConnectionHandler();
+		//SSHConnectionHandler sch=new SSHConnectionHandler();
 		try{
 			ScriptGenUtil sgu=new ScriptGenUtil();
 			String scriptFile=sgu.generateScript(jd, uDetail);
-			Session session=sch.createSession(uDetail); 
+			Session session=SSHConnectionHandler.createSession(uDetail); 
 			LOGGER.info("Job type is"+jd.getJobType());
-			sch.sessionStart(session);
+			SSHConnectionHandler.sessionStart(session);
 			/*
 			 * Transfer PBS script file to Karst
 			 */
@@ -98,8 +98,8 @@ public class SubmitJob {
 		}
 		catch(JSchException e){
 			e.printStackTrace();
-			LOGGER.error("Jsch ERROR: PBS script not found in submit Job");
-			throw new JSchException("Jch ERROR: PBS script not found in submit Job ",e);
+			LOGGER.error("Jsch ERROR: Authentication failure, check the credentials");
+			throw new JSchException("Jsch ERROR: Authentication failure, check the credentials",e);
 		}
 	}
 }
