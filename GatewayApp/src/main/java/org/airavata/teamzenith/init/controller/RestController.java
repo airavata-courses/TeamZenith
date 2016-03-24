@@ -302,7 +302,7 @@ public class RestController {
 }  
 	
 
-	@RequestMapping(value = "/fetchjob", method = RequestMethod.POST)
+	@RequestMapping(value = "/fetchjob", method = RequestMethod.GET)
 	public @ResponseBody List<JobData> fetchJobHistory(@RequestParam("username") String name)
 	        throws IOException {
 

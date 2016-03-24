@@ -1,192 +1,24 @@
 $(document).ready(function () {
-	
-	
-	
-
-	var data = [
-	            {
-	                "name": "bootstrap-table",
-	                "stargazers_count": "526",
-	                "forks_count": "122",
-	                "description": "An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features. (supports twitter bootstrap v2 and v3) "
-	            },
-	            {
-	                "name": "multiple-select",
-	                "stargazers_count": "288",
-	                "forks_count": "150",
-	                "description": "A jQuery plugin to select multiple elements with checkboxes :)"
-	            },
-	            {
-	                "name": "bootstrap-show-password",
-	                "stargazers_count": "32",
-	                "forks_count": "11",
-	                "description": "Show/hide password plugin for twitter bootstrap."
-	            },
-	            {
-	                "name": "blog",
-	                "stargazers_count": "13",
-	                "forks_count": "4",
-	                "description": "my blog"
-	            },
-	            {
-	                "name": "scutech-redmine",
-	                "stargazers_count": "6",
-	                "forks_count": "3",
-	                "description": "Redmine notification tools for chrome extension."
-	            }
-	        ];
-	
-	console.log(data);
-	
-	
-	//////////////////////////
-	
-
-	var formtoken = $('#csrfTokenJobMonitor').val();
-	console.log(formtoken);
-	var deeemon;
-//	$( "monitorResponse" ).empty();
-	//disable the default form submission
-	event.preventDefault();
-	console.log('Test Table dasd');
-	//grab all form data  
-	var formData = new FormData();
-	formData.append('username', 'Test');
-	$.ajax({
-		dataType: "json",
-		url: "fetchjob?username=Test",
-		type: "POST",
-		data: "",
-		beforeSend: function( xhr ) {
-			xhr.setRequestHeader("X-CSRF-Token", formtoken);
-		  },
-		async: false,
-		cache: false,
-		contentType: false,
-		processData: false,
-		success: function (data, statusText, xhr) {
-			if(xhr.status == 200){
-				var demo = data;
-				deeemon = data
-				console.log(deeemon);
-				var content = JSON.stringify(data);
-							}	
-		},
-		error: function(data,status){
-			console.log("error");
-		}
-	});
-
-//	return false;
-/////////////////////////////////////////////////
-	
-console.log([deeemon]);	
-	
-	
-	
-	
-	
-	$('#table').bootstrapTable({
-        data: deeemon
-    });
-
-	var data = [
-	            {
-	                "name": "bootstrap-table",
-	                "stargazers_count": "526",
-	                "forks_count": "122",
-	                "description": "An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features. (supports twitter bootstrap v2 and v3) "
-	            },
-	            {
-	                "name": "multiple-select",
-	                "stargazers_count": "288",
-	                "forks_count": "150",
-	                "description": "A jQuery plugin to select multiple elements with checkboxes :)"
-	            },
-	            {
-	                "name": "bootstrap-show-password",
-	                "stargazers_count": "32",
-	                "forks_count": "11",
-	                "description": "Show/hide password plugin for twitter bootstrap."
-	            },
-	            {
-	                "name": "blog",
-	                "stargazers_count": "13",
-	                "forks_count": "4",
-	                "description": "my blog"
-	            },
-	            {
-	                "name": "scutech-redmine",
-	                "stargazers_count": "6",
-	                "forks_count": "3",
-	                "description": "Redmine notification tools for chrome extension."
-	            }
-	        ];
-	
-	console.log(data);
-	
-	
-	//////////////////////////
-	
-
-	var formtoken = $('#csrfTokenJobMonitor').val();
-	console.log(formtoken);
-	var deeemon;
-//	$( "monitorResponse" ).empty();
-	//disable the default form submission
-	event.preventDefault();
-	console.log('Test Table dasd');
-	//grab all form data  
-	var formData = new FormData();
-	formData.append('username', 'Test');
-	$.ajax({
-		dataType: "json",
-		url: "fetchjob?username=Test",
-		type: "POST",
-		data: "",
-		beforeSend: function( xhr ) {
-			xhr.setRequestHeader("X-CSRF-Token", formtoken);
-		  },
-		async: false,
-		cache: false,
-		contentType: false,
-		processData: false,
-		success: function (data, statusText, xhr) {
-			if(xhr.status == 200){
-				var demo = data;
-				deeemon = data
-				console.log(deeemon);
-				var content = JSON.stringify(data);
-							}	
-		},
-		error: function(data,status){
-			console.log("error");
-		}
-	});
-
-//	return false;
-/////////////////////////////////////////////////
-	
-console.log([deeemon]);	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	$('#table').bootstrapTable({
-        data: [deeemon]
-    });
-	
-	
+	var url = "fetchjob?username="+ document.getElementById("username").innerHTML;;
+	 $.ajax({
+	        url: url,
+	        type: "GET",
+	        contentType: "application/json; charset=utf-8",
+	        dataType: "json",
+	        success: function (data) {
+	        	var content = JSON.stringify(data);
+	        	console.log(data);
+	        	console.log(content);
+	            var row = "";
+	            $.each(data, function(index, item){
+	            	  row += '<tr><td>' + item.jobName + '</td><td>' + item.jobType + '</td><td>' + item.wallTime + '</td><td>' + item.jobId + '</td><td>' + item.jobStatus + '</td><td>' + item.ppn + '</td><td>' + item.nodes + '</td></tr>';
+	            });
+	            $("#jobData").html(row);    
+	        },
+	        error: function (result) {
+	            alert("Error");
+	        }
+	    });
 	
 	$("#jobMonitorForm").submit(function (event) {
 		var formtoken = $('#csrfTokenJobMonitor').val();
