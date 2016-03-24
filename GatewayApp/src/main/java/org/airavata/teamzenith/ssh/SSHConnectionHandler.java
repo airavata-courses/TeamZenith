@@ -26,6 +26,7 @@ public class SSHConnectionHandler {
 			else
 				jsch.addIdentity(privateKeyFile, ud.getPassphrase());
 			Session session ;
+			LOGGER.info("Execenv is "+ ud.getHostName());
 			if(ud.getHostName().equals("Karst"))
 				session = jsch.getSession(ud.getUserName(), SSHConstants.hostName, SSHConstants.port);
 			else

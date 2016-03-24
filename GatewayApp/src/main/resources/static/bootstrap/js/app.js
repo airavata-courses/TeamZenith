@@ -1,9 +1,103 @@
 $(document).ready(function () {
+	
+	
+	
+
+	var data = [
+	            {
+	                "name": "bootstrap-table",
+	                "stargazers_count": "526",
+	                "forks_count": "122",
+	                "description": "An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features. (supports twitter bootstrap v2 and v3) "
+	            },
+	            {
+	                "name": "multiple-select",
+	                "stargazers_count": "288",
+	                "forks_count": "150",
+	                "description": "A jQuery plugin to select multiple elements with checkboxes :)"
+	            },
+	            {
+	                "name": "bootstrap-show-password",
+	                "stargazers_count": "32",
+	                "forks_count": "11",
+	                "description": "Show/hide password plugin for twitter bootstrap."
+	            },
+	            {
+	                "name": "blog",
+	                "stargazers_count": "13",
+	                "forks_count": "4",
+	                "description": "my blog"
+	            },
+	            {
+	                "name": "scutech-redmine",
+	                "stargazers_count": "6",
+	                "forks_count": "3",
+	                "description": "Redmine notification tools for chrome extension."
+	            }
+	        ];
+	
+	console.log(data);
+	
+	
+	//////////////////////////
+	
+
+	var formtoken = $('#csrfTokenJobMonitor').val();
+	console.log(formtoken);
+	var deeemon;
+//	$( "monitorResponse" ).empty();
+	//disable the default form submission
+	event.preventDefault();
+	console.log('Test Table dasd');
+	//grab all form data  
+	var formData = new FormData();
+	formData.append('username', 'Test');
+	$.ajax({
+		dataType: "json",
+		url: "fetchjob?username=Test",
+		type: "POST",
+		data: "",
+		beforeSend: function( xhr ) {
+			xhr.setRequestHeader("X-CSRF-Token", formtoken);
+		  },
+		async: false,
+		cache: false,
+		contentType: false,
+		processData: false,
+		success: function (data, statusText, xhr) {
+			if(xhr.status == 200){
+				var demo = data;
+				deeemon = data
+				console.log(deeemon);
+				var content = JSON.stringify(data);
+							}	
+		},
+		error: function(data,status){
+			console.log("error");
+		}
+	});
+
+//	return false;
+/////////////////////////////////////////////////
+	
+console.log([deeemon]);	
+	
+	
+	
+	
+	
+	$('#table').bootstrapTable({
+        data: deeemon
+    });
+
 	$("#jobMonitorForm").submit(function (event) {
+		var formtoken = $('#csrfTokenJobMonitor').val();
+		console.log(formtoken);
 
 		$( "monitorResponse" ).empty();
 		//disable the default form submission
 		event.preventDefault();
+		console.log('asdasd');
 		//grab all form data  
 		var formData = new FormData();
 		formData.append('username', $('#muser').val());
@@ -18,9 +112,12 @@ $(document).ready(function () {
 
 		$.ajax({
 			dataType: "json",
-			url: "http://localhost:8080/KarstShell-REST-Api-0.1.0/monitor",
+			url: "monitor",
 			type: "POST",
 			data: formData,
+			beforeSend: function( xhr ) {
+				xhr.setRequestHeader("X-CSRF-Token", formtoken);
+			  },
 			async: false,
 			cache: false,
 			contentType: false,
@@ -51,9 +148,11 @@ $(document).ready(function () {
 
 	$("#jobSubmitForm").submit(function (event) {
 		var formtoken = $('#csrfTokenJobSubmit').val();
+		console.log("inside Job submit");
 		$( "result" ).empty();
 		//disable the default form submission
 		event.preventDefault();
+
 		var formData = new FormData();
 		var filejob=[];
 		if($('#jobType').val()=="cust"){
@@ -77,20 +176,22 @@ $(document).ready(function () {
 		formData.append('noofppn', $('#ppn').val());
 		formData.append('walltime', $('#wallTime').val());
 		formData.append('compreq', $("input[name=isCompile]:checked").val());
-		formData.append('execEnv', $("input[name=execEnv]:checked").val());
 		formData.append('email', $('#InputEmail').val());
 		formData.append('file', $('input[name=ppk]')[0].files[0]);
 		formData.append('pass', $('#passPhrase').val());
 		formData.append('jType',$('#jobType').val());
-		formData.append('execEnv', $("input[name=execEnv]:checked").val());
+		formData.append('execEnv', $("#execEnv").val());
 		var options = {
 				"show" : "false"
 		}
 
 		$.ajax({
-			url: "https://localhost:8443/KarstShell-REST-Api-0.1.0/upload?format=json&callback=?",
+			url: "/upload?format=json&callback=?",
 			type: "POST",
 			data: formData,
+			beforeSend: function( xhr ) {
+				xhr.setRequestHeader("X-CSRF-Token", formtoken);
+			  },
 			async: false,
 			cache: false,
 			contentType: false,
@@ -120,7 +221,8 @@ $(document).ready(function () {
 	});
 
 	$("#jobCancelForm").submit(function (event) {
-
+		var formtoken = $('#csrfTokenCancelJob').val();
+		
 		$( "cancelResponse" ).empty();
 		//disable the default form submission
 		event.preventDefault();
@@ -136,9 +238,12 @@ $(document).ready(function () {
 		}
 
 		$.ajax({
-			url: "http://localhost:8080/KarstShell-REST-Api-0.1.0/cancel",
+			url: "/cancel",
 			type: "POST",
 			data: formData,
+			beforeSend: function( xhr ) {
+				xhr.setRequestHeader("X-CSRF-Token", formtoken);
+			  },
 			async: false,
 			cache: false,
 			contentType: false,
@@ -168,6 +273,7 @@ $(document).ready(function () {
 	});
 
 	$("#jobDownloadForm_invalid").submit(function (event) {
+		var formtoken = $('#csrfTokenDownload').val();
 
 		$( "downloadResponse" ).empty();
 		//disable the default form submission
@@ -185,9 +291,12 @@ $(document).ready(function () {
 		}
 
 		$.ajax({
-			url: "http://localhost:8080/KarstShell-REST-Api-0.1.0/download",
+			url: "/download",
 			type: "POST",
 			data: formData,
+			beforeSend: function( xhr ) {
+				xhr.setRequestHeader("X-CSRF-Token", formtoken);
+			  },
 			async: false,
 			cache: false,
 			contentType: false,

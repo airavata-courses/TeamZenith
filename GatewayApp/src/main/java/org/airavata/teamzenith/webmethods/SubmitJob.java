@@ -1,6 +1,7 @@
 package org.airavata.teamzenith.webmethods;
 
 import java.io.IOException;
+import java.util.Random;
 import java.util.UUID;
 
 import org.airavata.teamzenith.dao.JobData;
@@ -59,7 +60,7 @@ public class SubmitJob {
 			else{
 				fm.putFile(session, jd.getJobFile()[0], uDetail.getTargetPath());
 				if(jd.isCompileReqd()){
-					fm.compileFile(session, "C", jd.getJobFile(),uDetail.getTargetPath()); 		
+					fm.compileFile(session, "C", jd.getJobFile()[0],uDetail.getTargetPath()); 		
 				}
 			}			
 			//fm.putFile(session, mailScript, uDetail.getTargetPath());
@@ -71,12 +72,15 @@ public class SubmitJob {
 			if(opToken.length>0){
 				jd.setJobId(opToken[0]);
 				//Persist data
-				 UserJobData job = new UserJobData(123,jd.getJobId(),jd.getJobName(),"Karst" );
+				Random rand = new Random();
+
+				int  n = rand.nextInt(50000) + 1;
+				 UserJobData job = new UserJobData(123,jd.getJobId(),jd.getJobName(),jd.getExecEnv() );
 				 userjobDao.create(job);
 				
 				 JobData jobdata=new JobData(job.getJobId(),jd.getJobName(),jd.getNumNodes(),
 						 uDetail.getTargetPath(),jd.getProcessorPerNode(),jd.getWallTime(),jd.getJobType(),
-						 jd.getJobFile()[0],(jd.isCompileReqd())?"Y":"N");
+						 jd.getJobFile()[0],(jd.isCompileReqd())?"Y":"N","C");
 				 jobDao.create(jobdata);
 				return true;
 			}
@@ -93,6 +97,7 @@ public class SubmitJob {
 			throw new IOException("Excep ERROR: PBS script not found in submit Job ",e);
 		}
 		catch(JSchException e){
+			e.printStackTrace();
 			LOGGER.error("Jsch ERROR: PBS script not found in submit Job");
 			throw new JSchException("Jch ERROR: PBS script not found in submit Job ",e);
 		}

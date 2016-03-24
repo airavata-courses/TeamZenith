@@ -81,6 +81,7 @@ public class RestController {
 
 				ud.setUserName(userName);
 				ud.setEmail(emailId);
+				System.out.println("TPATH is"+tPath);
 				if(tPath.charAt(tPath.length()-1)!='/')
 					tPath=tPath+"/";
 				ud.setTargetPath(tPath);
@@ -106,6 +107,7 @@ public class RestController {
 				ppkStream.close();
 
 				ud.setKeyPath(ppk.getOriginalFilename());
+				System.out.println("ENVIRONMENT IS "+env);
 				ud.setHostName(env);
 				String fileNames[]=new String[file.length];
 				for(int i=0;i<file.length;i++)
@@ -300,13 +302,14 @@ public class RestController {
 }  
 	
 
-	@RequestMapping(value = "/fetchjob", method = RequestMethod.GET)
-	public @ResponseBody String fetchJobHistory(@RequestParam("username") String name)
+	@RequestMapping(value = "/fetchjob", method = RequestMethod.POST)
+	public @ResponseBody List<JobData> fetchJobHistory(@RequestParam("username") String name)
 	        throws IOException {
 
 		try {
+			System.out.println("USERNAME IS"+name);
 			List <JobData> lst=jobDao.getByUser(name);
-			return lst.get(0).getJobName();
+			return lst;
 			//return res.getJobName();
 			
 

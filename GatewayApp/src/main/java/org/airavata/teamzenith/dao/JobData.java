@@ -39,6 +39,7 @@ public class JobData {
 	
 	private String CompilerFlag;
 	
+	private String JobStatus;
 /*    @ManyToOne
   //  @JoinColumn(name="JobId", nullable=false)
     private UserJobData uData;
@@ -69,7 +70,7 @@ public class JobData {
 		this.JobId = id;
 	}
 	public JobData(long jobId, String jobName, long nodes, String path, int ppn, 
-			String walltime, String jobtype, String jobfilename, String compileflag ) {
+			String walltime, String jobtype, String jobfilename, String compileflag, String jobStatus) {
 		this.JobId = jobId;
 		this.JobName=jobName;
 		this.Nodes= nodes;
@@ -79,6 +80,7 @@ public class JobData {
 		this.JobType=jobtype;
 		this.JobFileName=jobfilename;
 		this.CompilerFlag=compileflag;
+		this.JobStatus=jobStatus;
 	}
 
 
@@ -160,6 +162,14 @@ public class JobData {
 
 	public void setCompilerFlag(String compilerFlag) {
 		CompilerFlag = compilerFlag;
+	}
+
+	public String getJobStatus() {
+		return JobStatus;
+	}
+
+	public void setJobStatus(String jobStatus) {
+		JobStatus = jobStatus;
 	}
 	
 

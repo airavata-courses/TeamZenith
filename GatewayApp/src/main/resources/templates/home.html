@@ -32,8 +32,7 @@
 <script src="bootstrap/js/bootstrap-table.js"></script>
 <!-- Custom CSS -->
 <link rel="stylesheet" href="bootstrap/css/creative.css" type="text/css" />
-<link rel="stylesheet" href="bootstrap/css/bootstrap-table.css"
-	type="text/css" />
+<link rel="stylesheet" href="bootstrap/css/bootstrap-table.css"	type="text/css" />
 <script type="text/javascript" src="bootstrap/js/app.js"></script>
 <script type="text/javascript" src="bootstrap/js/test.js"></script>
 
@@ -97,19 +96,20 @@
 						update</p>
 					<a href="#" class="btn btn-default btn-xl">Refresh!</a>
 					<hr></hr>
-					<table data-toggle="table" data-url="fetchjob?username=[[${account.userName}]]" data-height="299"
-						style="background-color: white;">
-						<thead style="background-color: white;">
+					<table id="table"
+						style="background-color: white; border-width: 0px;">
+						<thead
+							style="background-color: white; border-width: 0; border-collapse: collapse;">
 							<tr>
-								<th data-field="JobDataId">Item ID</th>
-								<th data-field="JobId">Item Name</th>
-								<th data-field="JobName">Item Price</th>
-								<th data-field="Nodes">Item Price</th>
-								<th data-field="Ppn">Item Price</th>
-								<th data-field="WallTime">Item Price</th>
-								<th data-field="JobFileName">Item Price</th>
-								<th data-field="CompilerFlag">Item Price</th>
-								
+								<th data-field="jobDataId">Item ID</th>
+								<th data-field="jobId">Job Id</th>
+								<th data-field="jobName">Job Name</th>
+								<th data-field="nodes">Nodes</th>
+								<th data-field="ppn">PPN</th>
+								<th data-field="wallTime">Walltime</th>
+								<th data-field="jobFileName">Filename</th>
+								<!-- <th data-field="jobPath">Job Path</th> -->
+								<th data-field="jobType">Job Type</th>
 							</tr>
 						</thead>
 					</table>
@@ -198,41 +198,34 @@
 											<fieldset class="form-group">
 												<label for="execEnv">System Type</label> <select
 													id="execEnv" name="execEnv" style="width: 212px;">
-													<option value="Karst">Karst</option>
+													<option value="Karst" selected="selected">Karst</option>
 													<option value="Bigred2">Big Red II</option>
 												</select>
 											</fieldset>
 											<fieldset class="form-group">
-										<div class="gromacsbox" >
-											<label for="JobSourceCode">ENT File</label> <input
-												type="file" class="form-control-file" id="FileInput1"
-												name="fileent"> </input>
-											
-											<label for="JobSourceCode">GRO File</label> <input
-												type="file" class="form-control-file" id="FileInput2"
-												name="filegro"> </input>
-												
-											<label for="JobSourceCode">TOP File</label> <input
-												type="file" class="form-control-file" id="FileInput3"
-												name="filetop"> </input>
-												
-											<label for="JobSourceCode">TPR file File</label> <input
-												type="file" class="form-control-file" id="FileInput3"
-												name="filetpr"> </input>
-												
-											<label for="JobSourceCode">MDP File</label> <input
-												type="file" class="form-control-file" id="FileInput4"
-												name="filemdp"> </input>
+												<div class="gromacsbox">
+													<label for="JobSourceCode">ENT File</label> <input
+														type="file" class="form-control-file" id="FileInput1"
+														name="fileent"> </input> <label for="JobSourceCode">GRO
+														File</label> <input type="file" class="form-control-file"
+														id="FileInput2" name="filegro"> </input> <label
+														for="JobSourceCode">TOP File</label> <input type="file"
+														class="form-control-file" id="FileInput3" name="filetop">
+													</input> <label for="JobSourceCode">TPR file File</label> <input
+														type="file" class="form-control-file" id="FileInput3"
+														name="filetpr"> </input> <label for="JobSourceCode">MDP
+														File</label> <input type="file" class="form-control-file"
+														id="FileInput4" name="filemdp"> </input>
 												</div>
-												
+
 												<div class="custombox">
-												<!--  style="display: none"> -->
-											<label for="JobSourceCode">Job File</label> <input
-												type="file" class="form-control-file" id="FileInput"
-												name="customfile"> <small class="text-muted">Select
-												the source code file, compatible types ".c"</small></input>
-												</div> 
-										</fieldset> 
+													<!--  style="display: none"> -->
+													<label for="JobSourceCode">Job File</label> <input
+														type="file" class="form-control-file" id="FileInput"
+														name="customfile"> <small class="text-muted">Select
+														the source code file, compatible types ".c"</small></input>
+												</div>
+											</fieldset>
 
 											<fieldset class="form-group">
 												<div class="radio" style="display: none">
@@ -377,7 +370,7 @@
 											</fieldset>
 
 
-										<fieldset class="form-group">
+											<fieldset class="form-group">
 												<label for="execEnv">System Type</label> <select
 													id="execEnv" name="execEnv" style="width: 212px;">
 													<option value="Karst">Karst</option>
@@ -516,7 +509,8 @@
 									</div>
 									<div class="modal-body">
 
-										<form method="POST" enctype="multipart/form-data">
+										<form method="POST" enctype="multipart/form-data"
+											action="/download">
 											<input type="hidden" th:name="${_csrf.parameterName}"
 												th:value="${_csrf.token}" id="csrfTokenDownload" />
 											<h4 class="section-heading">User Details:</h4>

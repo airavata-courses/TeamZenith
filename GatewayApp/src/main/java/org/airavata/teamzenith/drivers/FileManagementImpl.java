@@ -67,7 +67,7 @@ public class FileManagementImpl implements FileManagement{
 		}		
 	}
 
-	public boolean compileFile(Session session, String language, String[] artifact,String path) throws IOException, JSchException {
+	public boolean compileFile(Session session, String language, String artifact,String path) throws IOException, JSchException {
 		SshUtil ssh = new SshUtil();
 		try {
 			String destSource = new StringBuffer(path).append(artifact).toString();
