@@ -1,0 +1,13 @@
+#!/bin/bash
+#PBS -l  nodes=1:ppn=1,walltime=10:00
+#PBS -N errr
+#PBS -m abe
+#PBS -M atumohan@iu.edu
+#PBS -e /N/dc2/scratch/atumohan/errr.err
+#PBS -o /N/dc2/scratch/atumohan/errr.log
+cd /N/dc2/scratch/atumohan/
+chmod 777 /N/dc2/scratch/atumohan/
+./a.c.out
+echo "The log files are attached"|mailx -r Zenith -s"Karst execution results" -a /N/dc2/scratch/atumohan/errr.err -a /N/dc2/scratch/atumohan/errr.log "atumohan@iu.edu"
+echo "The log files are attached"|mailx -r Zenith -s"Karst execution results" -a /N/dc2/scratch/atumohan/errr.err -a /N/dc2/scratch/atumohan/errr.log "atumohan@iu.edu"
+zip errr.zip /N/dc2/scratch/atumohan/errr.err /N/dc2/scratch/atumohan/errr.log 1> /dev/null

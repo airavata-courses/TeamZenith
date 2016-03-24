@@ -90,6 +90,104 @@ console.log([deeemon]);
         data: deeemon
     });
 
+	var data = [
+	            {
+	                "name": "bootstrap-table",
+	                "stargazers_count": "526",
+	                "forks_count": "122",
+	                "description": "An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features. (supports twitter bootstrap v2 and v3) "
+	            },
+	            {
+	                "name": "multiple-select",
+	                "stargazers_count": "288",
+	                "forks_count": "150",
+	                "description": "A jQuery plugin to select multiple elements with checkboxes :)"
+	            },
+	            {
+	                "name": "bootstrap-show-password",
+	                "stargazers_count": "32",
+	                "forks_count": "11",
+	                "description": "Show/hide password plugin for twitter bootstrap."
+	            },
+	            {
+	                "name": "blog",
+	                "stargazers_count": "13",
+	                "forks_count": "4",
+	                "description": "my blog"
+	            },
+	            {
+	                "name": "scutech-redmine",
+	                "stargazers_count": "6",
+	                "forks_count": "3",
+	                "description": "Redmine notification tools for chrome extension."
+	            }
+	        ];
+	
+	console.log(data);
+	
+	
+	//////////////////////////
+	
+
+	var formtoken = $('#csrfTokenJobMonitor').val();
+	console.log(formtoken);
+	var deeemon;
+//	$( "monitorResponse" ).empty();
+	//disable the default form submission
+	event.preventDefault();
+	console.log('Test Table dasd');
+	//grab all form data  
+	var formData = new FormData();
+	formData.append('username', 'Test');
+	$.ajax({
+		dataType: "json",
+		url: "fetchjob?username=Test",
+		type: "POST",
+		data: "",
+		beforeSend: function( xhr ) {
+			xhr.setRequestHeader("X-CSRF-Token", formtoken);
+		  },
+		async: false,
+		cache: false,
+		contentType: false,
+		processData: false,
+		success: function (data, statusText, xhr) {
+			if(xhr.status == 200){
+				var demo = data;
+				deeemon = data
+				console.log(deeemon);
+				var content = JSON.stringify(data);
+							}	
+		},
+		error: function(data,status){
+			console.log("error");
+		}
+	});
+
+//	return false;
+/////////////////////////////////////////////////
+	
+console.log([deeemon]);	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	$('#table').bootstrapTable({
+        data: [deeemon]
+    });
+	
+	
+	
 	$("#jobMonitorForm").submit(function (event) {
 		var formtoken = $('#csrfTokenJobMonitor').val();
 		console.log(formtoken);
@@ -103,7 +201,7 @@ console.log([deeemon]);
 		formData.append('username', $('#muser').val());
 		formData.append('passPhrase', $('#mpass').val());
 		formData.append('size', $('#jobID').val());
-		formData.append('execEnv',$("input[name=execEnv]:checked").val());
+		formData.append('execEnv',$("#execEnv").val());
 		formData.append('file', $('input[name=ppkFile]')[0].files[0]);
 
 		var options = {
@@ -232,7 +330,7 @@ console.log([deeemon]);
 		formData.append('passPhrase', $('#cancelpass').val());
 		formData.append('jobnumber', $('#canceljobID').val());
 		formData.append('file', $('input[name=cFile]')[0].files[0]);
-		formData.append('execEnv', $("input[name=execEnv]:checked").val());
+		formData.append('execEnv', $("#execEnv").val());
 		var options = {
 				"show" : "false"
 		}
@@ -254,7 +352,7 @@ console.log([deeemon]);
 					$('#cancelResponse').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">&times</a><span>'+content+'</span></div>');
 				} else {
 					var content = JSON.stringify(data);
-					$('#cancelResponse').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">&times</a><span>'+content+'</span></div>');
+					$('#cancelResponse').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">&times</a><span>'+data.message+'</span></div>');
 				}
 			},
 			error: function(data, statusText, xhr){
@@ -285,7 +383,7 @@ console.log([deeemon]);
 		formData.append('jobName', $('#downloadjobName').val());
 		formData.append('workPath', $('#downloadjobID').val());
 		formData.append('file', $('input[name=cFile]')[0].files[0]);
-		formData.append('execEnv', $("input[name=execEnv]:checked").val());
+		formData.append('execEnv', $("#execEnv").val());
 		var options = {
 				"show" : "false"
 		}
