@@ -1,0 +1,635 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<!--/*/ <th:block th:include="fragments/head :: head"/> /*/-->
+<meta name="_csrf" content="${_csrf.token}" />
+<!-- default header name is X-CSRF-TOKEN -->
+<meta name="_csrf_header" content="${_csrf.parameterName}" />
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,300,400italic,400,600italic,600,700italic,700,800italic,800"
+	rel="stylesheet" type="text/css" />
+<link
+	href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"
+	rel="stylesheet" type="text/css" />
+<link
+	href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic"
+	rel='stylesheet' type='text/css' />
+<link rel="stylesheet"
+	href="bootstrap/font-awesome/css/font-awesome.min.css" type="text/css" />
+<!-- Plugin JavaScript -->
+<script src="bootstrap/js/jquery.easing.min.js"></script>
+<script src="bootstrap/js/jquery.fittext.js"></script>
+<script src="bootstrap/js/wow.min.js"></script>
+<link rel="stylesheet" href="bootstrap/css/animate.min.css"
+	type="text/css" />
+<script src="bootstrap/js/bootstrap-table.js"></script>
+<!-- Custom CSS -->
+<link rel="stylesheet" href="bootstrap/css/creative.css" type="text/css" />
+<link rel="stylesheet" href="bootstrap/css/bootstrap-table.css"
+	type="text/css" />
+<script type="text/javascript" src="bootstrap/js/app.js"></script>
+<script type="text/javascript" src="bootstrap/js/test.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="bootstrap/js/creative.js"></script>
+</head>
+<body>
+	<!-- Navigation -->
+	<nav id="mainNav" class="navbar navbar-default navbar-fixed-top affix">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand " href="#">Science Gateway</a> <a
+					class="navbar-brand page-scroll" th:if="${account}"
+					th:inline="text">Hello, [[${account.fullName}]]!</a>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a class="page-scroll" href="#about">About</a></li>
+					<li><a class="page-scroll" href="#services">Services</a></li>
+					<li><a class="page-scroll" href="#contact">Contact</a></li>
+					<li><a th:if="${account}" th:href="@{/logout}" class="btn">Logout</a></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container -->
+	</nav>
+
+
+
+	<!-- Header -->
+	<header>
+		<div class="header-content">
+			<div class="header-content-inner">
+				<h1>Science Gateway</h1>
+
+				<p>A job scheduler for Karst computer structure by Team Zenith</p>
+
+				<p class="hidden" id="username" th:if="${account}" th:inline="text">[[${account.username}]]</p>
+				<p class="hidden" id="regEmailID" th:if="${account}" th:inline="text">[[${account.email}]]</p>
+
+				<a href="#about" class="btn btn-primary btn-xl page-scroll">Previous
+					Job History</a>
+			</div>
+		</div>
+	</header>
+
+
+	<section class="bg-primary" id="about">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2 text-center">
+					<h2 class="section-heading">Previous Job History</h2>
+
+					<p class="text-faded">Press Refresh Button to get the latest
+						update</p>
+					<a href="#" class="btn btn-default btn-xl">Refresh!</a>
+					<hr></hr>
+					<div class="table-responsive">
+						<table id="table" class="table">
+							<thead>
+								<tr>
+									<th data-field="jobDataId">Job Name</th>
+									<th data-field="jobId">Job Type</th>
+									<th data-field="jobName">wallTime</th>
+									<th data-field="nodes">jobId</th>
+									<th data-field="ppn">jobStatus</th>
+									<th data-field="wallTime">ppn</th>
+									<th data-field="jobFileName">nodes</th>
+								</tr>
+							</thead>
+							<tbody id="jobData"></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+	<section id="services">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h2 class="section-heading">At Your Service</h2>
+					<hr class="primary"></hr>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-6 text-center">
+					<div class="service-box">
+						<i class="fa fa-4x fa-share wow bounceIn text-primary"
+							data-wow-delay=".1s"></i>
+						<h3>Job Creation</h3>
+						<p class="text-muted">Create and submit job on Karst computing
+							cluster</p>
+						<button type="button" class="btn btn-primary btn-lg"
+							data-toggle="modal" data-target="#myModal">
+							<i class="glyphicon glyphicon-cloud-upload"></i> <span
+								class="network-name">Create Job</span>
+						</button>
+						<!-- Job submit request form -->
+						<div id="myModal" class="modal fade" role="dialog"
+							style="text-align: left;">
+							<div class="modal-dialog">
+
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h3 class="modal-title">Job Creation</h3>
+									</div>
+									<div class="modal-body">
+										<form action="javascript:;" enctype="multipart/form-data"
+											method="post" accept-charset="utf-8" id="jobSubmitForm"
+											name="jobSubmit">
+											<input type="hidden" th:name="${_csrf.parameterName}"
+												th:value="${_csrf.token}" id="csrfTokenJobSubmit" />
+											<h4 class="section-heading">User Details:</h4>
+											<fieldset class="form-group">
+												<label for="UserID">User Name</label> <input type="username"
+													class="form-control" id="userName"
+													placeholder="Enter SSH User ID" name="user"></input>
+											</fieldset>
+											<fieldset class="form-group">
+												<label for="exampleInputEmail1">Email</label> <input
+													type="email" class="form-control" id="InputEmail"
+													placeholder="Email id to be notified upon completion"
+													name="emailId"></input> <small class="text-muted">We'll
+													never share your email with anyone else.</small>
+											</fieldset>
+											<fieldset class="form-group">
+												<label for="exampleInputPassword1">PassPhrase :</label> <input
+													type="password" class="form-control" id="passPhrase"
+													placeholder="Private Key PassPhrase" name="pass"></input>
+											</fieldset>
+											<fieldset class="form-group">
+												<label for="PrivateKeyFileInput">Private Key File</label> <input
+													type="file" class="form-control-file"
+													id="PrivateKeyFileInput" name="ppk"> </input><small
+													class="text-muted">Select the pre-configured
+													private key file to be used for SSH authentication.</small>
+											</fieldset>
+											<a role="separator" class="divider"></a>
+											<hr></hr>
+											<h4 class="section-heading">Job Details:</h4>
+											<fieldset class="form-group">
+												<label for="JobType">Job Type</label> <select id="jobType"
+													name="jobType" style="width: 212px;">
+													<option value="gro">GROMACS</option>
+													<option value="cust">Custom</option>
+												</select>
+											</fieldset>
+											<fieldset class="form-group">
+												<label for="execEnv">System Type</label> <select
+													id="execEnv" name="execEnv" style="width: 212px;">
+													<option value="Karst" selected="selected">Karst</option>
+													<option value="Bigred2">Big Red II</option>
+												</select>
+											</fieldset>
+											<fieldset class="form-group">
+												<div class="gromacsbox">
+													<label for="JobSourceCode">ENT File</label> <input
+														type="file" class="form-control-file" id="FileInput1"
+														name="fileent"> </input> <label for="JobSourceCode">GRO
+														File</label> <input type="file" class="form-control-file"
+														id="FileInput2" name="filegro"> </input> <label
+														for="JobSourceCode">TOP File</label> <input type="file"
+														class="form-control-file" id="FileInput3" name="filetop">
+													</input> <label for="JobSourceCode">TPR file File</label> <input
+														type="file" class="form-control-file" id="FileInput3"
+														name="filetpr"> </input> <label for="JobSourceCode">MDP
+														File</label> <input type="file" class="form-control-file"
+														id="FileInput4" name="filemdp"> </input>
+												</div>
+
+												<div class="custombox">
+													<!--  style="display: none"> -->
+													<label for="JobSourceCode">Job File</label> <input
+														type="file" class="form-control-file" id="FileInput"
+														name="customfile"> <small class="text-muted">Select
+														the source code file, compatible types ".c"</small></input>
+												</div>
+											</fieldset>
+
+											<fieldset class="form-group">
+												<div class="radio" style="display: none">
+													<label for="exampleSelect1">Compilation required ?</label><br />
+													<label> <input type="radio" id="optionsRadios1"
+														name="isCompile" value="yes"></input>yes
+													</label>
+												</div>
+												<div class="radio" style="display: none">
+													<label> <input type="radio" id="optionsRadios2"
+														name="isCompile" value="no"></input>No
+													</label>
+												</div>
+											</fieldset>
+											<fieldset class="form-group">
+												<label for="jobName">Job Name</label> <input type="text"
+													class="form-control" id="jobName"
+													placeholder="Assign a name to job" name="jobName"></input>
+											</fieldset>
+											<fieldset class="form-group">
+												<label for="nodeCount">Node Count</label> <input type="text"
+													class="form-control" id="nodeCount" placeholder="1,2,3 etc"
+													name="nodes"></input> <small class="text-muted">Enter
+													the required number of computing nodes</small>
+											</fieldset>
+											<fieldset class="form-group">
+												<label for="UserID">Processor per node</label> <input
+													type="text" class="form-control" id="ppn"
+													placeholder="1,2,3 or 4" name="ppn"></input>
+											</fieldset>
+											<fieldset class="form-group">
+												<label for="wallTime">Wall Time</label> <input type="text"
+													class="form-control" id="wallTime" placeholder="HH:MM:SS"
+													name="walltime"></input>
+											</fieldset>
+											<fieldset class="form-group">
+												<label for="nodeCount">Remote Workspace path</label> <input
+													type="text" class="form-control" id="targetPath"
+													placeholder="/N/u/anujbhan/Karst/workspace" name="path"></input>
+												<small class="text-muted">We need a workspace
+													directory on remote machine, Please provide a Absolute path
+													for the same.</small>
+											</fieldset>
+											<button type="submit" class="btn btn-primary"
+												id="jobSubmitButton">Create Job</button>
+										</form>
+										<a role="separator" class="divider"></a>
+										<!-- response div -->
+										<div style="word-wrap: break-word;" id="result"></div>
+									</div>
+									<!-- forrm break -->
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">Close</button>
+									</div>
+
+								</div>
+
+
+							</div>
+
+						</div>
+
+						<!-- Job submission response modal -->
+						<div class="modal fade" id="responseModal" role="dialog">
+							<div class="modal-dialog">
+
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">Job submission response</h4>
+									</div>
+									<div class="modal-body" id="alert_placeholder"></div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">Close</button>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+
+					</div>
+					<!-- End Submit Job Div -->
+				</div>
+				<div class="col-lg-3 col-md-6 text-center">
+					<div class="service-box">
+						<i class="fa fa-4x fa-paper-plane wow bounceIn text-primary"
+							data-wow-delay=".1s"></i>
+						<h3>Job Monitoring</h3>
+						<p class="text-muted">Your can monitor individual job status
+							by providing the Job ID</p>
+						<button type="button" class="btn btn-primary btn-lg"
+							data-toggle="modal" data-target="#jobMonitorForm">
+							<i class="glyphicon glyphicon-cloud-upload"></i> <span
+								class="network-name">Get Job Status</span>
+						</button>
+						<!-- Job monitor request form -->
+						<div class="modal fade" id="jobMonitorForm" role="dialog"
+							style="text-align: left;">
+							<div class="modal-dialog">
+
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">Job submission response</h4>
+									</div>
+									<div class="modal-body">
+										<form action="javascript:;" enctype="multipart/form-data"
+											method="post" accept-charset="utf-8" id="jobMonitorForm"
+											name="job">
+											<input type="hidden" th:name="${_csrf.parameterName}"
+												th:value="${_csrf.token}" id="csrfTokenJobMonitor" />
+											<h4 class="section-heading">User Details:</h4>
+											<fieldset class="form-group">
+												<label for="UserID">User Name</label> <input type="username"
+													class="form-control" id="muser"
+													placeholder="Enter SSH User ID" name="username"></input>
+											</fieldset>
+											<fieldset class="form-group">
+												<label for="passPhrase">PassPhrase :</label> <input
+													type="password" class="form-control" id="mpass"
+													placeholder="Private Key PassPhrase" name="passPhrase"></input>
+											</fieldset>
+											<fieldset class="form-group">
+												<label for="PrivateKeyFileInput">Private Key File</label> <input
+													type="file" class="form-control-file"
+													id="PrivateKeyFileInput" name="ppkFile"></input> <small
+													class="text-muted">Select the pre-configured
+													private key file to be used for SSH authentication.</small>
+											</fieldset>
+											<a role="separator" class="divider"></a>
+											<hr></hr>
+											<h4 class="section-heading">Job Details:</h4>
+											<fieldset class="form-group">
+												<label for="jobID">Job ID :</label> <input type="number"
+													class="form-control" id="jobID"
+													placeholder="Enter the job ID Ex: 1242254" name="jobNumber"></input>
+											</fieldset>
+
+
+											<fieldset class="form-group">
+												<label for="execEnv">System Type</label> <select
+													id="execEnv" name="execEnv" style="width: 212px;">
+													<option value="Karst">Karst</option>
+													<option value="Bigred2">Big Red II</option>
+												</select>
+											</fieldset>
+
+											<button type="submit" class="btn btn-primary"
+												id="jobMonitorButton">Get Job Status</button>
+
+										</form>
+										<a role="separator" class="divider"></a>
+										<!-- response div -->
+										<div style="word-wrap: break-word;" id="monitorResponse"></div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal" id="jobMonitorFormCloseButton">Close</button>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+					<!-- end service box 2 -->
+				</div>
+				<!-- end sec 2 -->
+				<div class="col-lg-3 col-md-6 text-center">
+					<div class="service-box">
+						<i class="fa fa-4x fa-newspaper-o wow bounceIn text-primary"
+							data-wow-delay=".2s"></i>
+						<h3>Job Cancellation</h3>
+						<p class="text-muted">You can cancel a ongoing job by
+							providing the job ID</p>
+						<button type="button" class="btn btn-primary btn-lg"
+							data-toggle="modal" data-target="#jobCancel">
+							<i class="glyphicon glyphicon-cloud-upload"></i> <span
+								class="network-name">Cancel Job</span>
+						</button>
+
+						<!-- Job cancel request form -->
+						<div class="modal fade" id="jobCancel" role="dialog"
+							style="text-align: left;">
+							<div class="modal-dialog">
+
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">Job Cancellation form</h4>
+									</div>
+									<div class="modal-body">
+
+
+										<form action="javascript:;" enctype="multipart/form-data"
+											method="post" accept-charset="utf-8" id="jobCancelForm"
+											name="job">
+											<input type="hidden" th:name="${_csrf.parameterName}"
+												th:value="${_csrf.token}" id="csrfTokenCancelJob" />
+											<h4 class="section-heading">User Details:</h4>
+											<fieldset class="form-group">
+												<label for="UserID">User Name</label> <input type="username"
+													class="form-control" id="canceluser"
+													placeholder="Enter SSH User ID" name="username"></input>
+											</fieldset>
+											<fieldset class="form-group">
+												<label for="passPhrase">PassPhrase :</label> <input
+													type="password" class="form-control" id="cancelpass"
+													placeholder="Private Key PassPhrase" name="passPhrase"></input>
+											</fieldset>
+											<fieldset class="form-group">
+												<label for="PrivateKeyFileInput">Private Key File</label> <input
+													type="file" class="form-control-file"
+													id="cancelPrivateKeyFileInput" name="cFile"></input> <small
+													class="text-muted">Select the pre-configured
+													private key file to be used for SSH authentication.</small>
+											</fieldset>
+											<a role="separator" class="divider"></a>
+											<hr></hr>
+											<h4 class="section-heading">Job Details:</h4>
+											<fieldset class="form-group">
+												<label for="jobID">Job ID :</label> <input type="number"
+													class="form-control" id="canceljobID"
+													placeholder="Enter the job ID Ex: 1242254" name="jobNumber"></input>
+											</fieldset>
+											<fieldset class="form-group">
+												<label for="execEnv">System Type</label> <select
+													id="execEnv" name="execEnv" style="width: 212px;">
+													<option value="Karst">Karst</option>
+													<option value="Bigred2">Big Red II</option>
+												</select>
+											</fieldset>
+											<button type="submit" class="btn btn-primary"
+												id="jobMonitorButton">Cancel Job</button>
+
+										</form>
+										<a role="separator" class="divider"></a>
+										<!-- response div -->
+										<div style="word-wrap: break-word;" id="cancelResponse"></div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal" id="jobCancelFormCloseButton">Close</button>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<!-- end sec service 3 -->
+				</div>
+				<!-- end sec 3 -->
+				<div class="col-lg-3 col-md-6 text-center">
+					<div class="service-box">
+						<i class="fa fa-4x fa-file-archive-o wow bounceIn text-primary"
+							data-wow-delay=".3s"></i>
+						<h3>Download Output Files</h3>
+						<p class="text-muted">Download output files(.zip) of completed
+							jobs</p>
+						<button type="button" class="btn btn-primary btn-lg"
+							data-toggle="modal" data-target="#jobDownload">
+							<i class="glyphicon glyphicon-cloud-upload"></i> <span
+								class="network-name">Download</span>
+						</button>
+						<!-- Job download request form -->
+						<div class="modal fade" id="jobDownload" role="dialog"
+							style="text-align: left;">
+							<div class="modal-dialog">
+
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">Job Download form</h4>
+									</div>
+									<div class="modal-body">
+
+										<form method="POST" enctype="multipart/form-data"
+											action="/download">
+											<input type="hidden" th:name="${_csrf.parameterName}"
+												th:value="${_csrf.token}" id="csrfTokenDownload" />
+											<h4 class="section-heading">User Details:</h4>
+											<fieldset class="form-group">
+												<label for="UserID">User Name</label> <input type="username"
+													class="form-control" id="downloaduser"
+													placeholder="Enter SSH User ID" name="username"></input>
+											</fieldset>
+											<fieldset class="form-group">
+												<label for="passPhrase">PassPhrase :</label> <input
+													type="password" class="form-control" id="downloadpass"
+													placeholder="Private Key PassPhrase" name="passPhrase"></input>
+											</fieldset>
+											<fieldset class="form-group">
+												<label for="PrivateKeyFileInput">Private Key File</label> <input
+													type="file" class="form-control-file"
+													id="downloadPrivateKeyFileInput" name="ppkFile"></input> <small
+													class="text-muted">Select the pre-configured
+													private key file to be used for SSH authentication.</small>
+											</fieldset>
+											<a role="separator" class="divider"></a>
+											<hr></hr>
+											<h4 class="section-heading">Job Details:</h4>
+											<fieldset class="form-group">
+												<label for="jobName">Job Name :</label> <input type="text"
+													class="form-control" id="downloadJobName"
+													placeholder="Enter the job Name" name="jobName"></input>
+											</fieldset>
+											<fieldset class="form-group">
+												<label for="execEnv">System Type</label> <select
+													id="execEnv" name="execEnv" style="width: 212px;">
+													<option value="Karst">Karst</option>
+													<option value="Bigred2">Big Red II</option>
+												</select>
+											</fieldset>
+											<fieldset class="form-group">
+												<label for="path">Working Directory :</label> <input
+													type="text" class="form-control" id="downloadWorkPath"
+													placeholder="Enter the working directory" name="workPath"></input>
+											</fieldset>
+
+											<button type="submit" class="btn btn-primary"
+												id="jobMonitorButton">Download output</button>
+
+										</form>
+										<a role="separator" class="divider"></a>
+										<!-- response div -->
+										<div style="word-wrap: break-word;" id="downloadResponse"></div>
+									</div>
+									<div class="modal-footer">
+										<!-- <input type="submit"
+			value="Download file"> -->
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal" id="jobCancelFormCloseButton">Close</button>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<!-- end sec service 4 -->
+				</div>
+				<!-- end sec 4 -->
+			</div>
+		</div>
+	</section>
+
+
+
+
+	<a name="contact"></a>
+	<section id="contact">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2 text-center">
+					<h2 class="section-heading">Let's Get In Touch!</h2>
+					<hr class="primary"></hr>
+					<p>Ready to start your next project with us? That's great! Give
+						us a call or send us an email and we will get back to you as soon
+						as possible!</p>
+				</div>
+				<div class="col-lg-4 col-lg-offset-2 text-center">
+					<i class="fa fa-phone fa-3x wow bounceIn"></i>
+					<p>123-456-6789</p>
+				</div>
+				<div class="col-lg-4 text-center">
+					<i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i>
+					<p>
+						<a href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<ul class="list-inline">
+						<li><a href="#">Home</a></li>
+						<li class="footer-menu-divider">&sdot;</li>
+						<li><a href="#about">About</a></li>
+						<li class="footer-menu-divider">&sdot;</li>
+						<li><a href="#services">Services</a></li>
+						<li class="footer-menu-divider">&sdot;</li>
+						<li><a href="#contact">Contact</a></li>
+					</ul>
+					<hr></hr>
+					<p class="copyright text-muted small">Copyright &copy; Your
+						Company 2016. All Rights Reserved</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+</body>
+</html>
