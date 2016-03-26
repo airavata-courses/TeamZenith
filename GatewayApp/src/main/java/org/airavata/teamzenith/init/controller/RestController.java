@@ -1,7 +1,7 @@
 package org.airavata.teamzenith.init.controller;
 
 import java.io.BufferedOutputStream;
-import org.airavata.teamzenith.dao.JobData;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,10 +21,13 @@ import org.airavata.teamzenith.dao.UserDetails;
 import org.airavata.teamzenith.dao.UserJobData;
 import org.airavata.teamzenith.dao.UserJobDataDao;
 import org.airavata.teamzenith.exceptions.ExceptionHandler;
+import org.airavata.teamzenith.ssh.SshUtil;
 import org.airavata.teamzenith.webmethods.CancelJob;
 import org.airavata.teamzenith.webmethods.FetchFile;
 import org.airavata.teamzenith.webmethods.MonitorJob;
 import org.airavata.teamzenith.webmethods.SubmitJob;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +37,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.airavata.teamzenith.dao.UserData;
 import org.airavata.teamzenith.dao.UserDataDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +55,15 @@ import scala.annotation.meta.setter;
  */
 @Controller
 public class RestController {
-
+	
+	private static final Logger LOGGER = LogManager.getLogger(SshUtil.class);
+	
+	@Autowired
+	private UserJobDataDao userjobDao;
+	@Autowired
+	private JobDataDao jobDao;
+	@Autowired
+	private UserDataDao userDao;
 
 	@RequestMapping("/")
 	String home() {
@@ -113,9 +123,9 @@ public class RestController {
 				for(int i=0;i<file.length;i++)
 				{	
 					if(file[i].getOriginalFilename().indexOf("/") != -1)
-						fileNames[i] = file[i].getOriginalFilename().substring(file[i].getOriginalFilename().lastIndexOf("/"));
+						fileNames[i] = file[i].getOriginalFilename().substring(file[i].getOriginalFilename().lastIndexOf("/"+1));
 					else
-						fileNames[i]=file[i].getOriginalFilename().substring(file[i].getOriginalFilename().lastIndexOf("\\"));
+						fileNames[i]=file[i].getOriginalFilename().substring(file[i].getOriginalFilename().lastIndexOf("\\")+1);
 				}	
 				jd.setJobFile(fileNames);
 				jd.setNumNodes(Integer.parseInt(nodes));
@@ -129,7 +139,7 @@ public class RestController {
 				else
 					jd.setCompileReqd(false);
 
-				if(sub.submit(jd, ud,userjobDao,jobDao)){
+				if(sub.submit(jd, ud,userjobDao,jobDao,userDao)){
 					return "Job submitted successfully with job Id "+jd.getJobId();
 				}
 				return "Job submission failed";
@@ -314,22 +324,39 @@ public class RestController {
 		try {
 			System.out.println("USERNAME IS"+name);
 			List <JobData> lst=jobDao.getByUser(name);
+			LOGGER.info("Job Data in /fetchjob controller"+lst.size());
 			return lst;
-			//return res.getJobName();
-
-
 		}
 		catch(Exception e){
-			System.out.println("Failed during jsch download");
-			e.printStackTrace();
+			LOGGER.info("Fetch Job controller failed, Error: " +e.getMessage());
 			return null;
 		}
 
 
 	}  
+	
+	@RequestMapping(value = "/fetchuser", method = RequestMethod.GET)
+	public @ResponseBody String fetchUser(@RequestParam("username") String name, @RequestParam("email") String email)
+			throws IOException {
 
-	@Autowired
-	private UserJobDataDao userjobDao;
-	@Autowired
-	private JobDataDao jobDao;
+		try {
+			System.out.println("USERNAME IS"+name);
+			Long resultCount=userDao.getByUsername(name);
+			UserData userdata= new UserData(name,email);
+			if(resultCount==0L){
+				userDao.create(userdata);
+				return "New";
+			}
+			else
+				return "Old";		
+		}
+		catch(Exception e){
+			LOGGER.info("Fetch User controller Failed, Error : " + e.getMessage());
+			return null;
+		}
+
+
+	}
+
+	
 }

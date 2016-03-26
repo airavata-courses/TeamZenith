@@ -70,6 +70,7 @@ public class JobDataDao {
     return ljd;
   }
 
+  
   /**
    * Return the user having the passed id.
    */

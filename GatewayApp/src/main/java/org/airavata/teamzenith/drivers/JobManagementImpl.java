@@ -29,8 +29,9 @@ public class JobManagementImpl implements JobManagement {
 				LOGGER.error("Job Scheduling Failed");
 				return cmdResult;
 			}
-
+			LOGGER.info("Command Executed with response : "+ cmdResult);
 			return cmdResult;
+			
 		} 
 		catch(IOException e){
 			LOGGER.error("SCRIPT ERROR: PBS script not found in submit Job");

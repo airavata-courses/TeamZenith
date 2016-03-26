@@ -1,5 +1,11 @@
 $(document).ready(function () {
-	var url = "fetchjob?username="+ document.getElementById("username").innerHTML;;
+	
+	var url = "fetchuser?username="+ document.getElementById("username").innerHTML+"&email="+document.getElementById("regEmailID").innerHTML;
+	 $.ajax({
+	        url: url,
+	        type: "GET"
+	    });
+	var url = "fetchjob?username="+ document.getElementById("username").innerHTML;
 	 $.ajax({
 	        url: url,
 	        type: "GET",

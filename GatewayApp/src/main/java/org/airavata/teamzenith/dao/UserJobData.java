@@ -63,12 +63,12 @@ public class UserJobData {
 		this.JobId = id;
 	}
 
-	public UserJobData(long jobId, String jobNo, String jobName,String target) {
-		this.JobId = jobId;
+	public UserJobData(String jobNo, String jobName,String target,long userId) {
+		//this.JobId = jobId;
 		this.JobNumber= jobNo;
 		this.JobName=jobName;
 		this.TargetNode=target;
-		this.UserId=1;
+		this.UserId=userId;
 	}
 
 	public long getJobId() {

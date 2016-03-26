@@ -79,10 +79,10 @@
 				<h1>Science Gateway</h1>
 
 				<p>A job scheduler for Karst computer structure by Team Zenith</p>
-				
-				<p class = "hidden" id="username" th:if="${account}"
-					th:inline="text">[[${account.username}]]</p>
-				
+
+				<p class="hidden" id="username" th:if="${account}" th:inline="text">[[${account.username}]]</p>
+				<p class="hidden" id="regEmailID" th:if="${account}" th:inline="text">[[${account.email}]]</p>
+
 				<a href="#about" class="btn btn-primary btn-xl page-scroll">Previous
 					Job History</a>
 			</div>

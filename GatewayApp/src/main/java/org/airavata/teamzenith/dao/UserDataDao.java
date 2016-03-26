@@ -42,8 +42,24 @@ public class UserDataDao {
   }
   
   /**
+   * Return the user having the user name.
+   */
+  public Long getByUsername(String username) {
+    Long udd= (Long)entityManager.createQuery(
+        "SELECT count(*) from UserData where UserName= :jn")
+        .setParameter("jn", username).getSingleResult();        
+  return udd;
+  }
+  /**
    * Return all the users stored in the database.
    */
+  
+  public Long getUserId(String username) {
+	    Long udd= (Long)entityManager.createQuery(
+	        "SELECT UserId from UserData where UserName= :jn")
+	        .setParameter("jn", username).getSingleResult();        
+	  return udd;
+	  }
   @SuppressWarnings("unchecked")
   public List getAll() {
     return entityManager.createQuery("from TZ_USER_DATA").getResultList();

@@ -59,7 +59,15 @@ public class UserJobDataDao {
         .setParameter("jn", jNum)
         .getSingleResult();
   }
-
+  /**
+   * Return the job Id based on the job number.
+   */
+  public UserJobData getByName(String jNum) {
+	  return (UserJobData) entityManager.createQuery(
+		        "from UserJobData where JobNumber= :jn")
+		        .setParameter("jn", jNum)
+		        .getSingleResult();  
+	  }
   /**
    * Return the user having the passed id.
    */

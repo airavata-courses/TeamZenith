@@ -7,6 +7,8 @@ import java.util.UUID;
 import org.airavata.teamzenith.dao.JobData;
 import org.airavata.teamzenith.dao.JobDataDao;
 import org.airavata.teamzenith.dao.JobDetails;
+import org.airavata.teamzenith.dao.UserData;
+import org.airavata.teamzenith.dao.UserDataDao;
 import org.airavata.teamzenith.dao.UserDetails;
 import org.airavata.teamzenith.dao.UserJobData;
 import org.airavata.teamzenith.dao.UserJobDataDao;
@@ -34,7 +36,7 @@ public class SubmitJob {
 	
 
 	
-	public boolean submit(JobDetails jd, UserDetails uDetail, UserJobDataDao userjobDao,JobDataDao jobDao) throws IOException, ExceptionHandler, JSchException{
+	public boolean submit(JobDetails jd, UserDetails uDetail, UserJobDataDao userjobDao,JobDataDao jobDao,UserDataDao userDao) throws IOException, ExceptionHandler, JSchException{
 
 		FileManagementImpl fm=new FileManagementImpl();
 		JobManagementImpl jm=new JobManagementImpl();
@@ -67,21 +69,32 @@ public class SubmitJob {
 
 			
 			String commandRes=jm.submitJob(session, uDetail.getTargetPath()+scriptFile);
-			String opToken[]=commandRes.split("\\.");
+			String fname = commandRes;
+			int pos = fname.lastIndexOf(".");
+			if (pos > 0) {
+			    fname = fname.substring(0, pos);
+			}
+			//String opToken[]=commandRes.split("\\.");
+			LOGGER.info("Job ID is :"+ fname);
 			
-			if(opToken.length>0){
-				jd.setJobId(opToken[0]);
+			if(fname.length()>0){
+				jd.setJobId(fname);
 				//Persist data
 				Random rand = new Random();
 
 				int  n = rand.nextInt(50000) + 1;
-				 UserJobData job = new UserJobData(123,jd.getJobId(),jd.getJobName(),jd.getExecEnv() );
+				UserData usr=new UserData(uDetail.getUserName(),uDetail.getEmail());
+				Long uId=userDao.getUserId(uDetail.getUserName());
+				UserJobData job = new UserJobData(jd.getJobId(),jd.getJobName(),jd.getExecEnv(),uId );
 				 userjobDao.create(job);
-				
-				 JobData jobdata=new JobData(job.getJobId(),jd.getJobName(),jd.getNumNodes(),
+				 UserJobData jobDat=userjobDao.getByName(jd.getJobId());
+				 LOGGER.info("--------THE job ID is "+jobDat.getJobId());
+				JobData jobdata=new JobData(jobDat.getJobId(),jd.getJobName(),jd.getNumNodes(),
 						 uDetail.getTargetPath(),jd.getProcessorPerNode(),jd.getWallTime(),jd.getJobType(),
 						 jd.getJobFile()[0],(jd.isCompileReqd())?"Y":"N","C");
 				 jobDao.create(jobdata);
+				
+				
 				return true;
 			}
 			
