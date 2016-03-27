@@ -31,8 +31,16 @@ Team Zenith Repository for Spring 2016 I590 Class
 
 
 4. Database Configuration
-     * Install mysql community server
-     * open the Workbench and run the DDL file provided inside the project
-     * Start the Database
+     * Install mysql community server using the following command:
+            sudo apt-get install mysql-server
+     * Please make a note of the password.Default username is root.
+     * Test the connection by logging into mysql using the command:
+            mysql -u root -p
+     * Open the Workbench and run the DDL text file provided inside the project
+     * Modify the application.properties present in GatewayApp/src/main/resources by editing the following line with your DB information:
+            spring.datasource.url=jdbc:mysql://localhost:3306/zenith
+            spring.datasource.username=root
+            spring.datasource.password=luta
+     * You need to change only the username and password as the database name here is zenith and default port is 3306.
 5. Run the tomcat server and navigate browser to "https://localhost:8443/"
 
