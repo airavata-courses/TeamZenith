@@ -17,7 +17,7 @@ Arpit Aggarwal
   Indiana University, Bloomington
   
 # Milestone details:
-  Milestone -4 changes are merged to Master
+  Milestone -4 changes are merged to Master (Use Milestone-4 branch for assignment - 3)
 
 ## Milestone-4 Build instructions :
 
