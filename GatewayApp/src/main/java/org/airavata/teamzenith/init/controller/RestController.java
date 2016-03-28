@@ -197,6 +197,8 @@ public class RestController {
 				}
 				else{
 					//					return "Job Monitoring failed";
+					dp.setMessage("Job details not found");
+					dp.setJobstate("E");
 					return dp;
 				}
 

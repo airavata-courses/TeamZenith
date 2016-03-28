@@ -13,8 +13,8 @@ $(document).ready(function () {
 	        dataType: "json",
 	        success: function (data) {
 	        	var content = JSON.stringify(data);
-	        	console.log(data);
-	        	console.log(content);
+	        	//console.log(data);
+	        	//console.log(content);
 	            var row = "";
 	            $.each(data, function(index, item){
 	            	  row += '<tr><td>' + item.jobName + '</td><td>' + item.jobType + '</td><td>' + item.wallTime + '</td><td>' + item.jobId + '</td><td>' + item.jobStatus + '</td><td>' + item.ppn + '</td><td>' + item.nodes + '</td></tr>';
@@ -28,12 +28,12 @@ $(document).ready(function () {
 	
 	$("#jobMonitorForm").submit(function (event) {
 		var formtoken = $('#csrfTokenJobMonitor').val();
-		console.log(formtoken);
+		//console.log(formtoken);
 
 		$( "monitorResponse" ).empty();
 		//disable the default form submission
 		event.preventDefault();
-		console.log('asdasd');
+		//console.log('asdasd');
 		//grab all form data  
 		var formData = new FormData();
 		formData.append('username', $('#muser').val());
@@ -61,7 +61,15 @@ $(document).ready(function () {
 			success: function (data, statusText, xhr) {
 				if(xhr.status == 200){
 					var content = JSON.stringify(data);
+					if(data.jobstate!=null && data.jobstate!=='E'){
 					$('#monitorResponse').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">&times</a><span><table class="table"><thead><tr><th>Job Name</th><th>Job owner</th><th>Job Status</th><th>Wall Time</th><th>Username</th></tr></thead><tbody><tr><td>'+data.jobname+'</td><td>'+data.name+'</td><td>'+data.jobstate+'</td><td>'+data.walltime+'</td><td>'+data.user+'</td></tr></tbody></table></span></div>');
+				}else
+					{
+					var content = JSON.stringify(data);
+					$('#monitorResponse').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">&times</a><span>'+data.message+'</span></div>');
+					}
+					
+					
 				} else {
 					var content = JSON.stringify(data);
 					$('#monitorResponse').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">&times</a><span>'+data.message+'</span></div>');
@@ -84,7 +92,7 @@ $(document).ready(function () {
 
 	$("#jobSubmitForm").submit(function (event) {
 		var formtoken = $('#csrfTokenJobSubmit').val();
-		console.log("inside Job submit");
+		//console.log("inside Job submit");
 		$( "result" ).empty();
 		//disable the default form submission
 		event.preventDefault();

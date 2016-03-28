@@ -2,5 +2,5 @@ create database zenith;
 use zenith;	
 create table TZ_USER_DATA (UserId int NOT NULL auto_increment, UserName varchar(255) NOT NULL, Email varchar(255), PRIMARY KEY(UserId));
 create table TZ_USER_JOB_INFO (JobId int NOT NULL auto_increment ,JobNumber int NOT NULL, UserId int NOT NULL , JobName varchar(255) NOT NULL, TargetNode varchar(255), PRIMARY KEY(JobId), FOREIGN KEY(UserId) REFERENCES TZ_USER_DATA(UserId));
-create table TZ_JOB_DATA (JobDataId int NOT NULL auto_increment, JobId int NOT NULL, JobName varchar(255), Nodes int, JobPath varchar(255), Ppn int, WallTime varchar(255), JobType varchar(255), JobFileName varchar(255), CompileFlag varchar(3), JobStatus varchar(10),CreationTime TIMESTAMP ON UPDATE CURRENT_TIMESTAMP PRIMARY KEY(JobDataId), FOREIGN KEY(JobId) REFERENCES TZ_USER_JOB_INFO(JobId));
+create table TZ_JOB_DATA (JobDataId int NOT NULL auto_increment, JobId int NOT NULL, JobName varchar(255), Nodes int, JobPath varchar(255), Ppn int, WallTime varchar(255), JobType varchar(255), JobFileName varchar(255), CompileFlag varchar(3), JobStatus varchar(10),CreationTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP PRIMARY KEY(JobDataId), FOREIGN KEY(JobId) REFERENCES TZ_USER_JOB_INFO(JobId));
 
