@@ -236,11 +236,17 @@ public class RestController {
 						new BufferedOutputStream(new FileOutputStream(new File(file.getOriginalFilename())));
 				ppkStream.write(ppkBytes);
 				ppkStream.close();
-
 				userObject.setKeyPath(file.getOriginalFilename());
 				userObject.setUserName(name);
 				userObject.setPassphrase(passPhrase);
 				userObject.setHostName(env);
+				Long resultCount=userjobDao.getByJobId(name,jobNumber);
+				if(resultCount==0){
+					dpc.setMessage("Job ID not found!");
+					return dpc;
+
+				}
+
 				job.getCancelJob(userObject, jobNumber);
 				dpc.setMessage("Job:" + jobNumber + " Cancelled successfully");
 				return dpc;
