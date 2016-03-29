@@ -298,6 +298,10 @@ public class RestController {
 			ppkStream.close();
 
 			ud.setKeyPath(file.getOriginalFilename());
+			
+			Long fileCount=jobDao.getJobName(name,jobName);
+			if(fileCount==0L)
+				return null;
 			String outputZip=ff.fetch(jd, ud);
 
 			File dwnldFile= 
