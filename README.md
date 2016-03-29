@@ -36,11 +36,11 @@ Team Zenith Repository for Spring 2016 I590 Class
      * Please make a note of the password.Default username is root.
      * Test the connection by logging into mysql using the command:
             mysql -u root -p
-     * Open the Workbench and run the DDL text file provided inside the project
+     * Open the Workbench and run the DDL.txt text file provided inside the project folder
      * Modify the application.properties present in GatewayApp/src/main/resources by editing the following line with your DB information:
             spring.datasource.url=jdbc:mysql://localhost:3306/zenith
             spring.datasource.username=root
-            spring.datasource.password=luta
+            spring.datasource.password=demo
      * You need to change only the username and password as the database name here is zenith and default port is 3306.
 5. Run the tomcat server and navigate browser to "https://localhost:8443/"
 
