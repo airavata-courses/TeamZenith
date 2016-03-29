@@ -42,7 +42,7 @@ Team Zenith Repository for Spring 2016 I590 Class
             spring.datasource.username=root
             spring.datasource.password=demo
      * You need to change only the username and password as the database name here is zenith and default port is 3306.
-5. Please contact me for the api key file, and place the apiKey.properties file in "%USERHOME%\.stormpath" for windows and "~/.stormpath/" folder in Linux Operating system. 
+5. Please contact me for the api key file, and place the apiKey.properties file in "%USERHOME%\\.stormpath" for windows and "~/.stormpath/" folder in Linux Operating system. 
 6. Run the tomcat server and navigate browser to "https://localhost:8443/"
 7. Create a new account by navigating to the Create Account link.
 8. Login to the application with the newly created username and password
