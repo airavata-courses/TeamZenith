@@ -42,10 +42,11 @@ Team Zenith Repository for Spring 2016 I590 Class
             spring.datasource.username=root
             spring.datasource.password=demo
      * You need to change only the username and password as the database name here is zenith and default port is 3306.
-5. Run the tomcat server and navigate browser to "https://localhost:8443/"
-6. Create a new account by navigating to the Create Account link.
-7. Login to the application with the newly created username and password
-8. Once successfully logged in, the interface will display options to Submit, Monitor, Cancel jobs and Download job files
-9. Please note that the username that is used for login has to be used as the username for job submission as well.
-10. For testing GROMACS, we have provided the GROMACS input files within the gromacs folder inside the project folder.
+5. Please contact me for the api key file, and place the apiKey.properties file in "%USERHOME%\.stormpath" for windows and "~/.stormpath/" folder in Linux Operating system. 
+6. Run the tomcat server and navigate browser to "https://localhost:8443/"
+7. Create a new account by navigating to the Create Account link.
+8. Login to the application with the newly created username and password
+9. Once successfully logged in, the interface will display options to Submit, Monitor, Cancel jobs and Download job files
+10. Please note that the username that is used for login has to be used as the username for job submission as well.
+11. For testing GROMACS, we have provided the GROMACS input files within the gromacs folder inside the project folder.
 
