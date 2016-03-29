@@ -40,7 +40,7 @@ Team Zenith Repository for Spring 2016 I590 Class
      * Modify the application.properties present in GatewayApp/src/main/resources by editing the following line with your DB information:
             spring.datasource.url=jdbc:mysql://localhost:3306/zenith
             spring.datasource.username=root
-            spring.datasource.password=luta
+            spring.datasource.password=demo
      * You need to change only the username and password as the database name here is zenith and default port is 3306.
 5. Run the tomcat server and navigate browser to "https://localhost:8443/"
 
