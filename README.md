@@ -53,6 +53,10 @@ Arpit Aggarwal
      * open the Workbench and run the DDL file provided inside the project
      * Start the Database
 5. Run the tomcat server and navigate browser to "https://localhost:8443/"
+6. Create a new account by navigating to the Create Account link.
+7. Login to the application with the newly created username and password
+8. Once successfully logged in, the interface will display options to Submit, Monitor, Cancel jobs and Download job files
+9. For testing GROMACS, we have provided the GROMACS input files within the gromacs folder inside the project folder.
 
 
 
