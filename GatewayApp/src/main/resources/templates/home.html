@@ -161,14 +161,14 @@
 									<div class="modal-body">
 										<form action="javascript:;" enctype="multipart/form-data"
 											method="post" accept-charset="utf-8" id="jobSubmitForm"
-											name="jobSubmit">
+											name="jobSubmit" autocomplete="off">
 											<input type="hidden" th:name="${_csrf.parameterName}"
 												th:value="${_csrf.token}" id="csrfTokenJobSubmit" />
 											<h4 class="section-heading">User Details:</h4>
 											<fieldset class="form-group">
 												<label for="UserID">User Name</label> <input type="username"
 													class="form-control" id="userName"
-													placeholder="Enter SSH User ID" name="user"></input>
+													placeholder="Enter SSH User ID" name="user" autocomplete="off"></input>
 											</fieldset>
 											<fieldset class="form-group">
 												<label for="exampleInputEmail1">Email</label> <input
@@ -180,11 +180,11 @@
 											<fieldset class="form-group">
 												<label for="exampleInputPassword1">PassPhrase :</label> <input
 													type="password" class="form-control" id="passPhrase"
-													placeholder="Private Key PassPhrase" name="pass"></input>
+													placeholder="Private Key PassPhrase" name="pass" autocomplete="off"></input>
 											</fieldset>
 											<fieldset class="form-group">
 												<label for="PrivateKeyFileInput">Private Key File</label> <input
-													type="file" class="form-control-file"
+													type="file" class="form-control-file" autocomplete="off"
 													id="PrivateKeyFileInput" name="ppk"> </input><small
 													class="text-muted">Select the pre-configured
 													private key file to be used for SSH authentication.</small>
@@ -224,7 +224,7 @@
 
 												<div class="custombox">
 													<!--  style="display: none"> -->
-													<label for="JobSourceCode">Job File</label> <input
+													<label for="JobSourceCode">Job File</label> <input autocomplete="off"
 														type="file" class="form-control-file" id="FileInput"
 														name="customfile"> <small class="text-muted">Select
 														the source code file, compatible types ".c"</small></input>
@@ -246,11 +246,11 @@
 											</fieldset>
 											<fieldset class="form-group">
 												<label for="jobName">Job Name</label> <input type="text"
-													class="form-control" id="jobName"
+													class="form-control" id="jobName" autocomplete="off"
 													placeholder="Assign a name to job" name="jobName"></input>
 											</fieldset>
 											<fieldset class="form-group">
-												<label for="nodeCount">Node Count</label> <input type="text"
+												<label for="nodeCount">Node Count</label> <input type="text" autocomplete="off"
 													class="form-control" id="nodeCount" placeholder="1,2,3 etc"
 													name="nodes"></input> <small class="text-muted">Enter
 													the required number of computing nodes</small>
@@ -342,19 +342,19 @@
 									</div>
 									<div class="modal-body">
 										<form action="javascript:;" enctype="multipart/form-data"
-											method="post" accept-charset="utf-8" id="jobMonitorForm"
+											method="post" accept-charset="utf-8" id="jobMonitorForm" autocomplete="off"
 											name="job">
 											<input type="hidden" th:name="${_csrf.parameterName}"
 												th:value="${_csrf.token}" id="csrfTokenJobMonitor" />
 											<h4 class="section-heading">User Details:</h4>
 											<fieldset class="form-group">
 												<label for="UserID">User Name</label> <input type="username"
-													class="form-control" id="muser"
+													class="form-control" id="muser" autocomplete="off"
 													placeholder="Enter SSH User ID" name="username"></input>
 											</fieldset>
 											<fieldset class="form-group">
 												<label for="passPhrase">PassPhrase :</label> <input
-													type="password" class="form-control" id="mpass"
+													type="password" class="form-control" id="mpass" autocomplete="off"
 													placeholder="Private Key PassPhrase" name="passPhrase"></input>
 											</fieldset>
 											<fieldset class="form-group">
@@ -431,19 +431,19 @@
 
 
 										<form action="javascript:;" enctype="multipart/form-data"
-											method="post" accept-charset="utf-8" id="jobCancelForm"
+											method="post" accept-charset="utf-8" id="jobCancelForm" autocomplete="off"
 											name="job">
 											<input type="hidden" th:name="${_csrf.parameterName}"
 												th:value="${_csrf.token}" id="csrfTokenCancelJob" />
 											<h4 class="section-heading">User Details:</h4>
 											<fieldset class="form-group">
 												<label for="UserID">User Name</label> <input type="username"
-													class="form-control" id="canceluser"
+													class="form-control" id="canceluser" autocomplete="off"
 													placeholder="Enter SSH User ID" name="username"></input>
 											</fieldset>
 											<fieldset class="form-group">
 												<label for="passPhrase">PassPhrase :</label> <input
-													type="password" class="form-control" id="cancelpass"
+													type="password" class="form-control" id="cancelpass" autocomplete="off"
 													placeholder="Private Key PassPhrase" name="passPhrase"></input>
 											</fieldset>
 											<fieldset class="form-group">
@@ -458,7 +458,7 @@
 											<h4 class="section-heading">Job Details:</h4>
 											<fieldset class="form-group">
 												<label for="jobID">Job ID :</label> <input type="number"
-													class="form-control" id="canceljobID"
+													class="form-control" id="canceljobID" autocomplete="off"
 													placeholder="Enter the job ID Ex: 1242254" name="jobNumber"></input>
 											</fieldset>
 											<fieldset class="form-group">
@@ -513,24 +513,24 @@
 									</div>
 									<div class="modal-body">
 
-										<form method="POST" enctype="multipart/form-data"
+										<form method="POST" enctype="multipart/form-data" autocomplete="off"
 											action="/download">
 											<input type="hidden" th:name="${_csrf.parameterName}"
 												th:value="${_csrf.token}" id="csrfTokenDownload" />
 											<h4 class="section-heading">User Details:</h4>
 											<fieldset class="form-group">
 												<label for="UserID">User Name</label> <input type="username"
-													class="form-control" id="downloaduser"
+													class="form-control" id="downloaduser" autocomplete="off"
 													placeholder="Enter SSH User ID" name="username"></input>
 											</fieldset>
 											<fieldset class="form-group">
 												<label for="passPhrase">PassPhrase :</label> <input
-													type="password" class="form-control" id="downloadpass"
+													type="password" class="form-control" id="downloadpass" autocomplete="off"
 													placeholder="Private Key PassPhrase" name="passPhrase"></input>
 											</fieldset>
 											<fieldset class="form-group">
 												<label for="PrivateKeyFileInput">Private Key File</label> <input
-													type="file" class="form-control-file"
+													type="file" class="form-control-file" autocomplete="off"
 													id="downloadPrivateKeyFileInput" name="ppkFile"></input> <small
 													class="text-muted">Select the pre-configured
 													private key file to be used for SSH authentication.</small>
@@ -540,7 +540,7 @@
 											<h4 class="section-heading">Job Details:</h4>
 											<fieldset class="form-group">
 												<label for="jobName">Job Name :</label> <input type="text"
-													class="form-control" id="downloadJobName"
+													class="form-control" id="downloadJobName" autocomplete="off"
 													placeholder="Enter the job Name" name="jobName"></input>
 											</fieldset>
 											<fieldset class="form-group">
@@ -552,7 +552,7 @@
 											</fieldset>
 											<fieldset class="form-group">
 												<label for="path">Working Directory :</label> <input
-													type="text" class="form-control" id="downloadWorkPath"
+													type="text" class="form-control" id="downloadWorkPath" autocomplete="off"
 													placeholder="Enter the working directory" name="workPath"></input>
 											</fieldset>
 
