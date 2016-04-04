@@ -1,0 +1,11 @@
+language: java
+notifications:
+  email:
+    - atumohan@umail.iu.edu
+    - anujbhan@umail.iu.edu
+    - arpiagar@iu.edu
+jdk:
+  - oraclejdk8
+sudo: false
+install: true
+script: mvn clean install -DskipTests=true
