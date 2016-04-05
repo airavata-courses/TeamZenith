@@ -1,6 +1,6 @@
-# Zenith 
+# Zenith  [![Build Status](https://travis-ci.org/airavata-courses/TeamZenith.svg?branch=master)](https://travis-ci.org/airavata-courses/TeamZenith)
+
 Team Zenith Repository for Spring 2016 I590 Class
-[![Build Status](https://travis-ci.org/airavata-courses/TeamZenith.svg?branch=master)](https://travis-ci.org/airavata-courses/TeamZenith)
 
 Team Members :
 
@@ -19,7 +19,8 @@ Arpit Aggarwal
 # Milestone details:
   Milestone -4 changes are merged to Master (Use Milestone-4 branch for assignment - 3)
 
-## Milestone-4 Build instructions :
+## Milestone-4 Build instructions  [![Build Status](https://travis-ci.org/airavata-courses/TeamZenith.svg?branch=master)](https://travis-ci.org/airavata-courses/TeamZenith)
+ :
 
 1. Pull branch Milestone-4 into local system
 2. Build the project using Maven build tool, Either use terminal and type "mvn build" or use eclipse and choose "Maven Install"
