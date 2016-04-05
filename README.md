@@ -1,6 +1,6 @@
-# Zenith
+# Zenith 
 Team Zenith Repository for Spring 2016 I590 Class
-
+[![Build Status](https://travis-ci.org/airavata-courses/TeamZenith.svg?branch=master)](https://travis-ci.org/airavata-courses/TeamZenith)
 
 Team Members :
 
