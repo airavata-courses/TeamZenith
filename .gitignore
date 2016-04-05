@@ -1,1 +1,5 @@
-GatewayApp/src/main/resources/static/bootstrap/js/app2.js
+build
+target
+.gradle
+.idea
+*.iml
