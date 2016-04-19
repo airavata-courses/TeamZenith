@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Implementation-Vendor: Pivotal Software, Inc.
-Implementation-Title: Spring Boot Rest Api
-Implementation-Version: 0.1.0
-Implementation-Vendor-Id: org.airavata.teamzenith
-Build-Jdk: 1.7.0_91
-Built-By: atul
-Created-By: Maven Integration for Eclipse
-
