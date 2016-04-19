@@ -1,0 +1,13 @@
+#!/bin/bash
+#PBS -l  nodes=1:ppn=1,walltime=10:00
+#PBS -N 11FDDc
+#PBS -m abe
+#PBS -M atumohan@iu.edu
+#PBS -e /N/u/atumohan/BigRed2/11FDDc.err
+#PBS -o /N/u/atumohan/BigRed2/11FDDc.log
+cd /N/u/atumohan/BigRed2/
+chmod 777 /N/u/atumohan/BigRed2/
+aprun -n 16  a.c.out
+echo "The log files are attached"|mailx -r Zenith -s"Karst execution results" -a /N/u/atumohan/BigRed2/11FDDc.err -a /N/u/atumohan/BigRed2/11FDDc.log "atumohan@iu.edu"
+echo "The log files are attached"|mailx -r Zenith -s"Karst execution results" -a /N/u/atumohan/BigRed2/11FDDc.err -a /N/u/atumohan/BigRed2/11FDDc.log "atumohan@iu.edu"
+zip 11FDDc.zip /N/u/atumohan/BigRed2/11FDDc.err /N/u/atumohan/BigRed2/11FDDc.log 1> /dev/null

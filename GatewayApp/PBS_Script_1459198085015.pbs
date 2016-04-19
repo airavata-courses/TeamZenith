@@ -1,0 +1,13 @@
+#!/bin/bash
+#PBS -l  nodes=1:ppn=1,walltime=10:00
+#PBS -N newjob
+#PBS -m abe
+#PBS -M atumohan@iu.edu
+#PBS -e /N/u/atumohan/BigRed2/newjob.err
+#PBS -o /N/u/atumohan/BigRed2/newjob.log
+cd /N/u/atumohan/BigRed2/
+chmod 777 /N/u/atumohan/BigRed2/
+aprun -n 16  a.c.out
+echo "The log files are attached"|mailx -r Zenith -s"Karst execution results" -a /N/u/atumohan/BigRed2/newjob.err -a /N/u/atumohan/BigRed2/newjob.log "atumohan@iu.edu"
+echo "The log files are attached"|mailx -r Zenith -s"Karst execution results" -a /N/u/atumohan/BigRed2/newjob.err -a /N/u/atumohan/BigRed2/newjob.log "atumohan@iu.edu"
+zip newjob.zip /N/u/atumohan/BigRed2/newjob.err /N/u/atumohan/BigRed2/newjob.log 1> /dev/null

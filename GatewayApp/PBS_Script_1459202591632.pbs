@@ -1,0 +1,18 @@
+#!/bin/bash
+#PBS -l  nodes=1:ppn=16,walltime=10:00
+#PBS -N Growup
+#PBS -m abe
+#PBS -M atumohan@iu.edu
+#PBS -e /N/dc2/scratch/atumohan/Growup.err
+#PBS -o /N/dc2/scratch/atumohan/Growup.log
+cd /N/dc2/scratch/atumohan/
+module load gromacs 
+module load fftw
+chmod 777 /N/dc2/scratch/atumohan/
+echo -e "1\n1"|pdb2gmx -f pdb1y6l.ent -o pdb1y6l.gro -p pdb1y6l.top -ignh 
+grompp -v -f minim.mdp -c pdb1y6l.gro -p pdb1y6l.top -o pdb1y6l-EM-vacuum.tpr 
+mdrun -v -deffnm pdb1y6l-EM-vacuum.tpr -c pdb1y6l-EM-vacuum.gro 
+
+echo "The log files are attached"|mailx -r Zenith -s"Karst execution results" -a /N/dc2/scratch/atumohan/Growup.err -a /N/dc2/scratch/atumohan/Growup.log "atumohan@iu.edu"
+echo "The log files are attached"|mailx -r Zenith -s"Karst execution results" -a /N/dc2/scratch/atumohan/Growup.err -a /N/dc2/scratch/atumohan/Growup.log "atumohan@iu.edu"
+zip Growup.zip /N/dc2/scratch/atumohan/Growup.err /N/dc2/scratch/atumohan/Growup.log 1> /dev/null
