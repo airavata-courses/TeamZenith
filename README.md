@@ -54,7 +54,7 @@ Secure Hello!
 
 ## Build instructions :
 
-1. Pull branch Milestone-4 into local system
+1. Pull branch Milestone-6 into local system
 2. Build the project using Maven build tool, Either use terminal and type "mvn build" or use eclipse and choose "Maven Install"
 3. Server Configuration
     * Create Keystore and Self-signed Certificate
