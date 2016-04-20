@@ -1,4 +1,8 @@
 language: java
+branches:
+  only:
+    - master
+    - Milestone-5
 notifications:
   email:
     - atumohan@umail.iu.edu
