@@ -31,7 +31,7 @@
 		<dependency>
 			<groupId>com.stormpath.spring</groupId>
 			<artifactId>stormpath-default-spring-boot-starter</artifactId>
-			<version>1.0.RC7.4</version>
+			<version>1.0.RC9</version>
 		</dependency>
 		<dependency>
 			<groupId>com.jcraft</groupId>

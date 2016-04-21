@@ -27,12 +27,16 @@ public class SSHConnectionHandler {
 				jsch.addIdentity(privateKeyFile, ud.getPassphrase());
 			Session session ;
 			LOGGER.info("Execenv is "+ ud.getHostName());
-			if(ud.getHostName().equals("Karst"))
-				session = jsch.getSession(ud.getUserName(), SSHConstants.hostName, SSHConstants.port);
-			else
+			if(ud.getHostName().equals("Karst")){
+				LOGGER.info("Creating session for "+ud.getHostName());
+				session = jsch.getSession(ud.getUserName(), SSHConstants.karstHostName, SSHConstants.port);
+			}
+			else{
+				LOGGER.info("Creating session for "+ud.getHostName());
 				session = jsch.getSession(ud.getUserName(), SSHConstants.bigRedHostName, SSHConstants.port);
+			}
 			if(LOGGER.isInfoEnabled()){
-				LOGGER.info("Username is "+ud.getUserName()+" and "+SSHConstants.hostName);
+				LOGGER.info("Username is "+ud.getUserName()+" and "+SSHConstants.karstHostName);
 			}
 			 //session.setPassword("best");
 			session.setConfig("StrictHostKeyChecking", "no");

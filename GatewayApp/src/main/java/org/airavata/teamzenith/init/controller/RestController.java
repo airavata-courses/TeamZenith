@@ -197,6 +197,8 @@ public class RestController {
 				}
 				else{
 					//					return "Job Monitoring failed";
+					dp.setMessage("Job details not found");
+					dp.setJobstate("E");
 					return dp;
 				}
 
@@ -236,11 +238,17 @@ public class RestController {
 						new BufferedOutputStream(new FileOutputStream(new File(file.getOriginalFilename())));
 				ppkStream.write(ppkBytes);
 				ppkStream.close();
-
 				userObject.setKeyPath(file.getOriginalFilename());
 				userObject.setUserName(name);
 				userObject.setPassphrase(passPhrase);
 				userObject.setHostName(env);
+				Long resultCount=userjobDao.getByJobId(name,jobNumber);
+				if(resultCount==0){
+					dpc.setMessage("Job ID not found!");
+					return dpc;
+
+				}
+
 				job.getCancelJob(userObject, jobNumber);
 				dpc.setMessage("Job:" + jobNumber + " Cancelled successfully");
 				return dpc;
@@ -290,6 +298,10 @@ public class RestController {
 			ppkStream.close();
 
 			ud.setKeyPath(file.getOriginalFilename());
+			
+			Long fileCount=jobDao.getJobName(name,jobName);
+			if(fileCount==0L)
+				return null;
 			String outputZip=ff.fetch(jd, ud);
 
 			File dwnldFile= 

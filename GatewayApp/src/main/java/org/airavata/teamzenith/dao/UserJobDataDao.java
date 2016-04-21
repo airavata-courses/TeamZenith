@@ -68,6 +68,15 @@ public class UserJobDataDao {
 		        .setParameter("jn", jNum)
 		        .getSingleResult();  
 	  }
+  
+  public Long getByJobId(String uNam,String jId) {
+	  Long job=Long.parseLong(jId);
+	  Long count=(Long)entityManager.createQuery
+	  		  ("SELECT count(*) FROM UserData tud,UserJobData tuji "
+			  + "WHERE tud.UserId=tuji.UserId and tuji.JobId=:jid and tud.UserName=:un")
+		        .setParameter("jid", job).setParameter("un", uNam).getSingleResult();  
+	  return count;
+	  }
   /**
    * Return the user having the passed id.
    */

@@ -1,0 +1,56 @@
+;
+;	File 'pdb1y6l.top' was generated
+;	By user: ogce (807183)
+;	On host: login2.stampede.tacc.utexas.edu
+;	At date: Fri Jun 27 13:00:08 2014
+;
+;	This is a standalone topology file
+;
+;	It was generated using program:
+;	pdb2gmx - VERSION 4.6.3
+;
+;	Command line was:
+;	pdb2gmx -f pdb1y6l.ent -o pdb1y6l.gro -p pdb1y6l.top -ignh 
+;
+;	Force field data was read from:
+;	/opt/apps/intel13/mvapich2_1_9/gromacs/4.6.3/share/gromacs/top
+;
+;	Note:
+;	This might be a non-standard force field location. When you use this topology, the
+;	force field must either be present in the current directory, or the location
+;	specified in the GMXLIB path variable or with the 'include' mdp file option.
+;
+
+; Include forcefield parameters
+#include "gromos43a1.ff/forcefield.itp"
+
+; Include chain topologies
+#include "pdb1y6l_Protein_chain_A.itp"
+#include "pdb1y6l_Protein_chain_B.itp"
+#include "pdb1y6l_Protein_chain_C.itp"
+
+; Include water topology
+#include "gromos43a1.ff/spc.itp"
+
+#ifdef POSRES_WATER
+; Position restraint for each water oxygen
+[ position_restraints ]
+;  i funct       fcx        fcy        fcz
+   1    1       1000       1000       1000
+#endif
+
+; Include topology for ions
+#include "gromos43a1.ff/ions.itp"
+
+[ system ]
+; Name
+UBIQUITIN-CONJUGATING ENZYME E2E2; 6 UBCH8
+
+[ molecules ]
+; Compound        #mols
+Protein_chain_A     1
+Protein_chain_B     1
+Protein_chain_C     1
+SOL               124
+SOL               138
+SOL               107

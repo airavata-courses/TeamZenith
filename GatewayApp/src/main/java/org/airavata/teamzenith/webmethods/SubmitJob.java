@@ -84,6 +84,7 @@ public class SubmitJob {
 
 				int  n = rand.nextInt(50000) + 1;
 				UserData usr=new UserData(uDetail.getUserName(),uDetail.getEmail());
+				LOGGER.info("LE USERNAME IS"+uDetail.getUserName());
 				Long uId=userDao.getUserId(uDetail.getUserName());
 				UserJobData job = new UserJobData(jd.getJobId(),jd.getJobName(),jd.getExecEnv(),uId );
 				 userjobDao.create(job);
@@ -110,8 +111,8 @@ public class SubmitJob {
 			throw new IOException("Excep ERROR: PBS script not found in submit Job ",e);
 		}
 		catch(JSchException e){
+			LOGGER.error("Jsch ERROR: Aucation failure, check the credentials");
 			e.printStackTrace();
-			LOGGER.error("Jsch ERROR: Authentication failure, check the credentials");
 			throw new JSchException("Jsch ERROR: Authentication failure, check the credentials",e);
 		}
 	}
