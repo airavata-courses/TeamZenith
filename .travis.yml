@@ -1,0 +1,26 @@
+language: java
+branches:
+  only:
+    - dev
+notifications:
+  email:
+    - atumohan@umail.iu.edu
+    - anujbhan@umail.iu.edu
+    - arpiagar@iu.edu
+jdk:
+  - oraclejdk8
+sudo: false
+install: true
+script: cd "GatewayApp" && mvn clean install -DskipTests=true
+
+before_deploy:
+  - zip -r latest *
+  - mkdir -p dpl_cd_upload
+  - mv latest.zip dpl_cd_upload/latest.zip
+
+deploy:
+  - provider: s3
+	access_key_id: "YOUR AWS ACCESS KEY"
+    secret_access_key: "YOUR AWS SECRET KEY"
+    bucket: "S3 Bucket"
+    skip_cleanup: true
