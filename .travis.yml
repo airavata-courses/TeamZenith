@@ -1,4 +1,8 @@
 language: java
+branches:
+  only:
+    - master
+    - Milestone-5
 notifications:
   email:
     - atumohan@umail.iu.edu
@@ -9,3 +13,4 @@ jdk:
 sudo: false
 install: true
 script: cd "GatewayApp" && mvn clean install -DskipTests=true
+
