@@ -8,4 +8,4 @@ jdk:
   - oraclejdk8
 sudo: false
 install: true
-script: mvn clean install -DskipTests=true
+script: cd "GatewayApp" && mvn clean install -DskipTests=true
