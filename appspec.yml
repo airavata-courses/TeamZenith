@@ -1,8 +1,8 @@
 version: 0.0
 os: linux
 files:
-  - source: .\GatewayApp
-    destination: /home/ec2-user/builds/GatewayApp
+  - source: source
+    destination: /home/ec2-user/builds
 hooks:
   AfterInstall:
     - location: /home/ec2-user/builds/GatewayApp/install.sh
