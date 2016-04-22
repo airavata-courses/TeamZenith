@@ -352,9 +352,10 @@ public class RestController {
 			throws IOException {
 
 		try {
-			System.out.println("USERNAME IS"+name);
-			Long resultCount=userDao.getByUsername(name);
-			UserData userdata= new UserData(name,email);
+			String uName=name.substring(0,name.indexOf("@"));
+			System.out.println("USERNAME IS"+uName);
+			Long resultCount=userDao.getByUsername(uName);
+			UserData userdata= new UserData(uName,email);
 			if(resultCount==0L){
 				userDao.create(userdata);
 				return "New";
