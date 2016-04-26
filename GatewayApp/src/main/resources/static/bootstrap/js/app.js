@@ -1,10 +1,5 @@
 $(document).ready(function () {
 	
-	var url = "fetchuser?username="+ document.getElementById("username").innerHTML+"&email="+document.getElementById("regEmailID").innerHTML;
-	 $.ajax({
-	        url: url,
-	        type: "GET"
-	    });
 	var url = "fetchjob?username="+ document.getElementById("username").innerHTML;
 	 $.ajax({
 	        url: url,
@@ -130,7 +125,7 @@ $(document).ready(function () {
 		}
 
 		$.ajax({
-			url: "/upload?format=json&callback=?",
+			url: "upload?format=json&callback=?",
 			type: "POST",
 			data: formData,
 			beforeSend: function( xhr ) {
@@ -182,7 +177,7 @@ $(document).ready(function () {
 		}
 
 		$.ajax({
-			url: "/cancel",
+			url: "cancel",
 			type: "POST",
 			data: formData,
 			beforeSend: function( xhr ) {
@@ -235,7 +230,7 @@ $(document).ready(function () {
 		}
 
 		$.ajax({
-			url: "/download",
+			url: "download",
 			type: "POST",
 			data: formData,
 			beforeSend: function( xhr ) {

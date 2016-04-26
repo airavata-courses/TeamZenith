@@ -282,6 +282,8 @@ public class RestController {
 			JobDetails jd=new JobDetails();
 			FetchFile ff=new FetchFile();
 			ud.setUserName(name);
+			if(workPath.charAt(workPath.length()-1)!='/')
+					workPath=workPath+"/";
 			ud.setTargetPath(workPath);
 			ud.setPassphrase(passPhrase);
 			ud.setHostName(env);
