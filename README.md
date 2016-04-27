@@ -17,48 +17,18 @@ Arpit Aggarwal
   Indiana University, Bloomington
   
 # Milestone details:-->
-  Milestone -4 changes are merged to Master (Use Milestone-4 branch for assignment - 3)
-
-## Milestone-4 Build instructions  [![Build Status](https://travis-ci.org/airavata-courses/TeamZenith.svg?branch=master)](https://travis-ci.org/airavata-courses/TeamZenith)
- :
-
-1. Pull branch Milestone-4 into local system
-2. Build the project using Maven build tool, Either use terminal and type "mvn build" or use eclipse and choose "Maven Install"
-3. Server Configuration
-    * Create Keystore and Self-signed Certificate
-        C:\jdk\bin>keytool -genkey -alias srccodes -keyalg RSA -keystore c:\tomcat7\conf\srccodes.jks
-        
-           * -keystore Filepath (say "c:\tomcat7\conf\srccodes.jks") where keystore file will be generated.
-
-           * keystore password Password of the keystore to be used by Tomcat. If not provided, then default is "changeit".
-
-           * key password Password of the self-signed certificate generated in the keystore. If not provided, then it'll be same as keystore password.
-    * Tomcat Configuration
-    
-           * Open <tomcat-installation-directory>/conf/server.xml in a text editor.
-           * Replace the existing connector with the following
-           
-           ```<Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
-           maxThreads="150" scheme="https" secure="true"
-           clientAuth="false" sslProtocol="TLS"
-           keystoreFile="conf/srccodes.jks"
-           keystoreType="JKS"
-           keystorePass="pass4keystore"
-           keyPass="pass4key" /> ```
-           * Provide keystoreFile, keystorePass and keyPass values as given in Step #1.
-    *  To run the application on Server's root context, remove existing root folder from "webApps" folder and rename the generated application War file to "ROOT.war"
-
-
-4. Database Configuration
-     * Install mysql community server
-     * open the Workbench and run the DDL file provided inside the project
-     * Start the Database
-5. Run the tomcat server and navigate browser to "https://localhost:8443/"
-6. Create a new account by navigating to the Create Account link. While account creation, please provide the username as the username which is used to login to Karst/BigRed2. This will be the username without the @iu.edu extension.
-7. Login to the application with the newly created username and password
-8. Once successfully logged in, the interface will display options to Submit, Monitor, Cancel jobs and Download job files
-9. For testing GROMACS, we have provided the GROMACS input files within the gromacs folder inside the project folder.
-10. 
-
+  Milestone -5 Continuous integration on Amazon Cloud
+  
+  * Milestone-4 source code is in currently released for deployment on Amazon Cloud
+  * The programed workflow illustrating the the technology stack is as follows:
+	Github --> Travis CI --> Amazon S3 --> Amazon CodeDeploy --> Amazon EC2
+  * Github --> Used the Service hook to integrate the repository to Travis CI
+  * Travis CI --> Packages the project into a Zip, places the zip in designated S3 bucket and triggers the handle for Amazon CodeDeploy, related files : .travis.yml
+  * Amazon S3 --> Used as an intermediate storage area for pre deployed source code package
+  * Amazon CodeDeploy --> An amazon cloud service for deploying the application on EC2 instance and installing the same, realted file : appspec.yml, GatewayApp/install.sh (post deployment configuration)
+  * Amazon EC2 --> Used the Amazon linux EC2 instance for application server
+  * The Source code dependencies are preconfigured on EC2 instances, Amazon RDS as independent database server for metadeta management and inbuilt tomcat 8 as the application server
+  * The application can be found on https://ec2-52-24-166-77.us-west-2.compute.amazonaws.com:8443/
+  * A self signed application is used for server authentication in TLS protocol, CA signed certificate not in scope of implementation
 
 
