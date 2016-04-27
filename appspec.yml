@@ -6,5 +6,5 @@ files:
 hooks:
   AfterInstall:
     - location: /GatewayApp/install.sh
-      timeout: 180
+      timeout: 300
       runas: root
