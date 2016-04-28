@@ -43,8 +43,11 @@ public class ScriptGenUtil {
 			String outFile=new StringBuffer(user.getTargetPath()).append(job.getJobName()).append(".log").toString();
 			String outPath=new StringBuffer(PbsConstants.pbsPrefix).append(" -o ").append(outFile).toString();
 			if(job.getJobType().equals(PbsConstants.gromacs)){
-				
-				executeCmd= new StringBuffer(PbsConstants.gromacsGmx).append(PbsConstants.gromacsGrompp).append(PbsConstants.gromacsMdrun).toString();
+				if(job.getExecEnv().equals("Karst"))
+					executeCmd= new StringBuffer(PbsConstants.gromacsGmx).append(PbsConstants.gromacsGrompp).append(PbsConstants.gromacsMdrun).toString();
+				else
+					executeCmd= new StringBuffer(PbsConstants.bigRedJobRun).toString();
+
 			}
 			else{
 				if(job.isCompileReqd()){
@@ -83,9 +86,13 @@ public class ScriptGenUtil {
 			pwr.write(errorPath + "\n");
 			pwr.write(outPath + "\n");
 			pwr.write("cd " + user.getTargetPath() + "\n");
-			if(job.getJobType().equals(PbsConstants.gromacs))
-				pwr.write(PbsConstants.moduleList);
-			pwr.write(accessCmd+"\n");
+			if(job.getJobType().equals(PbsConstants.gromacs)){
+				if(job.getExecEnv().equals("Karst"))
+					pwr.write(PbsConstants.moduleList);
+				else
+					pwr.write(PbsConstants.bigRedModule);
+			}
+			pwr.write("\n"+accessCmd+"\n");
 			pwr.write(executeCmd + "\n");
 			pwr.write(mailCmd +"\n");
 			pwr.write(mailCmd +"\n");
