@@ -10,6 +10,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="" />
 <meta name="author" content="" />
+ <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,300,400italic,400,600italic,600,700italic,700,800italic,800" rel="stylesheet" type="text/css"/>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+
+    
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="bootstrap/js/jquery.js"></script>
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,300,400italic,400,600italic,600,700italic,700,800italic,800"
@@ -81,10 +92,12 @@
 				<p>A job scheduler for Karst computer structure by Team Zenith</p>
 
 				<p class="hidden" id="username" th:if="${account}" th:inline="text">[[${account.username}]]</p>
-				<p class="hidden" id="regEmailID" th:if="${account}" th:inline="text">[[${account.email}]]</p>
+				<p class="hidden" id="regEmailID" th:if="${account}"
+					th:inline="text">[[${account.email}]]</p>
 
 				<a href="#about" class="btn btn-primary btn-xl page-scroll">Previous
 					Job History</a>
+				
 			</div>
 		</div>
 	</header>
@@ -99,7 +112,55 @@
 					<p class="text-faded">Press Refresh Button to get the latest
 						update</p>
 					<!-- <a href="#" class="btn btn-default btn-xl" onClick="window.location.reload();">Refresh!</a>-->
-					<button type="button" class="btn btn-default btn-xl" onClick="window.location.reload();" style="color: Black">Refresh</button>
+					<button type="button" class="btn btn-default btn-xl"
+						onClick="window.location.reload();" style="color: Black">Refresh</button>
+						<button type="button" class="btn btn-primary btn-lg"
+					data-toggle="modal" data-target="#loginModal">
+					<i class="glyphicon glyphicon-cloud-upload"></i> <span
+						class="network-name">Login</span>
+				</button>
+						<div class="modal fade" id="loginModal" role="dialog"
+					style="text-align: left;">
+					<div class="modal-dialog">
+
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Login to Team Zenith Science
+									Gateway</h4>
+							</div>
+							<div class="modal-body">
+								<form action="javascript:;"
+									enctype="application/x-www-form-urlencoded" method="post"
+									id="loginFormID" name="loginForm" autocomplete="off">
+									<input type="hidden" th:name="${_csrf.parameterName}"
+										th:value="${_csrf.token}" id="csrfTokenLogin" />
+									<p>
+										<input type="text" class="span3" name="eid" id="emailLogin"
+											placeholder="Email">
+									</p>
+									<p>
+										<input type="password" class="span3" name="passwdLogin" id="password"
+											placeholder="Password">
+									</p>
+									<p>
+										<button type="submit" class="btn btn-primary"
+											id="loginFormSubmit">Sign in</button>
+										<a href="#">Forgot Password?</a>
+									</p>
+								</form>
+								<a role="separator" class="divider"></a>
+								<!-- response div -->
+								<div style="word-wrap: break-word;" id="monitorResponse"></div>
+							</div>
+							<div class="modal-footer">
+								<a href="#" class="btn btn-primary">Register</a>
+							</div>
+						</div>
+
+					</div>
+				</div>
 					<hr></hr>
 					<div class="table-responsive">
 						<table id="table" class="table">
@@ -168,7 +229,8 @@
 											<fieldset class="form-group">
 												<label for="UserID">User Name</label> <input type="username"
 													class="form-control" id="userName"
-													placeholder="Enter SSH User ID" name="user" autocomplete="off"></input>
+													placeholder="Enter SSH User ID" name="user"
+													autocomplete="off"></input>
 											</fieldset>
 											<fieldset class="form-group">
 												<label for="exampleInputEmail1">Email</label> <input
@@ -180,7 +242,8 @@
 											<fieldset class="form-group">
 												<label for="exampleInputPassword1">PassPhrase :</label> <input
 													type="password" class="form-control" id="passPhrase"
-													placeholder="Private Key PassPhrase" name="pass" autocomplete="off"></input>
+													placeholder="Private Key PassPhrase" name="pass"
+													autocomplete="off"></input>
 											</fieldset>
 											<fieldset class="form-group">
 												<label for="PrivateKeyFileInput">Private Key File</label> <input
@@ -224,10 +287,11 @@
 
 												<div class="custombox">
 													<!--  style="display: none"> -->
-													<label for="JobSourceCode">Job File</label> <input autocomplete="off"
-														type="file" class="form-control-file" id="FileInput"
-														name="customfile"> <small class="text-muted">Select
-														the source code file, compatible types ".c"</small></input>
+													<label for="JobSourceCode">Job File</label> <input
+														autocomplete="off" type="file" class="form-control-file"
+														id="FileInput" name="customfile"> <small
+														class="text-muted">Select the source code file,
+														compatible types ".c"</small></input>
 												</div>
 											</fieldset>
 
@@ -250,10 +314,11 @@
 													placeholder="Assign a name to job" name="jobName"></input>
 											</fieldset>
 											<fieldset class="form-group">
-												<label for="nodeCount">Node Count</label> <input type="text" autocomplete="off"
-													class="form-control" id="nodeCount" placeholder="1,2,3 etc"
-													name="nodes"></input> <small class="text-muted">Enter
-													the required number of computing nodes</small>
+												<label for="nodeCount">Node Count</label> <input type="text"
+													autocomplete="off" class="form-control" id="nodeCount"
+													placeholder="1,2,3 etc" name="nodes"></input> <small
+													class="text-muted">Enter the required number of
+													computing nodes</small>
 											</fieldset>
 											<fieldset class="form-group">
 												<label for="UserID">Processor per node</label> <input
@@ -342,8 +407,8 @@
 									</div>
 									<div class="modal-body">
 										<form action="javascript:;" enctype="multipart/form-data"
-											method="post" accept-charset="utf-8" id="jobMonitorForm" autocomplete="off"
-											name="job">
+											method="post" accept-charset="utf-8" id="jobMonitorForm"
+											autocomplete="off" name="job">
 											<input type="hidden" th:name="${_csrf.parameterName}"
 												th:value="${_csrf.token}" id="csrfTokenJobMonitor" />
 											<h4 class="section-heading">User Details:</h4>
@@ -354,8 +419,9 @@
 											</fieldset>
 											<fieldset class="form-group">
 												<label for="passPhrase">PassPhrase :</label> <input
-													type="password" class="form-control" id="mpass" autocomplete="off"
-													placeholder="Private Key PassPhrase" name="passPhrase"></input>
+													type="password" class="form-control" id="mpass"
+													autocomplete="off" placeholder="Private Key PassPhrase"
+													name="passPhrase"></input>
 											</fieldset>
 											<fieldset class="form-group">
 												<label for="PrivateKeyFileInput">Private Key File</label> <input
@@ -431,8 +497,8 @@
 
 
 										<form action="javascript:;" enctype="multipart/form-data"
-											method="post" accept-charset="utf-8" id="jobCancelForm" autocomplete="off"
-											name="job">
+											method="post" accept-charset="utf-8" id="jobCancelForm"
+											autocomplete="off" name="job">
 											<input type="hidden" th:name="${_csrf.parameterName}"
 												th:value="${_csrf.token}" id="csrfTokenCancelJob" />
 											<h4 class="section-heading">User Details:</h4>
@@ -443,8 +509,9 @@
 											</fieldset>
 											<fieldset class="form-group">
 												<label for="passPhrase">PassPhrase :</label> <input
-													type="password" class="form-control" id="cancelpass" autocomplete="off"
-													placeholder="Private Key PassPhrase" name="passPhrase"></input>
+													type="password" class="form-control" id="cancelpass"
+													autocomplete="off" placeholder="Private Key PassPhrase"
+													name="passPhrase"></input>
 											</fieldset>
 											<fieldset class="form-group">
 												<label for="PrivateKeyFileInput">Private Key File</label> <input
@@ -513,8 +580,8 @@
 									</div>
 									<div class="modal-body">
 
-										<form method="POST" enctype="multipart/form-data" autocomplete="off"
-											action="/download">
+										<form method="POST" enctype="multipart/form-data"
+											autocomplete="off" action="/download">
 											<input type="hidden" th:name="${_csrf.parameterName}"
 												th:value="${_csrf.token}" id="csrfTokenDownload" />
 											<h4 class="section-heading">User Details:</h4>
@@ -525,8 +592,9 @@
 											</fieldset>
 											<fieldset class="form-group">
 												<label for="passPhrase">PassPhrase :</label> <input
-													type="password" class="form-control" id="downloadpass" autocomplete="off"
-													placeholder="Private Key PassPhrase" name="passPhrase"></input>
+													type="password" class="form-control" id="downloadpass"
+													autocomplete="off" placeholder="Private Key PassPhrase"
+													name="passPhrase"></input>
 											</fieldset>
 											<fieldset class="form-group">
 												<label for="PrivateKeyFileInput">Private Key File</label> <input
@@ -540,8 +608,9 @@
 											<h4 class="section-heading">Job Details:</h4>
 											<fieldset class="form-group">
 												<label for="jobName">Job Name :</label> <input type="text"
-													class="form-control" id="downloadJobName" autocomplete="off"
-													placeholder="Enter the job Name" name="jobName"></input>
+													class="form-control" id="downloadJobName"
+													autocomplete="off" placeholder="Enter the job Name"
+													name="jobName"></input>
 											</fieldset>
 											<fieldset class="form-group">
 												<label for="execEnv">System Type</label> <select
@@ -552,7 +621,8 @@
 											</fieldset>
 											<fieldset class="form-group">
 												<label for="path">Working Directory :</label> <input
-													type="text" class="form-control" id="downloadWorkPath" autocomplete="off"
+													type="text" class="form-control" id="downloadWorkPath"
+													autocomplete="off"
 													placeholder="Enter the working directory" name="workPath"></input>
 											</fieldset>
 
@@ -592,7 +662,9 @@
 				<div class="col-lg-8 col-lg-offset-2 text-center">
 					<h2 class="section-heading">Developed by Team Zenith</h2>
 					<hr class="primary"></hr>
-					<p>Anuj Bhandar<br /> Atul Mohan <br />Arpit Agarwal<br /></p>
+					<p>
+						Anuj Bhandar<br /> Atul Mohan <br />Arpit Agarwal<br />
+					</p>
 				</div>
 				<!-- <div class="col-lg-4 col-lg-offset-2 text-center">
 					<i class="fa fa-phone fa-3x wow bounceIn"></i>

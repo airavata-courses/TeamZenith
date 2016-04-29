@@ -1,5 +1,50 @@
 $(document).ready(function () {
 	
+	
+    $("#loginFormID").submit(function (event) {
+		var formtoken = $('#csrfTokenLogin').val();
+		console.log(formtoken);
+
+		var url = "http://localhost:8080/gatewayapi/oauth/token?grant_type=password&username="+$('#emailLogin').val()+"&password="+$('#password').val();
+		var options = {
+				"show" : "false"
+		}
+
+		$.ajax({
+			dataType: "json",
+			url: url,
+			type: "POST",
+			beforeSend: function( xhr ) {
+				xhr.setRequestHeader("X-CSRF-Token", formtoken);
+			  },
+			async: false,
+			cache: false,
+			contentType: 'application/x-www-form-urlencoded',
+			processData: false,
+			success: function (data, statusText, xhr) {
+				if(xhr.status == 200){
+					var content = JSON.stringify(data);
+					console.log(content);
+				} else {
+					var content = JSON.stringify(data);
+					console.log(content);
+				}
+			},
+			error: function(data,status){
+				if(status == 400){
+					var content = JSON.stringify(data);
+					console.log(content);
+				} else {
+					var content = JSON.stringify(data);
+					console.log(content);
+				}
+
+			}
+		});
+
+		return false;
+	});
+	
 	var url = "fetchuser?username="+ document.getElementById("username").innerHTML+"&email="+document.getElementById("regEmailID").innerHTML;
 	 $.ajax({
 	        url: url,
