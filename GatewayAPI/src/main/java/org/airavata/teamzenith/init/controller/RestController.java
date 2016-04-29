@@ -54,11 +54,10 @@ import scala.annotation.meta.setter;
  * cancel - Accepts user details and job ID which is used to cancel the job
  */
 @Controller
-@RequestMapping("/secure")
 public class RestController {
-
+	
 	private static final Logger LOGGER = LogManager.getLogger(SshUtil.class);
-
+	
 	@Autowired
 	private UserJobDataDao userjobDao;
 	@Autowired
@@ -66,14 +65,7 @@ public class RestController {
 	@Autowired
 	private UserDataDao userDao;
 
-	@RequestMapping("/")
-	String home() {
-		return "home";
-	}
-	@RequestMapping("/home")
-	String homeFull() {
-		return "home";
-	}
+	
 	@RequestMapping(value="/upload", method=RequestMethod.GET)
 	public @ResponseBody String provideUploadInfo() {
 		return "A Karst job can be submitted by POSTing to this URL.";
@@ -85,7 +77,7 @@ public class RestController {
 			@RequestParam("jobname") String jobName, @RequestParam("noofnodes") String nodes,
 			@RequestParam("noofppn") String ppn, @RequestParam("walltime") String wallTime, 
 			@RequestParam("compreq") String isComp, @RequestParam("email") String emailId, 
-			@RequestParam("file") MultipartFile ppk, @RequestParam("pass") String pass,
+			@RequestParam("file") MultipartFile ppk, @RequestParam(name = "pass", defaultValue = "null") String pass,
 			@RequestParam("jType") String jobType, @RequestParam("execEnv") String env){
 
 		if (!file[0].isEmpty()) {
@@ -168,7 +160,7 @@ public class RestController {
 
 	@RequestMapping(value="/monitor", method=RequestMethod.POST, produces = "application/json")
 	public @ResponseBody DataPost MonitorJobEndPoint(@RequestParam("username") String name,
-			@RequestParam("passPhrase") String passPhrase, 
+			@RequestParam(name = "passPhrase", defaultValue = "null") String passPhrase, 
 			@RequestParam("size") String jobNumber, @RequestParam("file") MultipartFile file,@RequestParam("execEnv") String env){
 		//		Properties prop = new Properties();
 		String value = null;
@@ -228,7 +220,7 @@ public class RestController {
 
 	@RequestMapping(value="/cancel", method=RequestMethod.POST)
 	public @ResponseBody DataPost CancelJobEndPoint(@RequestParam("username") String name,
-			@RequestParam("passPhrase") String passPhrase, 
+			@RequestParam(name = "passPhrase", defaultValue = "null") String passPhrase, 
 			@RequestParam("jobnumber") String jobNumber, @RequestParam("file") MultipartFile file, @RequestParam("execEnv") String env){
 		UserDetails userObject = new UserDetails();
 		CancelJob job = new CancelJob();
@@ -277,7 +269,7 @@ public class RestController {
 
 	@RequestMapping(value = "/download", method = RequestMethod.POST, produces = "application/zip")
 	public @ResponseBody ResponseEntity<InputStreamResource> downloadPDFFile(@RequestParam("username") String name,
-			@RequestParam("passPhrase") String passPhrase, 
+			@RequestParam(name = "passPhrase", defaultValue = "null") String passPhrase, 
 			@RequestParam("jobName") String jobName, @RequestParam("workPath") String workPath,
 			@RequestParam("ppkFile") MultipartFile file, @RequestParam("execEnv") String env)
 					throws IOException {
@@ -303,7 +295,7 @@ public class RestController {
 			ppkStream.close();
 
 			ud.setKeyPath(file.getOriginalFilename());
-
+			
 			Long fileCount=jobDao.getJobName(name,jobName);
 			if(fileCount==0L)
 				return null;
@@ -351,15 +343,16 @@ public class RestController {
 
 
 	}  
-
+	
 	@RequestMapping(value = "/fetchuser", method = RequestMethod.GET)
 	public @ResponseBody String fetchUser(@RequestParam("username") String name, @RequestParam("email") String email)
 			throws IOException {
 
 		try {
-			System.out.println("USERNAME IS"+name);
-			Long resultCount=userDao.getByUsername(name);
-			UserData userdata= new UserData(name,email);
+			String uName=name.substring(0,name.indexOf("@"));
+			System.out.println("USERNAME IS"+uName);
+			Long resultCount=userDao.getByUsername(uName);
+			UserData userdata= new UserData(uName,email);
 			if(resultCount==0L){
 				userDao.create(userdata);
 				return "New";
@@ -375,5 +368,5 @@ public class RestController {
 
 	}
 
-
+	
 }
