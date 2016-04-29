@@ -70,6 +70,19 @@ public class JobDataDao {
     return ljd;
   }
 
+  public List<JobData> getByUserEmail(String uEmail) {
+	    List ljd=entityManager.createQuery(
+	        "select j from UserData AS u, UserJobData AS i, JobData AS j WHERE i.UserId=u.UserId AND i.JobId=j.JobId AND u.Email=:ue")	
+	        .setParameter("ue", uEmail)
+	        .getResultList();
+//	    List<String> lst = new ArrayList<>();
+//	    for(Object o : ljd) {
+//	    	//JobData resjd=new JobData();
+//	    	System.out.println(String.valueOf(o));
+	//
+//	    }
+	    return ljd;
+	  }
   public Long getJobName(String uName, String jName) {
 	    Long ljd=(Long)entityManager.createQuery(
 	        "select count(*) from UserData tud, UserJobData tuji, JobData tjd "

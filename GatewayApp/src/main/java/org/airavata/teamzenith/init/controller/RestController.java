@@ -335,7 +335,7 @@ public class RestController {
 
 		try {
 			System.out.println("USERNAME IS"+name);
-			List <JobData> lst=jobDao.getByUser(name);
+			List <JobData> lst=jobDao.getByUserEmail(name);
 			LOGGER.info("Job Data in /fetchjob controller"+lst.size());
 			return lst;
 		}
