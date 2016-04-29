@@ -22,6 +22,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="bootstrap/js/jquery.js"></script>
+<script src="bootstrap/js/bootstrap.js"></script>
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,300,400italic,400,600italic,600,700italic,700,800italic,800"
 	rel="stylesheet" type="text/css" />
@@ -44,13 +45,23 @@
 <link rel="stylesheet" href="bootstrap/css/creative.css" type="text/css" />
 <link rel="stylesheet" href="bootstrap/css/bootstrap-table.css"
 	type="text/css" />
+<script src="bootstrap/js/creative.js"></script>
+
 <script type="text/javascript" src="bootstrap/js/app.js"></script>
 <script type="text/javascript" src="bootstrap/js/test.js"></script>
-
+<script type="text/javascript">
+    $(window).load(function(){
+        $('#loginModal').modal('show');
+        $('#loginModal').modal({
+        	backdrop : 'static'
+        	});
+    });
+</script>
 <!-- Custom Theme JavaScript -->
-<script src="bootstrap/js/creative.js"></script>
 </head>
 <body>
+
+
 	<!-- Navigation -->
 	<nav id="mainNav" class="navbar navbar-default navbar-fixed-top affix">
 		<div class="container-fluid">
@@ -115,12 +126,19 @@
 					<button type="button" class="btn btn-default btn-xl"
 						onClick="window.location.reload();" style="color: Black">Refresh</button>
 						<button type="button" class="btn btn-primary btn-lg"
-					data-toggle="modal" data-target="#loginModal">
+					data-toggle="modal" data-backdrop="static" data-target="#loginModal">
 					<i class="glyphicon glyphicon-cloud-upload"></i> <span
 						class="network-name">Login</span>
 				</button>
+				
+				<!-- Start -->
+				
+				
+				
+				<!--  -->
+				
 						<div class="modal fade" id="loginModal" role="dialog"
-					style="text-align: left;">
+					style="text-align: left;" data-backdrop="static">
 					<div class="modal-dialog">
 
 						<!-- Modal content-->

@@ -1,5 +1,6 @@
+
 $(document).ready(function () {
-	
+//	$('#loginModal').modal('show');
 	
     $("#loginFormID").submit(function (event) {
 		var formtoken = $('#csrfTokenLogin').val();
