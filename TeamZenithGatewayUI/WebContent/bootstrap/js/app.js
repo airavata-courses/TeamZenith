@@ -5,8 +5,7 @@ $(document).ready(function () {
     $("#loginFormID").submit(function (event) {
 		var formtoken = $('#csrfTokenLogin').val();
 		console.log(formtoken);
-
-		var url = "http://localhost:8080/gatewayapi/oauth/token?grant_type=password&username="+$('#emailLogin').val()+"&password="+$('#password').val();
+		var url = "http://localhost:8080/GatewayAPI/oauth/token?grant_type=password&username="+$('#emailLogin').val()+"&password="+$('#password').val();
 		var options = {
 				"show" : "false"
 		}
@@ -24,10 +23,18 @@ $(document).ready(function () {
 			processData: false,
 			success: function (data, statusText, xhr) {
 				if(xhr.status == 200){
+					
 					var content = JSON.stringify(data);
+					console.log(data.access_token);
+					$("#loginModal").modal("hide");
+					document.getElementById("CJhidden").value = data.access_token;
+					document.getElementById("JMhidden").value = data.access_token;
+					document.getElementById("JChidden").value = data.access_token;
+					document.getElementById("JDhidden").value = data.access_token;
 					console.log(content);
 				} else {
 					var content = JSON.stringify(data);
+					$('#monitorResponse').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">&times</a><span>'+data.message+'</span></div>');
 					console.log(content);
 				}
 			},
@@ -61,6 +68,7 @@ $(document).ready(function () {
 	        	var content = JSON.stringify(data);
 	        	console.log(data);
 	        	console.log(content);
+	        	
 	            var row = "";
 	            $.each(data, function(index, item){
 	            	  row += '<tr><td>' + item.jobName + '</td><td>' + item.jobType + '</td><td>' + item.wallTime + '</td><td>' + item.jobId + '</td><td>' + item.jobStatus + '</td><td>' + item.ppn + '</td><td>' + item.nodes + '</td></tr>';
@@ -87,7 +95,6 @@ $(document).ready(function () {
 		formData.append('size', $('#jobID').val());
 		formData.append('execEnv',$("#execEnv").val());
 		formData.append('file', $('input[name=ppkFile]')[0].files[0]);
-
 		var options = {
 				"show" : "false"
 		}
@@ -99,6 +106,7 @@ $(document).ready(function () {
 			data: formData,
 			beforeSend: function( xhr ) {
 				xhr.setRequestHeader("X-CSRF-Token", formtoken);
+				xhr.setRequestHeader("Authorization","Bearer "+$('#JMhidden').val())
 			  },
 			async: false,
 			cache: false,
@@ -173,6 +181,7 @@ $(document).ready(function () {
 			data: formData,
 			beforeSend: function( xhr ) {
 				xhr.setRequestHeader("X-CSRF-Token", formtoken);
+				xhr.setRequestHeader("Authorization","Bearer "+$('#CJhidden').val())
 			  },
 			async: false,
 			cache: false,
@@ -225,6 +234,7 @@ $(document).ready(function () {
 			data: formData,
 			beforeSend: function( xhr ) {
 				xhr.setRequestHeader("X-CSRF-Token", formtoken);
+				xhr.setRequestHeader("Authorization","Bearer "+$('#JChidden').val())
 			  },
 			async: false,
 			cache: false,
@@ -278,6 +288,7 @@ $(document).ready(function () {
 			data: formData,
 			beforeSend: function( xhr ) {
 				xhr.setRequestHeader("X-CSRF-Token", formtoken);
+				xhr.setRequestHeader("Authorization","Bearer "+$('#JDhidden').val())
 			  },
 			async: false,
 			cache: false,

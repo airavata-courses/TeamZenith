@@ -356,6 +356,8 @@
 													directory on remote machine, Please provide a Absolute path
 													for the same.</small>
 											</fieldset>
+											
+											<input type="hidden" name="CJhidden" value="" id="CJhidden">
 											<button type="submit" class="btn btn-primary"
 												id="jobSubmitButton">Create Job</button>
 										</form>
@@ -468,7 +470,7 @@
 
 											<button type="submit" class="btn btn-primary"
 												id="jobMonitorButton">Get Job Status</button>
-
+											<input type="hidden" name="JMhidden" value="" id="JMhidden">
 										</form>
 										<a role="separator" class="divider"></a>
 										<!-- response div -->
@@ -555,6 +557,7 @@
 											</fieldset>
 											<button type="submit" class="btn btn-primary"
 												id="jobMonitorButton">Cancel Job</button>
+											<input type="hidden" name="JChidden" value="" id="JChidden">
 
 										</form>
 										<a role="separator" class="divider"></a>
@@ -643,6 +646,7 @@
 													autocomplete="off"
 													placeholder="Enter the working directory" name="workPath"></input>
 											</fieldset>
+											<input type="hidden" name="JDhidden" value="" id="JDhidden">
 
 											<button type="submit" class="btn btn-primary"
 												id="jobMonitorButton">Download output</button>
