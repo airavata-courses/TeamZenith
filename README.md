@@ -30,7 +30,6 @@ Arpit Aggarwal
   * The Source code dependencies are preconfigured on EC2 instances, Amazon RDS as independent database server for metadeta management and inbuilt tomcat 8 as the application server
   * The application can be found on https://ec2-52-24-166-77.us-west-2.compute.amazonaws.com:8443/
   * A self signed application is used for server authentication in TLS protocol, CA signed certificate not in scope of implementation
-  * 
 
 
 
