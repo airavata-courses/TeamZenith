@@ -2,23 +2,18 @@ package org.airavata.teamzenith.init.controller;
 
 import java.io.BufferedOutputStream;
 
-import java.io.ByteArrayInputStream;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import org.airavata.teamzenith.dao.JobData;
 import org.airavata.teamzenith.dao.JobDataDao;
 import org.airavata.teamzenith.dao.JobDetails;
 import org.airavata.teamzenith.dao.UserData;
 import org.airavata.teamzenith.dao.UserDetails;
-import org.airavata.teamzenith.dao.UserJobData;
 import org.airavata.teamzenith.dao.UserJobDataDao;
 import org.airavata.teamzenith.exceptions.ExceptionHandler;
 import org.airavata.teamzenith.ssh.SshUtil;
@@ -32,6 +27,7 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,13 +36,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.airavata.teamzenith.dao.UserDataDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import com.jcraft.jsch.JSchException;
-
-import scala.annotation.meta.setter;
 /*
  * This is the main controller class which provides the following three REST APIs
  * upload- Accepts user and job details in order to submit a job on Karst
@@ -70,7 +62,8 @@ public class RestController {
 	public @ResponseBody String provideUploadInfo() {
 		return "A Karst job can be submitted by POSTing to this URL.";
 	}
-
+	
+	@CrossOrigin
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
 	public @ResponseBody String handleFileUpload(@RequestParam("path") String tPath,
 			@RequestParam("filejob[]") MultipartFile[] file, @RequestParam("username") String userName,
@@ -152,12 +145,13 @@ public class RestController {
 			return "Upload of file" + file[0].getOriginalFilename() + " failed because the file was empty.";
 		}
 	}
-
+	
+	@CrossOrigin
 	@RequestMapping(value="/monitor", method=RequestMethod.GET)
 	public @ResponseBody String MonitorJobEndPointInfo() {
 		return "A Karst job can be monitored by POSTing to this URL";
 	}
-
+	@CrossOrigin
 	@RequestMapping(value="/monitor", method=RequestMethod.POST, produces = "application/json")
 	public @ResponseBody DataPost MonitorJobEndPoint(@RequestParam("username") String name,
 			@RequestParam(name = "passPhrase", defaultValue = "null") String passPhrase, 
@@ -212,12 +206,12 @@ public class RestController {
 			return dp;
 		}
 	}
-
+	@CrossOrigin
 	@RequestMapping(value="/cancel", method=RequestMethod.GET)
 	public @ResponseBody String CancelJobEndPointInfo() {
 		return "A Karst job can be cancelled by POSTing to this URL";
 	}
-
+	@CrossOrigin
 	@RequestMapping(value="/cancel", method=RequestMethod.POST)
 	public @ResponseBody DataPost CancelJobEndPoint(@RequestParam("username") String name,
 			@RequestParam(name = "passPhrase", defaultValue = "null") String passPhrase, 
@@ -266,7 +260,7 @@ public class RestController {
 			//			return "Private Key file for user:  " + name + " is empty";
 		}
 	}
-
+	@CrossOrigin
 	@RequestMapping(value = "/download", method = RequestMethod.POST, produces = "application/zip")
 	public @ResponseBody ResponseEntity<InputStreamResource> downloadPDFFile(@RequestParam("username") String name,
 			@RequestParam(name = "passPhrase", defaultValue = "null") String passPhrase, 
@@ -325,7 +319,7 @@ public class RestController {
 
 	}  
 
-
+	@CrossOrigin
 	@RequestMapping(value = "/fetchjob", method = RequestMethod.GET)
 	public @ResponseBody List<JobData> fetchJobHistory(@RequestParam("username") String name)
 			throws IOException {
@@ -342,8 +336,9 @@ public class RestController {
 		}
 
 
-	}  
+	}
 	
+	@CrossOrigin
 	@RequestMapping(value = "/fetchuser", method = RequestMethod.GET)
 	public @ResponseBody String fetchUser(@RequestParam("username") String name, @RequestParam("email") String email)
 			throws IOException {

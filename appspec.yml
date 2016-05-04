@@ -1,0 +1,10 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ec2-user/builds
+hooks:
+  AfterInstall:
+    - location: /GatewayAPI/install.sh
+      timeout: 300
+      runas: root

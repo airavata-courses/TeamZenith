@@ -1,0 +1,50 @@
+language: java
+branches:
+  only:
+    - master
+    - Milestone-5
+	- Milestone-6
+notifications:
+  email:
+    - atumohan@umail.iu.edu
+    - anujbhan@umail.iu.edu
+    - arpiagar@iu.edu
+jdk:
+  - oraclejdk8
+sudo: false
+install: true
+script: cd "GatewayAPI" && mvn clean install -DskipTests=true
+
+before_deploy:
+  - cd ..
+  - zip -r GatewayAPI.zip GatewayAPI appspec.yml || true
+  - mkdir -p "dpl_cd_upload"
+  - mv GatewayAPI.zip dpl_cd_upload/GatewayAPI.zip || true
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
+    secret_access_key: $AWS_SECRET_KEY
+    local_dir: dpl_cd_upload
+    bucket: zenithmicro-api
+    region: us-west-2
+    skip_cleanup: true
+    acl: public_read
+    detect_encoding: true
+    on:
+      repo: airavata-courses/TeamZenith
+      all_branches: true
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: zenithmicro-api
+    key: GatewayAPI.zip
+    bundle_type: zip
+    application: zenith-micro-api
+    deployment_group: prod
+    region: us-west-2
+    on:
+      repo: airavata-courses/TeamZenith
+      all_branches: true
+after_deploy:
+  - echo "Performing after deploy procedures..."
