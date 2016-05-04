@@ -1,6 +1,6 @@
 $(document).ready(function () {
 	
-	var mainURL = "https://ec2-52-36-218-253.us-west-2.compute.amazonaws.com:8443";
+	var mainURL = "https://ec2-52-36-218-253.us-west-2.compute.amazonaws.com:8443/";
 	
 	var url = mainURL+"fetchjob?username="+ document.getElementById("username").innerHTML;
 	 $.ajax({
