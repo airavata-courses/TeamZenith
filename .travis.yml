@@ -3,7 +3,7 @@ branches:
   only:
     - master
     - Milestone-5
-	- Milestone-6
+    - Milestone-6
 notifications:
   email:
     - atumohan@umail.iu.edu
