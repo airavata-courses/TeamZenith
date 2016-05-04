@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<body id="page-top">
+
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">Science Gateway</a>
+                <a class="navbar-brand" th:if="${account}" th:inline="text">Hello, [[${account.fullName}]]!</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" href="#about">About</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#services">Services</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#portfolio">Portfolio</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">Contact</a>
+                    </li>
+                    <li><a th:if="${account}" th:href="@{/logout}" class="btn btn-danger">Logout</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+ 
+ 
+    <section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">At Your Service</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-diamond wow bounceIn text-primary"></i>
+                        <h3>Job Creation</h3>
+                        <p class="text-muted">This service will allow you to create and
+						submit job on Karst computing cluster</p>
+						<button type="button" class="btn btn-primary btn-lg"
+						data-toggle="modal" data-target="#myModal">
+						<i class="glyphicon glyphicon-cloud-upload"></i> <span
+							class="network-name">Create Job</span>
+					</button>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<!-- Job submit request form -->
+					<div id="myModal" class="modal fade" role="dialog">
+						<div class="modal-dialog">
+
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h3 class="modal-title">Job Creation</h3>
+								</div>
+								<div class="modal-body">
+									<form action="javascript:;" enctype="multipart/form-data"
+										method="post" accept-charset="utf-8" id="jobSubmitForm"
+										name="jobSubmit">
+										<h4 class="section-heading">User Details:</h4>
+										<fieldset class="form-group">
+											<label for="UserID">User Name</label> <input type="username"
+												class="form-control" id="userName"
+												placeholder="Enter SSH User ID" name="user"></input>
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="exampleInputEmail1">Email</label> <input
+												type="email" class="form-control" id="InputEmail"
+												placeholder="Email id to be notified upon completion"
+												name="emailId"></input> <small class="text-muted">We'll
+												never share your email with anyone else.</small>
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="exampleInputPassword1">PassPhrase :</label> <input
+												type="password" class="form-control" id="passPhrase"
+												placeholder="Private Key PassPhrase" name="pass"></input>
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="PrivateKeyFileInput">Private Key File</label> <input
+												type="file" class="form-control-file"
+												id="PrivateKeyFileInput" name="ppk"> </input><small
+												class="text-muted">Select the pre-configured private
+												key file to be used for SSH authentication.</small>
+										</fieldset>
+										<a role="separator" class="divider"></a>
+										<hr></hr>
+										<h4 class="section-heading">Job Details:</h4>
+										<label for="JobType">Job Type</label> <select id="jobType"
+											name="jobType" style="width: 212px;">
+											<option value="gro">GROMACS</option>
+											<option value="cust">Custom</option>
+										</select>
+
+										<fieldset class="form-group">
+											<label for="JobSourceCode">Input File</label> <input
+												type="file" class="form-control-file" id="FileInput"
+												name="file"></input> <small class="text-muted">Select
+												the source code file, compatible types ".c"</small>
+										</fieldset>
+										<fieldset class="form-group">
+											<div class="radio" style="display: none">
+												<label for="exampleSelect1">Compilation required ?</label><br />
+												<label> <input type="radio" id="optionsRadios1"
+													name="isCompile" value="yes"></input>yes
+												</label>
+											</div>
+											<div class="radio" style="display: none">
+												<label> <input type="radio" id="optionsRadios2"
+													name="isCompile" value="no"></input>No
+												</label>
+											</div>
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="jobName">Job Name</label> <input type="text"
+												class="form-control" id="jobName"
+												placeholder="Assign a name to job" name="jobName"></input>
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="nodeCount">Node Count</label> <input type="text"
+												class="form-control" id="nodeCount" placeholder="1,2,3 etc"
+												name="nodes"></input> <small class="text-muted">Enter
+												the required number of computing nodes</small>
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="UserID">Processor per node</label> <input
+												type="text" class="form-control" id="ppn"
+												placeholder="1,2,3 or 4" name="ppn"></input>
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="wallTime">Wall Time</label> <input type="text"
+												class="form-control" id="wallTime" placeholder="HH:MM:SS"
+												name="walltime"></input>
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="nodeCount">Remote Workspace path</label> <input
+												type="text" class="form-control" id="targetPath"
+												placeholder="/N/u/anujbhan/Karst/workspace" name="path"></input>
+											<small class="text-muted">We need a workspace
+												directory on remote machine, Please provide a Absolute path
+												for the same.</small>
+										</fieldset>
+										<button type="submit" class="btn btn-primary"
+											id="jobSubmitButton">Create Job</button>
+									</form>
+									<a role="separator" class="divider"></a>
+									<!-- response div -->
+									<div style="word-wrap: break-word;" id="result"></div>
+								</div>
+<!-- forrm break -->
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">Close</button>
+								</div>
+
+							</div>
+
+
+						</div>
+
+					</div>
+				<div class="col-lg-5 col-lg-offset-2 col-sm-6">
+					<img class="img-responsive" src="@{/templates/bootstrap/img/ipad.jpg}" alt=""></img>
+				</div>
+
+			<!-- Job submission response modal -->
+			<div class="modal fade" id="responseModal" role="dialog">
+				<div class="modal-dialog">
+
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Job submission response</h4>
+						</div>
+						<div class="modal-body" id="alert_placeholder"></div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Close</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+					
+					
+				
+					
+					
+					
+					
+					
+					
+					
+					
+                    </div><!-- End Submit Job Div -->
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary" data-wow-delay=".1s"></i>
+                        <h3>Job Monitoring</h3>
+                        <p class="text-muted">Your can monitor individual job status by
+						providing the Job ID</p>
+						<button type="button" class="btn btn-primary btn-lg"
+						data-toggle="modal" data-target="#jobMonitorForm">
+						<i class="glyphicon glyphicon-cloud-upload"></i> <span
+							class="network-name">Get Job Status</span>
+					</button>
+					
+					
+					
+					
+					
+									
+					<!-- Job monitor request form -->
+					<div class="modal fade" id="jobMonitorForm" role="dialog">
+						<div class="modal-dialog">
+
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">Job submission response</h4>
+								</div>
+								<div class="modal-body">
+									<form action="javascript:;" enctype="multipart/form-data"
+										method="post" accept-charset="utf-8" id="jobMonitorForm"
+										name="job">
+										<h4 class="section-heading">User Details:</h4>
+										<fieldset class="form-group">
+											<label for="UserID">User Name</label> <input type="username"
+												class="form-control" id="muser"
+												placeholder="Enter SSH User ID" name="username"></input>
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="passPhrase">PassPhrase :</label> <input
+												type="password" class="form-control" id="mpass"
+												placeholder="Private Key PassPhrase" name="passPhrase"></input>
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="PrivateKeyFileInput">Private Key File</label> <input
+												type="file" class="form-control-file"
+												id="PrivateKeyFileInput" name="ppkFile"></input> <small
+												class="text-muted">Select the pre-configured private
+												key file to be used for SSH authentication.</small>
+										</fieldset>
+										<a role="separator" class="divider"></a>
+										<hr></hr>
+										<h4 class="section-heading">Job Details:</h4>
+										<fieldset class="form-group">
+											<label for="jobID">Job ID :</label> <input type="number"
+												class="form-control" id="jobID"
+												placeholder="Enter the job ID Ex: 1242254" name="jobNumber"></input>
+										</fieldset>
+
+										<button type="submit" class="btn btn-primary"
+											id="jobMonitorButton">Get Job Status</button>
+
+									</form>
+									<a role="separator" class="divider"></a>
+									<!-- response div -->
+									<div style="word-wrap: break-word;" id="monitorResponse"></div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal" id="jobMonitorFormCloseButton">Close</button>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				<div class="col-lg-5 col-sm-pull-6  col-sm-6">
+					<img class="img-responsive" src="bootstrap/img/dog.jpg" alt=""></img>
+				</div>
+					
+					
+					
+					
+		
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+                    </div><!-- end service box 2 -->
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </div><!-- end sec 2 -->
+                
+                
+                
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-newspaper-o wow bounceIn text-primary" data-wow-delay=".2s"></i>
+                        <h3>Job Cancellation</h3>
+                        <p class="text-muted">You can cancel a ongoing job by providing the
+						job ID</p>
+						<button type="button" class="btn btn-primary btn-lg"
+						data-toggle="modal" data-target="#jobCancel">
+						<i class="glyphicon glyphicon-cloud-upload"></i> <span
+							class="network-name">Cancel Job</span>
+					</button>
+                        
+                        <!-- Job monitor request form -->
+					<div class="modal fade" id="jobCancel" role="dialog">
+						<div class="modal-dialog">
+
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">Job Cancellation form</h4>
+								</div>
+								<div class="modal-body">
+
+
+									<form action="javascript:;" enctype="multipart/form-data"
+										method="post" accept-charset="utf-8" id="jobCancelForm"
+										name="job">
+										<h4 class="section-heading">User Details:</h4>
+										<fieldset class="form-group">
+											<label for="UserID">User Name</label> <input type="username"
+												class="form-control" id="canceluser"
+												placeholder="Enter SSH User ID" name="username"></input>
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="passPhrase">PassPhrase :</label> <input
+												type="password" class="form-control" id="cancelpass"
+												placeholder="Private Key PassPhrase" name="passPhrase"></input>
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="PrivateKeyFileInput">Private Key File</label> <input
+												type="file" class="form-control-file"
+												id="cancelPrivateKeyFileInput" name="cFile"></input> <small
+												class="text-muted">Select the pre-configured private
+												key file to be used for SSH authentication.</small>
+										</fieldset>
+										<a role="separator" class="divider"></a>
+										<hr></hr>
+										<h4 class="section-heading">Job Details:</h4>
+										<fieldset class="form-group">
+											<label for="jobID">Job ID :</label> <input type="number"
+												class="form-control" id="canceljobID"
+												placeholder="Enter the job ID Ex: 1242254" name="jobNumber"></input>
+										</fieldset>
+
+										<button type="submit" class="btn btn-primary"
+											id="jobMonitorButton">Cancel Job</button>
+
+									</form>
+									<a role="separator" class="divider"></a>
+									<!-- response div -->
+									<div style="word-wrap: break-word;" id="cancelResponse"></div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal" id="jobCancelFormCloseButton">Close</button>
+								</div>
+							</div>
+
+						</div>
+					</div>
+                    </div><!-- end sec service 3 -->
+                </div><!-- end sec 3 -->
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-heart wow bounceIn text-primary" data-wow-delay=".3s"></i>
+                        <h3>Download Output Files</h3>
+                        <p class="text-muted">Download output files of completed jobs</p>
+                        <button type="button" class="btn btn-primary btn-lg"
+						data-toggle="modal" data-target="#jobDownload">
+						<i class="glyphicon glyphicon-cloud-upload"></i> <span
+							class="network-name">Download</span>
+					</button>
+					<!-- Job monitor request form -->
+					<div class="modal fade" id="jobDownload" role="dialog">
+						<div class="modal-dialog">
+
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">Job Download form</h4>
+								</div>
+								<div class="modal-body">
+									
+									<form method="POST" enctype="multipart/form-data"
+										action="http://localhost:8080/KarstShell-REST-Api-0.1.0/download">
+										<h4 class="section-heading">User Details:</h4>
+										<fieldset class="form-group">
+											<label for="UserID">User Name</label> <input type="username"
+												class="form-control" id="downloaduser"
+												placeholder="Enter SSH User ID" name="username"></input>
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="passPhrase">PassPhrase :</label> <input
+												type="password" class="form-control" id="downloadpass"
+												placeholder="Private Key PassPhrase" name="passPhrase"></input>
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="PrivateKeyFileInput">Private Key File</label> <input
+												type="file" class="form-control-file"
+												id="downloadPrivateKeyFileInput" name="ppkFile"></input> <small
+												class="text-muted">Select the pre-configured private
+												key file to be used for SSH authentication.</small>
+										</fieldset>
+										<a role="separator" class="divider"></a>
+										<hr></hr>
+										<h4 class="section-heading">Job Details:</h4>
+										<fieldset class="form-group">
+											<label for="jobName">Job Name :</label> <input type="text"
+												class="form-control" id="downloadJobName"
+												placeholder="Enter the job Name" name="jobName"></input>
+										</fieldset>
+										<fieldset class="form-group">
+											<label for="path">Working Directory :</label> <input
+												type="text" class="form-control" id="downloadWorkPath"
+												placeholder="Enter the working directory" name="workPath"></input>
+										</fieldset>
+
+										<button type="submit" class="btn btn-primary"
+											id="jobMonitorButton">Download output</button>
+
+									</form>
+									<a role="separator" class="divider"></a>
+									<!-- response div -->
+									<div style="word-wrap: break-word;" id="downloadResponse"></div>
+								</div>
+								<div class="modal-footer">
+									<!-- <input type="submit"
+			value="Download file"> -->
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal" id="jobCancelFormCloseButton">Close</button>
+								</div>
+							</div>
+
+						</div>
+					</div>
+                    </div><!-- end sec service 4 -->
+                </div><!-- end sec 4 -->
+            </div>
+        </div>
+    </section>
+
+    <section class="no-padding" id="portfolio">
+        <div class="container-fluid">
+            <div class="row no-gutter">
+                <div class="col-lg-4 col-sm-6">
+                    <a href="#" class="portfolio-box">
+                        <img src="img/portfolio/1.jpg" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    Category
+                                </div>
+                                <div class="project-name">
+                                    Project Name
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <a href="#" class="portfolio-box">
+                        <img src="img/portfolio/2.jpg" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    Category
+                                </div>
+                                <div class="project-name">
+                                    Project Name
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <a href="#" class="portfolio-box">
+                        <img src="img/portfolio/3.jpg" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    Category
+                                </div>
+                                <div class="project-name">
+                                    Project Name
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <a href="#" class="portfolio-box">
+                        <img src="img/portfolio/4.jpg" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    Category
+                                </div>
+                                <div class="project-name">
+                                    Project Name
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <a href="#" class="portfolio-box">
+                        <img src="img/portfolio/5.jpg" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    Category
+                                </div>
+                                <div class="project-name">
+                                    Project Name
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <a href="#" class="portfolio-box">
+                        <img src="img/portfolio/6.jpg" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    Category
+                                </div>
+                                <div class="project-name">
+                                    Project Name
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <aside class="bg-dark">
+        <div class="container text-center">
+            <div class="call-to-action">
+                <h2>Free Download at Start Bootstrap!</h2>
+                <a href="#" class="btn btn-default btn-xl wow tada">Download Now!</a>
+            </div>
+        </div>
+    </aside>
+
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">Let's Get In Touch!</h2>
+                    <hr class="primary">
+                    <p>Ready to start your next project with us? That's great! Give us a call or send us an email and we will get back to you as soon as possible!</p>
+                </div>
+                <div class="col-lg-4 col-lg-offset-2 text-center">
+                    <i class="fa fa-phone fa-3x wow bounceIn"></i>
+                    <p>123-456-6789</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i>
+                    <p><a href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- jQuery 
+    <script src="js/jquery.js"></script>-->
+
+    <!-- Bootstrap Core JavaScript
+    <script src="js/bootstrap.min.js"></script> -->
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/jquery.fittext.js"></script>
+    <script src="js/wow.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/creative.js"></script>
+
+</body>
+
+</html>

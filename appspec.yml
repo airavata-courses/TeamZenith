@@ -5,6 +5,6 @@ files:
     destination: /home/ec2-user/builds
 hooks:
   AfterInstall:
-    - location: /GatewayAPI/install.sh
+    - location: /ZenUI/install.sh
       timeout: 300
       runas: root
