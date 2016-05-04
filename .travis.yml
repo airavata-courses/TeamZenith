@@ -48,4 +48,4 @@ deploy:
       repo: airavata-courses/TeamZenith
       all_branches: true
 after_deploy:
-  - echo "Performing after deploy procedures..."
+  - echo "Performing after deploy procedures.." 
