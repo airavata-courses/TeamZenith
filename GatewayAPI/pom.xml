@@ -14,7 +14,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.airavata.teamzenith</groupId>
-	<artifactId>GatewayApp</artifactId>
+	<artifactId>GatewayAPI</artifactId>
 	<version>0.1.0</version>
 	<name>Spring Boot Rest Api</name>
 	<description>REST API for karst computing cluster</description>
