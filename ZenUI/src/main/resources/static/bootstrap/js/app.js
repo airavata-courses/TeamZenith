@@ -2,6 +2,26 @@ $(document).ready(function () {
 	
 	var mainURL = "https://ec2-52-36-218-253.us-west-2.compute.amazonaws.com:8443/";
 	
+	var userName = document.getElementById("username").innerHTML;
+	var email = document.getElementById("regEmailID").innerHTML;
+	var fetchUser = "/fetchuser?username="+userName+"&email="+email;
+	
+	$.ajax({
+        url: mainURL+fetchUser,
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+        	var content = JSON.stringify(data);
+        	console.log(data);
+        	   
+        },
+        error: function (result) {
+            alert("Error while fetching user !");
+        }
+    });
+	
+	
+	
 	var url = mainURL+"fetchjob?username="+ document.getElementById("username").innerHTML;
 	 $.ajax({
 	        url: url,
