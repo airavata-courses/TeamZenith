@@ -344,7 +344,7 @@ public class RestController {
 			throws IOException {
 
 		try {
-			String uName=name.substring(0,name.indexOf("@"));
+			String uName=name.substring(0,email.indexOf("@"));
 			System.out.println("USERNAME IS"+uName);
 			Long resultCount=userDao.getByUsername(uName);
 			UserData userdata= new UserData(uName,email);
