@@ -1,4 +1,4 @@
-# Zenith  [![Build Status](https://travis-ci.org/airavata-courses/TeamZenith.svg?branch=master)](https://travis-ci.org/airavata-courses/TeamZenith)
+# Zenith  [![Build Status](https://travis-ci.org/airavata-courses/TeamZenith.svg?branch=Milestone-6)](https://travis-ci.org/airavata-courses/TeamZenith)
 
 Team Zenith Repository for Spring 2016 I590 Class
 
