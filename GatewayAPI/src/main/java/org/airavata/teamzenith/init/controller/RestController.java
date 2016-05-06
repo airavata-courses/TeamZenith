@@ -234,11 +234,11 @@ public class RestController {
 				userObject.setPassphrase(passPhrase);
 				userObject.setHostName(env);
 				Long resultCount=userjobDao.getByJobId(name,jobNumber);
-				if(resultCount==0){
+				/*if(resultCount==0){
 					dpc.setMessage("Job ID not found!");
 					return dpc;
 
-				}
+				}*/
 
 				job.getCancelJob(userObject, jobNumber);
 				dpc.setMessage("Job:" + jobNumber + " Cancelled successfully");
