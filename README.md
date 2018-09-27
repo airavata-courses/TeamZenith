@@ -20,7 +20,7 @@ Arpit Aggarwal
   Milestone -5 Continuous integration on Amazon Cloud
   
   * Milestone-4 source code is in currently released for deployment on Amazon Cloud
-  * The programmed workflow illustrating the the technology stack is as follows:
+  * The programmed workflow illustrating the technology stack is as follows:
 	Github --> Travis CI --> Amazon S3 --> Amazon CodeDeploy --> Amazon EC2
   * Github --> Used the Service hook to integrate the repository to Travis CI
   * Travis CI --> Packages the project into a Zip, places the zip in designated S3 bucket and triggers the handle for Amazon CodeDeploy, related files : .travis.yml
